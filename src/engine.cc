@@ -4,11 +4,22 @@
 #include <info.h>
 #include <engine.h>
 #include <platform/message_box.h>
+#include <platform/file.h>
 
 namespace openrayman
 {
     int engine::run(const std::string& game)
     {
+        if(!openrayman::file::exists(openrayman::file::get_executable_path() + "/data"))
+        {
+            openrayman::message_box::display("Error!", "The data/ directory was not found.", true);
+            return EXIT_FAILURE;
+        }
+        if(!openrayman::file::exists(openrayman::file::get_executable_path() + "/data/common"))
+        {
+            openrayman::message_box::display("Error!", "The data/common/ directory was not found.", true);
+            return EXIT_FAILURE;
+        }
         if(!m_window.open("OpenRayman", 1024, 768, false))
         {
             openrayman::message_box::display("Error in window creation!", "The window could not open.\nMake sure your graphics drivers are up to date.", true);

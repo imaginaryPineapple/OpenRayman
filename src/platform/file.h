@@ -1,5 +1,5 @@
-#ifndef MESSAGE_BOX_H
-#define MESSAGE_BOX_H
+#ifndef FILE_H
+#define FILE_H
 
 #include <string>
 
@@ -10,10 +10,13 @@ namespace openrayman
     {
 public:
         // If the specified file or directory exists.
-        static void exists(const std::string& path);
+        static bool exists(const std::string& path);
 
         // Replaces all instances of / and \ in the specified string with the current path separator.
         static const std::string fix_string(const std::string& string);
+
+        // Get the path where the openrayman executable resides.
+        static const std::string& get_executable_path();
 
         // The path separator of the current platform.
 #ifdef _WIN32
@@ -21,6 +24,8 @@ public:
 #else
         static const char path_separator = '/';
 #endif
+private:
+        static std::string* m_executable_path;
     };
 }
 
