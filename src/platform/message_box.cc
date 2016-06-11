@@ -10,6 +10,7 @@ namespace openrayman
 {
     void message_box::display(const std::string& title, const std::string& msg, bool error)
     {
+        // Print to stdout first, then show a GUI message box.
         std::cout <<
         std::endl << "#################" << std::endl << std::endl <<
         title << std::endl << std::endl << msg << std::endl <<
