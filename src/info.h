@@ -8,14 +8,11 @@ namespace openrayman
     // The current version of the engine.
     const std::string version = "1.0";
 
-    // The current version of the engine, formatted as an int
+    // The current version of the engine, formatted as an integer.
     const int version_code = 10;
 
     // Platform definitions.
-    enum platform
-    {
-        windows, linux
-    };
+    enum platform { windows, linux };
 
     // The platform that engine is running on (that it was compiled for).
     // Assume we're on linux unless _WIN32 is specified, as those are the only two platforms we support.

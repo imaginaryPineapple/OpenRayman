@@ -9,6 +9,7 @@ namespace openrayman
     class engine
     {
 public:
+        // Starts the game loop and loads the specified game.
         int run(const std::string& game);
     };
 }
