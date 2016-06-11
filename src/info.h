@@ -12,6 +12,10 @@ namespace openrayman
     const int version_code = 10;
 
     // Platform definitions.
+    // note: linux is defined!!
+#ifdef linux
+#undef linux
+#endif
     enum platform { windows, linux };
 
     // The platform that engine is running on (that it was compiled for).

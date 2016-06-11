@@ -2,6 +2,9 @@
 #include <iostream>
 #include <info.h>
 #include <engine.h>
+#ifndef _WIN32
+#include <gtk/gtk.h>
+#endif
 
 int main(int argc, char** argv)
 {
@@ -15,7 +18,7 @@ int main(int argc, char** argv)
             if(n >= argc)
             {
                 std::cout << "No game was specified." << std::endl;
-                return EXIT_FALIURE;
+                return EXIT_FAILURE;
             }
             std::string game(argv[n]);
             selected_game = game;
@@ -41,7 +44,9 @@ int main(int argc, char** argv)
     }
     std::cout << "OpenRayman " << openrayman::version << std::endl;
     std::cout << "Running on " << (openrayman::this_platform == openrayman::platform::windows ? "Windows" : "Linux") << std::endl;
-    std::cout << "Using game: " << (selected_game == "" ? "from \"info.json\"" : selected_game) << std::endl;
+    std::cout << "Using game  " << (selected_game == "" ? "from \"info.json\"" : selected_game) << std::endl;
+    if(openrayman::this_platform == openrayman::platform::linux)
+        gtk_init(&argc, &argv);
     openrayman::engine engine;
     return engine.run(selected_game);
 }
