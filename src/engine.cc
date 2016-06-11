@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <engine.h>
 
 int engine::run(const std::string& game)
