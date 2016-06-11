@@ -30,3 +30,6 @@
 
 # Compiled Engine
 bin/
+
+# CMake
+build/
