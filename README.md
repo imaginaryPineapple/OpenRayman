@@ -7,7 +7,7 @@ An open source reimplementation of the Rayman 2: The Great Escape engine using C
 # Usage
 
 
-`openrayman [options] ...`
+`openrayman [options] ...`  
 
 
 # Building on Linux

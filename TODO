@@ -1,0 +1,6 @@
+get libepoxy, glfw in here
+find suitable sound library and json library (maybe joystick, for linux??!?)
+add png loading
+start reverse engineering .dsb, .cnt, .apm (probably just some form of PCM, audacity), .gpt, .ptx, .sna, .snd, (gog has LEVELS0.DAT 150mb)
+some files are "FIX", probably just global / fixed data?!?!?
+raymanpc has some good info
