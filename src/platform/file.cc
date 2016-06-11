@@ -10,10 +10,10 @@ namespace openrayman
     void file::exists(const std::string& path)
     {
 #ifdef _WIN32
-        DWORD attrib = GetFileAttributes(std::wstring(file));
+        DWORD attrib = GetFileAttributes(std::wstring(fix_string(path)));
         return attrib != INVALID_FILE_ATTRIBUTES;
 #else
-        return access(file, F_OK | R_OK) != -1;
+        return access(fix_string(path), F_OK | R_OK) != -1;
 #endif
     }
 
