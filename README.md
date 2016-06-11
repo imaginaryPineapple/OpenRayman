@@ -42,5 +42,7 @@ Mac OS X is not supported at the moment (might work with CMake?).
 
 
 * Ubisoft and Michael Ancel
-* The glfw library
+* GLFW 3
+* libepoxy
+* lodepng
 * http://raymanpc.com/
