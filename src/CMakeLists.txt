@@ -19,4 +19,8 @@ target_link_libraries(openrayman ${GTK3_LIBRARIES})
 target_link_libraries(openrayman epoxy)
 endif()
 
+if(USE_LIBRETRO)
+add_definitions(-D_LIBRETRO_CORE)
+endif()
+
 file(COPY "${CMAKE_SOURCE_DIR}/data" DESTINATION "${CMAKE_SOURCE_DIR}/bin")

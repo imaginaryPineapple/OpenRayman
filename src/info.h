@@ -16,7 +16,7 @@ namespace openrayman
 #ifdef linux
 #undef linux
 #endif
-    enum platform { windows, linux };
+    enum class platform { windows, linux };
 
     // The platform that engine is running on (that it was compiled for).
     // Assume we're on linux unless _WIN32 is specified, as those are the only two platforms we support.
