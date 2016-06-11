@@ -1,8 +1,9 @@
 file(GLOB_RECURSE SOURCES *.cc)
 
 include_directories(AFTER "${CMAKE_SOURCE_DIR}/src")
+include_directories(AFTER "${CMAKE_SOURCE_DIR}/lib/lodepng")
 
-add_executable(openrayman ${SOURCES})
+add_executable(openrayman ${SOURCES} "${CMAKE_SOURCE_DIR}/lib/lodepng/lodepng.cpp" "${CMAKE_SOURCE_DIR}/lib/lodepng/lodepng_util.cpp")
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin")
 target_link_libraries(openrayman glfw)
 
