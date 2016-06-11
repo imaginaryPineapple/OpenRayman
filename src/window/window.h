@@ -12,7 +12,6 @@ namespace openrayman
 public:
         // Opens or reopens the window, and creates a GL context.
         virtual bool open(const std::string& title, int w, int h, bool initial_fullscreen) = 0;
-
         // Closes the window if it's not already closed.
         virtual void close() = 0;
 

@@ -29,7 +29,20 @@ public:
         // Starts the game loop and loads the specified game.
         int run(const std::string& game);
         // Stops the game loop.
-        void exit();
+        void exit()
+        {
+            m_exit_requested = true;
+        }
+        // Cancel the exit request.
+        void cancel_exit()
+        {
+            m_exit_requested = false;
+        }
+
+        const openrayman::window& get_window()
+        {
+            return m_window;
+        }
 private:
         openrayman::window& m_window;
         bool m_exit_requested;

@@ -16,7 +16,7 @@ namespace openrayman
         if(m_glfw_ref_count <= 0)
         {
             if(!glfwInit())
-            m_glfw_ref_count--;
+                m_glfw_ref_count--;
         }
         m_glfw_ref_count++;
     }
@@ -52,13 +52,14 @@ namespace openrayman
             return false;
         int width = initial_fullscreen ? mode->width : w;
         int height = initial_fullscreen ? mode->height : h;
-        m_window = glfwCreateWindow(w, h, title.c_str(), initial_fullscreen ? monitor : nullptr, nullptr);
-        if (m_window == nullptr)
+        m_window = glfwCreateWindow(width, height, title.c_str(), initial_fullscreen ? monitor : nullptr, nullptr);
+        if(m_window == nullptr)
             return false;
 
         glfwSwapInterval(0);
 
         m_current_fullscreen = initial_fullscreen;
+        return true;
     }
 
     void glfw_window::close()

@@ -10,7 +10,10 @@ namespace openrayman
 {
     void message_box::display(const std::string& title, const std::string& msg, bool error)
     {
-        std::cout << title << std::endl << std::endl << msg << std::endl;
+        std::cout <<
+        std::endl << "#################" << std::endl << std::endl <<
+        title << std::endl << std::endl << msg << std::endl <<
+        std::endl << "#################" << std::endl << std::endl;
     #ifdef _WIN32
         MessageBox(nullptr, std::wstring(title).c_str(), std::wstring(msg).c_str(), MB_OK | (error ? MB_ICONERROR : MB_ICONINFORMATION));
     #else
