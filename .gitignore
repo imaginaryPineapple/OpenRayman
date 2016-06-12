@@ -33,3 +33,5 @@ bin/
 
 # CMake
 build/
+build_linux/
+build_win/
