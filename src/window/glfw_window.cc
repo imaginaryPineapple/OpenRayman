@@ -72,6 +72,7 @@ namespace openrayman
 		m_saved_h = h;
 		
         glfwSwapInterval(0);
+        glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
         m_current_fullscreen = initial_fullscreen;
         return true;
