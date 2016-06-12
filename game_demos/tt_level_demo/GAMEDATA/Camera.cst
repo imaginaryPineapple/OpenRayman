@@ -1,0 +1,74 @@
+;-----------------------------------------------------------------------------------------------------
+;
+;	This file contains camera internal constants that (normally) does not need to be edit, but
+;	that can change during development process.
+;
+;	Changing this values can result of big problems...
+;
+;	In case of problems, contact CB.
+;
+;-----------------------------------------------------------------------------------------------------
+
+
+
+
+{CameraConstants
+
+	; This is the ray of the camera sphere
+	RayCameraSphere(0.35)
+
+	; Ray of camera sphere to determin if camera can go to a given position (source and dest)
+	; Source is 1 and dest is 2
+	RayCameraSphereToGo1(0.30)
+	RayCameraSphereToGo2(0.30)
+
+	; Ray of camera sphere to determin if camera can see a given position (source and dest)
+	; Source is 1 and dest is 2
+	RayCameraSphereToSee1(0.10)
+	RayCameraSphereToSee2(0.10)
+
+	; Number of ray to determin if camera can go to a given point
+	NumRayCameraCanGo(2)
+	; Number of ray to determin if camera can see a given point
+	NumRayCameraCanSee(1)
+
+	; Private target parsing speed (when cineinfo small target vertex changed too quickly */
+	SpeedParsingPrivateTarget(0.05)
+
+	; To go smally to real pos when in computed state
+	SecondSpeedToJoinIdealPos(0.10)
+
+	; To go smally to real pos when in computed state and when angular movment (keep distance)
+	SecondSpeedToJoinIdealPosAngular(0.20)
+
+	; Min angle for choosing a new good position in normal mode
+	; Pi/4
+	BaseAngleComputePosNormal(0.7853981633974482)	
+
+	; Min angle for choosing a new good position in case of failure
+	; Pi/8
+	BaseAngleComputePosFailure(0.3926990816987241)
+
+	; Every x trames, we try to find a better position if we are not at the first ideal one
+	TickFindBetterPos(60)
+
+	; If camera dos not move under x trames, the current position became the ideal one
+	TickForcePosIfNotMove(60)
+
+	; Time window for averagepos function to determin the average position of the target perso
+	AverageForComputePos(0.75)
+
+	; Angle used when the angular change is cutting up (IAFlag = 3)
+	; Pi/4
+	DeltaForAngleParsing(0.7853981633974482)
+
+	; Linear Speed for going back to optimal position when the target does not move
+	LinearSpeedToJoinOptimalPos(3.0)
+
+	; Angular Speed for going back to optimal position when the target does not move 
+	AngularSpeedToJoinOptimalPos(2.8)
+
+	; Speeding Up for going back to optimal position when the target does not move
+	SpeedingUpToJoinOptimalPos(0.2)
+
+}

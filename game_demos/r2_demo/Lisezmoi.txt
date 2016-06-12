@@ -1,0 +1,127 @@
+Vous trouverez ici quelques indications succinctes concernant 
+cette démo de Rayman2 PC. Veuillez noter que ceci est une 
+version en cours de réalisation et qu'il existe encore des bugs.
+Si cela vous est possible, merci d'envoyer vos commentaires à 
+l'adresse e-mail suivante : yourfeedback@rayman2.com ; ils nous 
+sont extrêmement précieux.
+
+Pour jouer à cette démo, il vous faut soit Direct-X(tm) soit 
+Glide(tm). Notez cependant que cette démo ne les installera pas.
+
+=========================================================================
+Contrôles
+=========================================================================
+Nous vous recommandons de jouer à Rayman2 avec un gamepad, tel 
+le Microsoft SideWinder(tm). Cependant, il est possible de jouer 
+au clavier. Dans ce cas, rappelez vous que tous les mouvements 
+sont relatifs à la caméra et non à Rayman. Par exemple, en 
+pressant la flèche droite, Rayman se dirigera à droite par 
+rapport à la caméra (c'est à dire vers la droite de votre écran). 
+
+===============================================================
+Contrôles clavier pour un clavier français (type AZERTY)
+=============================================================
+Contrôles de Rayman :
+Utilisez les flèches pour aller dans la direction désirée. 
+Utilisez aussi :
+Q - pour sauter.
+La barre d'espace - pour tirer
+Ctrl (à gauche) - pour "strafer" (cf. ci dessous)
+Shift (à gauche) - pour marcher au lieu de courir
+
+Rayman a beaucoup de pouvoirs magiques, dont certains sont 
+disponibles dans cette démo. Par exemple, si vous pressez Q pour 
+sauter, puis Q à nouveau, Rayman utilisera sa mèche de cheveux 
+pour se déplacer en mode hélicoptère. Cela lui permet de 
+descendre beaucoup plus lentement. Lorsque cette séquence est 
+utilisée alors que Rayman se trouve entre 2 parois rapprochées, 
+Rayman s'agrippe aux 2 parois. En répétant la séquence, Rayman 
+peut même atteindre le sommet.
+
+Rayman peut grimper sur un certain nombre d'objets : échelles de 
+corde et filets par exemple. 
+
+Quand Rayman doit combattre des pirates, pensez à utiliser le 
+mode "strafe" en pressant la touche Ctrl pendant le combat : 
+lors de son déplacement, Rayman restera face à son ennemi et 
+pourra ainsi plus facilement l'atteindre et éviter ses 
+projectiles.
+
+Contrôles Caméra :
+Ctrl (à gauche) - pour positionner la caméra derrière Rayman.
+0 (pavé numérique) - mode look. Maintenez cette touche appuyée, 
+et utilisez les flèches de déplacement pour observer 
+l'environnement de Rayman.
+
+Lorsqu'un texte est affiché et qu'une petite flèche bleue 
+apparait en bas à droite, appuyez sur la touche Q pour passer 
+à la phrase suivante du texte. 
+
+=================================================================
+L'histoire
+================================================================
+Des pirates, guidés par leur chef, l'infâme BarbeTranchante, ont 
+pris d'assaut le monde de Rayman et fait prisonnier celui-ci et 
+la plupart de ses amis. Rayman a réussi à s'échapper mais doit 
+regagner ses pouvoirs afin de libérer ses amis. Ly, la fée, est 
+la seule qui peut l'aider dans cette quête, mais elle aussi est 
+retenue prisonnière, maintenue en suspension au coeur d'une 
+machine infernale. Pour la délivrer, Rayman doit livrer bataille 
+contre les pirates et désactiver la machine. 
+Les pirates ont brisé le coeur du monde en mille morceaux, appelés 
+des "lums jaunes". Rayman doit les récupérer tous afin de regagner 
+ses pouvoirs. Par ailleurs, des lums rouges, contenant de 
+l'énergie vitale, permettent à Rayman de retrouver toute sa force. 
+
+===================================================================
+Astuces
+===================================================================
+Beaucoup de choses intéressantes sont cachées derrière les 
+sparadraps. Mais différentes techniques sont nécessaires afin 
+d'accéder à ces passages secrets. Par exemple, au début de la 
+démo, vous trouverez une porte au milieu de l'herbe, entre Rayman 
+et le bateau-pirate, scellée par un sparadrap. Rayman ne peut 
+briser le sceau lui même, mais doit pouvoir se faire aider... 
+D'autres sparadraps peuvent être brisés avec le poing de Rayman, 
+et d'autres encore ne pourront être brisés qu'avec un baril de 
+poudre. Rayman peut saisir ces barils et les jeter.
+
+Certains passages sont bloqués et ne peuvent être ouverts qu'après 
+avoir trouvé le bon interrupteur. Pour activer un interrupteur, 
+Rayman doit simplement l'atteindre avec son poing. 
+
+===================================================================
+Menus
+===================================================================
+Dans cette démo, les menus vous permettent principalement de 
+quitter la démo et de paramétrer le jeu. Mais le jeu étant en 
+cours de finalisation, il est possible que certains paramètres 
+ne fonctionnent pas correctement.
+
+========================================================================
+Bugs Connus
+========================================================================
+Notez s'il vous plait que la version proposée est seulement une 
+démo et non le jeu final. Il subsiste encore un certain nombre 
+de bugs, que nous sommes en train de corriger.
+
+Il est vivement recommandé de ne pas utiliser les menus. Si vous 
+essayez de changer la résolution notamment, il y a de fortes 
+chances que la démo plante.
+
+Parfois, le jeu ne se termine pas proprement.
+
+Il y a quelques problèmes avec les cartes 3D à base de puce Voodoo,
+selon les APIs utilisés. Nous recommandons vivement d'installer la 
+version Glide si vous possédez une carte 3D à base de Voodoo1 ou 
+Voodoo2. Si vous possédez une carte à base de Voodoo Banshee, 
+Voodoo Rush ou Voodoo3, nous vous recommandons plutôt d'installer 
+la version Direct-X. 
+
+Certaines cartes accélératrices 3D peuvent poser des problèmes à 
+cause de leurs drivers. Si vous pensez rencontrer un problème de 
+drivers, veuillez contacter le fabricant de votre carte.
+
+Nous travaillons bien sûr activement pour corriger ces problèmes 
+dans la version finale du jeu. Merci de votre compréhension.
+

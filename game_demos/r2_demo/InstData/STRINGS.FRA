@@ -1,0 +1,242 @@
+Strings Version 01.72
+
+0:NON
+1:OUI
+
+[CPU]
+10:386
+11:486
+12:Pentium
+
+[Windows resolution]
+20:640x480
+21:800x600
+22:1024x768
+23:1024x1536
+24:1152x864
+25:1280x1024
+
+[Windows colors]
+30:16 coul.
+31:256 coul.
+32:65k coul.
+33:16M coul.
+34:4G coul.
+
+[Memory]
+40:Mo
+
+[Drive]
+50:Octets
+51:Ko
+52:Mo
+
+[CD ROM Speed]
+60:1x
+61:2x
+62:4x
+63:6x
+64:8x
+65:10x
+
+[W95]
+66:
+67:OSR1
+68:OSR2
+
+[W98]
+70:
+
+[WNT40]
+75:
+76:Service Pack 1
+77:Service Pack 2
+78:Service Pack 3
+79:Service Pack 4
+
+[Messages]
+100:Avancement de la copie des fichiers
+101:Fichier source
+102:Fichier destination
+103:Avancement de la copie du fichier courant
+104:Avancement de l'installation
+105:Stopper
+
+120:Programme d'installation Ubi Soft - Répertoire d'installation
+121:Choisissez le répertoire d'installation
+122:Parcourir
+123:Accepter
+124:Attention
+125:Vous ne pouvez pas installer ce produit sur ce lecteur car il n'y a pas assez de place
+126:Vous ne pouvez pas installer ce produit sur ce lecteur car il n'existe pas
+127:Annuler
+128:Le chemin est incorrect. Veuillez recommencer !
+129:Le répertoire choisi ne doit pas être :
+132: - le répertoire de Windows ou un de ses sous-répertoires,
+133: - la racine d'un disque dur.
+134:Vous allez installer ce produit dans un répertoire existant :
+
+130:Programme d'installation Ubi Soft - Destruction de la dll
+131:Voulez-vous effacer cette dll. (Si vous ne savez pas, cliquer sur 'Non') ?
+
+140:Programme d'installation Ubi Soft - Choix d'un raccourci
+141:Choisissez un groupe de programmes
+142:Changer
+143:Accepter
+144:Attention
+145:Ce groupe de programmes est invalide
+
+150:Processeur
+151:Résolution Windows
+152:Couleurs Windows
+153:Technologie MMX
+154:Mémoire
+155:Carte 3DFX
+156:Carte S3D
+157:Carte ATI
+158:Vitesse CD ROM
+159:Carte Power VR
+205:Carte I740
+206:Carte 3DFX (Glide3X)
+
+160:Video Pour Windows
+161:Indeo pour VFW
+162:Microsoft Direct Draw
+163:Microsoft Direct X
+164:Win32s
+165:Microsoft Direct X Media
+166:Active Movie
+167:Indeo v5.06 pour VFW
+
+450:Windows 95
+451:Windows 98
+452:Windows NT 4.0
+453:Windows System
+454:Windows NT System
+
+170:Programme d'installation Ubi Soft-Choix de Configuration
+171:Sélectionnez une configuration...
+172:Composants Matériels (cliquer pour re-tester !)
+173:Composants Logiciels
+175:Installer
+176:Annuler
+177:Composant
+178:Présent
+179:Nécessaire
+191:Détails...
+192:Pas de détails
+193:Libre !
+194:Voir toutes...
+195:Tests logiciel...
+
+180:Mauvais argument.
+181:Succès de l'intallation de DirectX(tm)! Votre système devra être redémarré à la fin de l'installation.
+182:Votre version Windows n'est pas supportée pas DirectX(tm).
+183:Le programme d'installation s'est interrompu, car il n'y a plus de place disponible sur votre disque.
+184:Mauvais chemin pour DirectX.
+185:Erreur interne.
+186:Installation de DirectX
+
+190:Désinstallation en cours...
+
+200:Programme d'installation Ubi Soft
+201:Impossible d'installer ce produit sans le CDRom
+
+210:Programme d'installation Ubi Soft -  Configuration automatique
+211:Installer
+212:Changer
+213:La meilleure configuration pour votre matériel est :
+
+220:Programme d'installation Ubi Soft - Aucune configuration installable
+221:Aucune configuration de ce produit ne peut être installée sur votre système
+222:Voulez-vous plus d'informations ?
+223:Oui
+224:Non
+
+230:Programme d'installation Ubi Soft - Informations
+231:Configurations proposées :
+232:Composants requis mais faisant défaut :
+233:Fermer
+234:au moins
+235:au plus
+236:exactement
+237:Plus de place sur disque(s) dur(s)
+238:Aucun
+239:Different de
+
+240:Programme d'installation Ubi Soft 
+241:L'installation s'est mal passée.
+
+250:La configuration actuellement installée
+251:n'est plus utilisable en l'état actuel de votre système. Les composants suivants font défaut :
+252:Programme d'installation Ubi Soft - Informations
+253:Fermer
+254:[Aucun]
+255:Des fichiers ont été effacés.
+
+260:Erreur au lancement
+261:Plus de mémoire
+262:Fichier 'exe' invalide (pas une application 32 bits ou erreur dans l'image 'exe)
+263:Fichier 'exe' introuvable
+264:Chemin invalide pour le fichier 'exe'
+
+270:Programme d'installation Ubi Soft - 
+
+280:Programme d'installation Ubi Soft - Désinstallation
+281:Vous êtes sur le point de désinstaller la version actuelle de %s
+282:êtes-vous sûr de vouloir continuer ?
+283:Oui
+284:Non
+285:Vous êtes sur le point de désinstaller la version actuelle de %s
+
+290:Programme d'installation Ubi Soft - Choix d'un répertoire 
+291:Répertoire pour l'installation :
+292:OK
+293:Annuler
+
+300:Programme d'installation Ubi Soft - Choix d'un groupe de programmes
+301:Destination du groupe de programmes :
+ 
+310:Carte Son
+
+311:Patientez pendant la fin de l'installation...
+
+320:Programme d'installation Ubi Soft - Erreur
+321: est en cours d'exécution. Vous ne pouvez pas (des)installer ce produit maintenant.
+
+330:Programme d'installation Ubi Soft - Erreur
+331:Il est impossible de jouer à 
+332: car vous êtes en train de (des)installer un produit sur votre ordinateur.
+
+340:Programme d'installation Ubi Soft - Erreur
+341:Veuillez insérer le CDRom de 
+342: dans un lecteur de CDRom.
+
+350:Désinstaller un produit Ubi Soft
+351:Désinstaller %s
+352:Jouer à %s
+
+360:Programme d'installation Ubi Soft
+361:Installation terminée
+
+370:Programme d'installation Ubi Soft
+371:Désinstallation terminée
+
+380:Programme d'installation Ubi Soft - Tests logiciel
+381:Choisissez les tests à effectuer :
+382:OK
+383:Annuler
+
+390:Programme d'installation Ubi Soft - Fichier d'informations
+391:Voulez-vous lire les informations contenues dans le fichier %s ?
+
+400:Vous devez redémarrer votre ordinateur pour jouer à %s. Voulez-vous redémarrer maintenant?
+
+410:Ce programme ne marche pas sous Windows NT Workstation Version %s.
+
+420:Impossible d'initialiser %s. Vous n'avez plus assez de place sur votre disque dur.
+
+430:Choose your ON LINE system server
+
+440:Veuillez lire l'accord de licence ci-dessous.
+441:Acceptez vous les termes de l'accord de licence ? Si vous choisissez NON, l'installation sera stoppée. Pour installer, vous devez accepter cet accord de licence.

@@ -1,0 +1,17 @@
+[Messages]
+110:eninst
+111:enunin
+112:enstart
+113:enexit
+
+[ConfigName]
+2000:Tonic Trouble - Demo
+2001:Tonic Trouble - Demo
+
+[ApplicationName]
+3000:Tonic Trouble
+3001:Tonic Trouble
+
+[LocalizedApplicationName]
+4000:Tonic Trouble
+4001:Tonic Trouble

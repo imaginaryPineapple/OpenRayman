@@ -1,0 +1,242 @@
+Strings Version 01.72
+
+0:NO
+1:YES
+
+[CPU]
+10:386
+11:486
+12:Pentium
+
+[Windows resolution]
+20:640x480
+21:800x600
+22:1024x768
+23:1024x1536
+24:1152x864
+25:1280x1024
+
+[Windows colors]
+30:16 colors
+31:256 colors
+32:65k colors
+33:16M colors
+34:4G colors
+
+[Memory]
+40:Mb
+
+[Drive]
+50:Bytes
+51:Kb
+52:Mb
+
+[CD ROM Speed]
+60:1x
+61:2x
+62:4x
+63:6x
+64:8x
+65:10x
+
+[W95]
+66:
+67:OSR1
+68:OSR2
+
+[W98]
+70:
+
+[WNT40]
+75:
+76:Service Pack 1
+77:Service Pack 2
+78:Service Pack 3
+79:Service Pack 4
+
+[Messages]
+100:Copy Progress Box
+101:Source File
+102:Destination File
+103:Progress bar for current file
+104:Progress bar for installation
+105:Abort
+
+120:Ubi Soft Installer - Installation Directory
+121:Choose a directory to install this product
+122:Browse
+123:OK
+124:Warning
+125:You can't install the product on this drive.  There's not enough space
+126:Installation Failure.  Specified drive not detected 
+127:Cancel
+128:The path is incorrect. Please try again
+129:The path must not be :
+132: - Windows path or one of its subdirectories,
+133: - the root of your hard disk.
+134:You will be installing this product in a pre-existing directory :
+
+130:Do you want to erase this driver file (.dll)?
+131:Leaving this file will not harm your system.If you are uncertain, select 'No'
+
+140:Ubi Soft Installer - Shortcut Choice
+141:Choose a groupname
+142:Browse
+143:OK
+144:Warning
+145:This groupname is invalid
+
+150:CPU
+151:Windows resolution
+152:Windows colors
+153:MMX
+154:Memory
+155:3DFX Card
+156:S3D Card
+157:ATI Card
+158:CD ROM Speed
+159:Power VR Card
+205:I740 Card
+206:3DFX Card (Glide3X)
+
+160:Video For Windows
+161:Indeo VFW
+162:Microsoft Direct Draw
+163:Microsoft Direct X
+164:Win32s
+165:Microsoft Direct X Media
+166:Active Movie
+167:Indeo VFW v5.06
+
+450:Windows 95
+451:Windows 98
+452:Windows NT 4.0
+453:Windows System
+454:Windows NT System
+
+170:Ubi Soft Installer - Configuration choice
+171:Please select a configuration from the list below...
+172:Hardware components (Click to re-test)
+173:Software components
+175:Install
+176:Cancel
+177:Component
+178:Present
+179:Required
+191:Details...
+192:No detail
+193:Free !
+194:Show all...
+195:Software tests...
+
+180:Bad Argument
+181:DirectX(tm) installation succesful!Your system must be restarted before the change will take effect. 
+182:This application requires DirectX(tm) support. Your Windows version is not supported by DirectX.
+183:The setup ran out of disk space during installation. Please delete unnecessary files.
+184:Bad Location.
+185:Internal Error.
+186:DirectX(tm) installation
+
+190:Uninstallation in progress...
+
+200:Ubi Soft Installer
+201:Can not install this product without the CDRom
+
+210:Ubi Soft Installer - Auto configuration
+211:Install
+212:Change
+213:The best configuration for your computer is :
+
+220:Ubi Soft Installer - No matching configuration
+221:None of the available options will work on your system configuration 
+222:Do you want some details ?
+223:Yes
+224:No
+
+230:Ubi Soft Installer - Information
+231:Proposed configurations :
+232:The following required components are missing:
+233:Close
+234:At least
+235:At most
+236:Exactly
+237:Additional disk space is required
+238:None
+239:Different from
+
+240:Ubi Soft Installer - 
+241:Installation failed.
+
+250:The currently installed configuration
+251:can not run with your system. The following components fail :
+252:Ubi Soft Installer - Information
+253:Close
+254:[None]
+255:Some files have been erased.
+
+260:Error when launching
+261:System Out of Memory
+262:Invalid 'exe' file (error in 'exe' program or not a 32 bit application)
+263:'exe' file not found
+264:Invalid path for 'exe' file
+
+270:Ubi Soft Installer - 
+
+280:Ubi Soft Installer - Uninstallation
+281:You are about to uninstall the current version of %s
+282:do you want to continue ?
+283:Yes
+284:No
+285:You are about to uninstall the current version of %s
+
+290:Ubi Soft Installer - Directory choice 
+291:Directory for installation : 
+292:OK 
+293:Cancel 
+
+300:Ubi Soft Installer - Program group choice
+301:Destination of the program group :
+
+310:Sound card
+
+311:Please wait while the program is ending the installation
+
+320:Ubi Soft Installer - Error
+321: is running so you can not (un)install it now.
+
+330:Ubi Soft Installer - Error
+331:You can not play 
+332: (un) installation currently in progress.
+
+340:Ubi Soft Installer - Error
+341:Please insert the CD-ROM 
+342: in the CD-ROM drive.
+
+350:To uninstall a Ubi Soft product
+351:To uninstall %s
+352:To Play %s
+                     
+360:Ubi Soft Installer
+361:Installation completed
+
+370:Ubi Soft Installer
+371:Uninstallation completed
+
+380:UBI Soft Installer - Software tests
+381:Choose the tests you want executed :
+382:OK
+383:Cancel
+
+390:Ubi Soft Installer - Information file
+391:Do you want to read the information from the file %s ?
+
+400:You must restart your computer in order to play %s. Would you like to restart now?
+
+410:This program will not run on a Windows NT %s workstation.
+
+420:Cannot initialize %s. You do not have enough space on your hard drive.
+
+430:Choose your ON LINE system server
+
+440:Please read the following license agreement.
+441:Do you accept all of the terms of the preceding License Agreement? If you choose No, Install will close. To install, you must accept this agreement.
