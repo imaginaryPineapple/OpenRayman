@@ -24,8 +24,6 @@ namespace openrayman
         }
         if(!openrayman::file::exists(m_backend_specifics.get_storage_path()))
             openrayman::file::create_directory(m_backend_specifics.get_storage_path() + "/");
-        std::cout << m_backend_specifics.get_storage_path() << std::endl;
-        std::cout << (openrayman::file::exists(m_backend_specifics.get_storage_path()) ? "true" : "falsch") << std::endl;
         if(!m_window.open("OpenRayman", 1024, 768, false))
         {
             openrayman::message_box::display("Error in window creation!", "The window could not open.\nMake sure your graphics drivers are up to date.", true);
