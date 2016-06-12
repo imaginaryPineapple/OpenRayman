@@ -40,9 +40,10 @@ namespace openrayman
 
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-        /*glfwWindowHint(GLFW_CONTEXT_MAJOR_VERSION, 3);
-        glfwWindowHint(GLFW_CONTEXT_MINOR_VERSION, 2);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);*/
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_VISIBLE, initial_fullscreen ? GLFW_TRUE : GLFW_FALSE);
 
         GLFWmonitor* monitor = glfwGetPrimaryMonitor();
         if(monitor == nullptr)
@@ -55,6 +56,16 @@ namespace openrayman
         m_window = glfwCreateWindow(width, height, title.c_str(), initial_fullscreen ? monitor : nullptr, nullptr);
         if(m_window == nullptr)
             return false;
+		
+		if(!initial_fullscreen)
+		{
+			int left, top, right, bottom;
+			glfwGetWindowFrameSize(m_window, &left, &top, &right, &bottom);
+			int total_w = w + left + right;
+			int total_h = h + top + bottom;
+			glfwSetWindowPos(m_window, mode->width / 2 - total_w / 2, mode->height / 2 - total_h / 2);
+			glfwShowWindow(m_window);
+		}
 
         glfwSwapInterval(0);
 

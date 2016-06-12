@@ -10,6 +10,15 @@ An open source reimplementation of the Rayman 2: The Great Escape engine using C
 `openrayman [options] ...`  
 
 
+## GL3W
+
+
+You need to build gl3w.h and gl3w.c before you build the project.
+
+
+This can be done by executing lib/gl3w/gl3w_gen.py with Python 2.
+
+
 ## Building on Linux
 
 
@@ -29,7 +38,13 @@ The engine can be installed via `sudo make install` and can then be started by e
 ## Building on Windows
 
 
-Open `msvc\OpenRayman\OpenRayman.sln` and build the desired target.
+Building should be done with mingw, and is almost the same as on Linux.
+
+
+You need to use the command `cmake -G "MinGW Makefiles" ..` instead of `cmake ..` to create makefiles, as OpenRayman cannot be built with MSVC.
+
+
+You might also need `mingw32-make -j8` instead of `make -j8`.
 
 
 ## Building on Mac OS X
@@ -43,6 +58,6 @@ Mac OS X is not supported at the moment (might work with CMake?).
 
 * Ubisoft and Michael Ancel
 * GLFW 3
-* libepoxy
+* GL3W
 * lodepng
 * http://raymanpc.com/

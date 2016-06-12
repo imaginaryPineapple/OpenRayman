@@ -2,10 +2,24 @@ file(GLOB_RECURSE SOURCES *.cc)
 
 include_directories(AFTER "${CMAKE_SOURCE_DIR}/src")
 include_directories(AFTER "${CMAKE_SOURCE_DIR}/lib/lodepng")
+include_directories(AFTER "${CMAKE_SOURCE_DIR}/lib/glfw/include")
+include_directories(AFTER "${CMAKE_SOURCE_DIR}/lib/gl3w/include")
 
-add_executable(openrayman ${SOURCES} "${CMAKE_SOURCE_DIR}/lib/lodepng/lodepng.cpp" "${CMAKE_SOURCE_DIR}/lib/lodepng/lodepng_util.cpp")
+add_executable(openrayman WIN32 ${SOURCES} "${CMAKE_SOURCE_DIR}/lib/lodepng/lodepng.cpp" "${CMAKE_SOURCE_DIR}/lib/lodepng/lodepng_util.cpp")
+
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin")
 target_link_libraries(openrayman glfw)
+target_link_libraries(openrayman gl3w)
+
+if(WIN32)
+target_link_libraries(openrayman shlwapi)
+target_link_libraries(openrayman opengl32)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static-libgcc")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "${CMAKE_SHARED_LIBRARY_LINK_C_FLAGS} -static-libgcc -s")
+set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS} -static-libgcc -static-libstdc++ -s")
+set_target_properties(openrayman PROPERTIES LINK_FLAGS "\"${CMAKE_SOURCE_DIR}/win32/app.res\"")
+endif()
 
 if(UNIX)
 find_package(PkgConfig REQUIRED)
@@ -16,7 +30,6 @@ link_directories(${GTK3_LIBRARY_DIRS})
 add_definitions(${GTK3_CFLAGS_OTHER})
 
 target_link_libraries(openrayman ${GTK3_LIBRARIES})
-target_link_libraries(openrayman epoxy)
 endif()
 
 if(USE_LIBRETRO)

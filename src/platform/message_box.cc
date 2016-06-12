@@ -18,7 +18,7 @@ namespace openrayman
         title << std::endl << std::endl << msg << std::endl <<
         std::endl << "#################" << std::endl << std::endl;
     #ifdef _WIN32
-        MessageBox(nullptr, std::wstring(title).c_str(), std::wstring(msg).c_str(), MB_OK | (error ? MB_ICONERROR : MB_ICONINFORMATION));
+        MessageBox(nullptr, msg.c_str(), title.c_str(), MB_OK | (error ? MB_ICONERROR : MB_ICONINFORMATION));
     #else
         if(!gtk_has_init)
             gtk_has_init = gtk_init_check(0, nullptr);

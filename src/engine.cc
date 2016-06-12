@@ -27,9 +27,16 @@ namespace openrayman
             openrayman::message_box::display("Error in window creation!", "The window could not open.\nMake sure your graphics drivers are up to date.", true);
             return EXIT_FAILURE;
         }
+		
         m_window.gl_make_current();
+		
+		if(gl3wInit()) 
+		{
+			openrayman::message_box::display("Error in GL3W!", "GL3W could not be initialized.\nMake sure your graphics drivers are up to date.", true);
+			return EXIT_FAILURE;
+        }
 
-        // libepoxy and window should have included GL for us at this point.
+        // GL3W and window should have included GL for us at this point.
         int gl_major, gl_minor;
         glGetIntegerv(GL_MAJOR_VERSION, &gl_major);
         glGetIntegerv(GL_MINOR_VERSION, &gl_minor);

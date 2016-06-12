@@ -2,8 +2,8 @@
 #define ENGINE_H
 
 #include <string>
-#include <epoxy/gl.h>
 #include <window/window.h>
+#include <GL/gl3w.h>
 
 #ifdef LIBRETRO_CORE
 #error Building as a libretro core is not yet supported!

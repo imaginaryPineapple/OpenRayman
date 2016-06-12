@@ -2,6 +2,8 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <shlwapi.h>
+#include <locale>
+#include <codecvt>
 #else
 #include <unistd.h>
 #include <limits.h>
@@ -15,7 +17,7 @@ namespace openrayman
     bool file::exists(const std::string& path)
     {
 #ifdef _WIN32
-        DWORD attrib = GetFileAttributes(std::wstring(fix_string(path)).c_str());
+        DWORD attrib = GetFileAttributes(fix_string(path).c_str());
         return attrib != INVALID_FILE_ATTRIBUTES;
 #else
         return access(fix_string(path).c_str(), F_OK | R_OK) != -1;
@@ -39,16 +41,15 @@ namespace openrayman
             return *m_executable_path;
         std::string path;
 #if _WIN32
-        wchar_t str[MAX_PATH];
+        char str[MAX_PATH];
         int result = GetModuleFileName(nullptr, str, MAX_PATH);
         if(result == 0)
         {
             m_executable_path = new std::string("");
             return *m_executable_path;
         }
-        PathCchRemoveFileSpec(str, MAX_PATH);
-        std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> str_converter;
-        path = std::codecvt_utf8<wchar_t>.to_bytes(std::wstring(str));
+		PathRemoveFileSpec(str);
+        path = std::string(str);
 #else
         char destination[PATH_MAX];
         size_t length;

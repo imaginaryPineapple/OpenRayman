@@ -1,9 +1,9 @@
 [submodule "lib/glfw"]
 	path = lib/glfw
 	url = https://github.com/glfw/glfw.git
-[submodule "lib/libepoxy"]
-	path = lib/libepoxy
-	url = https://github.com/anholt/libepoxy.git
 [submodule "lib/lodepng"]
 	path = lib/lodepng
 	url = https://github.com/lvandeve/lodepng.git
+[submodule "lib/gl3w"]
+	path = lib/gl3w
+	url = https://github.com/skaslev/gl3w
