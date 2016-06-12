@@ -57,16 +57,20 @@ namespace openrayman
         if(m_window == nullptr)
             return false;
 		
+		int left, top, right, bottom;
+		glfwGetWindowFrameSize(m_window, &left, &top, &right, &bottom);
+		int total_w = w + left + right;
+		int total_h = h + top + bottom;
 		if(!initial_fullscreen)
 		{
-			int left, top, right, bottom;
-			glfwGetWindowFrameSize(m_window, &left, &top, &right, &bottom);
-			int total_w = w + left + right;
-			int total_h = h + top + bottom;
 			glfwSetWindowPos(m_window, mode->width / 2 - total_w / 2, mode->height / 2 - total_h / 2);
 			glfwShowWindow(m_window);
 		}
-
+		m_saved_x = mode->width / 2 - total_w / 2;
+		m_saved_y = mode->height / 2 - total_h / 2;
+		m_saved_w = w;
+		m_saved_h = h;
+		
         glfwSwapInterval(0);
 
         m_current_fullscreen = initial_fullscreen;

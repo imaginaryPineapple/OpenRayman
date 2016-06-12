@@ -22,7 +22,7 @@ namespace openrayman
             openrayman::message_box::display("Error!", "The data/common/ directory was not found.", true);
             return EXIT_FAILURE;
         }
-        if(!m_window.open("OpenRayman", 1024, 768, false))
+        if(!m_window.open("OpenRayman", 1024, 768, true))
         {
             openrayman::message_box::display("Error in window creation!", "The window could not open.\nMake sure your graphics drivers are up to date.", true);
             return EXIT_FAILURE;
