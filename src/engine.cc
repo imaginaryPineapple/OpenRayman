@@ -17,7 +17,7 @@ namespace openrayman
             openrayman::message_box::display("Error!", "The data/ directory was not found.", true);
             return EXIT_FAILURE;
         }
-        if(openrayman::file::exists(openrayman::file::get_executable_path() + "/data/common"))
+        if(!openrayman::file::exists(openrayman::file::get_executable_path() + "/data/common"))
         {
             openrayman::message_box::display("Error!", "The data/common/ directory was not found.", true);
             return EXIT_FAILURE;
