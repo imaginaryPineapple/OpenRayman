@@ -1,0 +1,82 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: Z:/media/hannesmann/UbuntuHDD/Dev/OpenRayman/build_win/CMakeFiles/CMakeTmp
+
+Run Build Command:"I:/PROG~5P2/MING~DAW/I686~KRC.0-W/mingw32/bin/mingw32-make.exe" "cmTC_0a269/fast"
+I:/PROG~5P2/MING~DAW/I686~KRC.0-W/mingw32/bin/mingw32-make.exe -f CMakeFiles\cmTC_0a269.dir\build.make CMakeFiles/cmTC_0a269.dir/build
+mingw32-make.exe[1]: Entering directory 'Z:/media/hannesmann/UbuntuHDD/Dev/OpenRayman/build_win/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_0a269.dir/CheckSymbolExists.c.obj
+I:\PROG~5P2\MING~DAW\I686~KRC.0-W\mingw32\bin\gcc.exe     -o CMakeFiles\cmTC_0a269.dir\CheckSymbolExists.c.obj   -c Z:\media\hannesmann\UbuntuHDD\Dev\OpenRayman\build_win\CMakeFiles\CMakeTmp\CheckSymbolExists.c
+Linking C executable cmTC_0a269.exe
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_0a269.dir\link.txt --verbose=1
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E remove -f CMakeFiles\cmTC_0a269.dir/objects.a
+I:\PROG~5P2\MING~DAW\I686~KRC.0-W\mingw32\bin\ar.exe cr CMakeFiles\cmTC_0a269.dir/objects.a @CMakeFiles\cmTC_0a269.dir\objects1.rsp
+I:\PROG~5P2\MING~DAW\I686~KRC.0-W\mingw32\bin\gcc.exe       -Wl,--whole-archive CMakeFiles\cmTC_0a269.dir/objects.a -Wl,--no-whole-archive  -o cmTC_0a269.exe -Wl,--out-implib,libcmTC_0a269.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\cmTC_0a269.dir\linklibs.rsp
+CMakeFiles\cmTC_0a269.dir/objects.a(CheckSymbolExists.c.obj):CheckSymbolExists.c:(.text+0x12): undefined reference to `pthread_create'
+collect2.exe: error: ld returned 1 exit status
+CMakeFiles\cmTC_0a269.dir\build.make:98: recipe for target 'cmTC_0a269.exe' failed
+mingw32-make.exe[1]: *** [cmTC_0a269.exe] Error 1
+mingw32-make.exe[1]: Leaving directory 'Z:/media/hannesmann/UbuntuHDD/Dev/OpenRayman/build_win/CMakeFiles/CMakeTmp'
+Makefile:125: recipe for target 'cmTC_0a269/fast' failed
+mingw32-make.exe: *** [cmTC_0a269/fast] Error 2
+
+File Z:/media/hannesmann/UbuntuHDD/Dev/OpenRayman/build_win/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: Z:/media/hannesmann/UbuntuHDD/Dev/OpenRayman/build_win/CMakeFiles/CMakeTmp
+
+Run Build Command:"I:/PROG~5P2/MING~DAW/I686~KRC.0-W/mingw32/bin/mingw32-make.exe" "cmTC_e8c64/fast"
+I:/PROG~5P2/MING~DAW/I686~KRC.0-W/mingw32/bin/mingw32-make.exe -f CMakeFiles\cmTC_e8c64.dir\build.make CMakeFiles/cmTC_e8c64.dir/build
+mingw32-make.exe[1]: Entering directory 'Z:/media/hannesmann/UbuntuHDD/Dev/OpenRayman/build_win/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e8c64.dir/CheckFunctionExists.c.obj
+I:\PROG~5P2\MING~DAW\I686~KRC.0-W\mingw32\bin\gcc.exe    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles\cmTC_e8c64.dir\CheckFunctionExists.c.obj   -c "C:\Program Files (x86)\CMake\share\cmake-3.6\Modules\CheckFunctionExists.c"
+Linking C executable cmTC_e8c64.exe
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_e8c64.dir\link.txt --verbose=1
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E remove -f CMakeFiles\cmTC_e8c64.dir/objects.a
+I:\PROG~5P2\MING~DAW\I686~KRC.0-W\mingw32\bin\ar.exe cr CMakeFiles\cmTC_e8c64.dir/objects.a @CMakeFiles\cmTC_e8c64.dir\objects1.rsp
+I:\PROG~5P2\MING~DAW\I686~KRC.0-W\mingw32\bin\gcc.exe   -DCHECK_FUNCTION_EXISTS=pthread_create    -Wl,--whole-archive CMakeFiles\cmTC_e8c64.dir/objects.a -Wl,--no-whole-archive  -o cmTC_e8c64.exe -Wl,--out-implib,libcmTC_e8c64.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\cmTC_e8c64.dir\linklibs.rsp
+I:/PROG~5P2/MING~DAW/I686~KRC.0-W/mingw32/bin/../lib/gcc/i686-w64-mingw32/5.3.0/../../../../i686-w64-mingw32/bin/ld.exe: cannot find -lpthreads
+collect2.exe: error: ld returned 1 exit status
+CMakeFiles\cmTC_e8c64.dir\build.make:98: recipe for target 'cmTC_e8c64.exe' failed
+mingw32-make.exe[1]: *** [cmTC_e8c64.exe] Error 1
+mingw32-make.exe[1]: Leaving directory 'Z:/media/hannesmann/UbuntuHDD/Dev/OpenRayman/build_win/CMakeFiles/CMakeTmp'
+Makefile:125: recipe for target 'cmTC_e8c64/fast' failed
+mingw32-make.exe: *** [cmTC_e8c64/fast] Error 2
+
+
+Performing C SOURCE FILE Test _GLFW_HAS_64ASLR failed with the following output:
+Change Dir: Z:/media/hannesmann/UbuntuHDD/Dev/OpenRayman/build_win/CMakeFiles/CMakeTmp
+
+Run Build Command:"I:/PROG~5P2/MING~DAW/I686~KRC.0-W/mingw32/bin/mingw32-make.exe" "cmTC_052d4/fast"
+I:/PROG~5P2/MING~DAW/I686~KRC.0-W/mingw32/bin/mingw32-make.exe -f CMakeFiles\cmTC_052d4.dir\build.make CMakeFiles/cmTC_052d4.dir/build
+mingw32-make.exe[1]: Entering directory 'Z:/media/hannesmann/UbuntuHDD/Dev/OpenRayman/build_win/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_052d4.dir/src.c.obj
+I:\PROG~5P2\MING~DAW\I686~KRC.0-W\mingw32\bin\gcc.exe    -D_GLFW_HAS_64ASLR -Wl,--high-entropy-va   -o CMakeFiles\cmTC_052d4.dir\src.c.obj   -c Z:\media\hannesmann\UbuntuHDD\Dev\OpenRayman\build_win\CMakeFiles\CMakeTmp\src.c
+Linking C executable cmTC_052d4.exe
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_052d4.dir\link.txt --verbose=1
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E remove -f CMakeFiles\cmTC_052d4.dir/objects.a
+I:\PROG~5P2\MING~DAW\I686~KRC.0-W\mingw32\bin\ar.exe cr CMakeFiles\cmTC_052d4.dir/objects.a @CMakeFiles\cmTC_052d4.dir\objects1.rsp
+I:\PROG~5P2\MING~DAW\I686~KRC.0-W\mingw32\bin\gcc.exe   -D_GLFW_HAS_64ASLR -Wl,--high-entropy-va    -Wl,--whole-archive CMakeFiles\cmTC_052d4.dir/objects.a -Wl,--no-whole-archive  -o cmTC_052d4.exe -Wl,--out-implib,libcmTC_052d4.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\cmTC_052d4.dir\linklibs.rsp
+I:/PROG~5P2/MING~DAW/I686~KRC.0-W/mingw32/bin/../lib/gcc/i686-w64-mingw32/5.3.0/../../../../i686-w64-mingw32/bin/ld.exe: unrecognized option '--high-entropy-va'
+I:/PROG~5P2/MING~DAW/I686~KRC.0-W/mingw32/bin/../lib/gcc/i686-w64-mingw32/5.3.0/../../../../i686-w64-mingw32/bin/ld.exe: use the --help option for usage information
+collect2.exe: error: ld returned 1 exit status
+CMakeFiles\cmTC_052d4.dir\build.make:98: recipe for target 'cmTC_052d4.exe' failed
+mingw32-make.exe[1]: *** [cmTC_052d4.exe] Error 1
+mingw32-make.exe[1]: Leaving directory 'Z:/media/hannesmann/UbuntuHDD/Dev/OpenRayman/build_win/CMakeFiles/CMakeTmp'
+Makefile:125: recipe for target 'cmTC_052d4/fast' failed
+mingw32-make.exe: *** [cmTC_052d4/fast] Error 2
+
+Source file was:
+int main(void) { return 0; }

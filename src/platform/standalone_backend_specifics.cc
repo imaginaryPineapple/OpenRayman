@@ -58,7 +58,7 @@ namespace openrayman
         std::string path;
 #if _WIN32
         char destination[PATH_MAX];
-        if(SHGetFolderPath(nullptr, CSIDL_APPDATA | CSIDL_FLAG_CREATE, nullptr, SHGFP_TYPE_CURRENT, &destination) != S_OK)
+        if(SHGetFolderPath(nullptr, CSIDL_APPDATA | CSIDL_FLAG_CREATE, nullptr, SHGFP_TYPE_CURRENT, destination) != S_OK)
         {
             m_storage_path = new std::string(".\\storage");
             return *m_storage_path;

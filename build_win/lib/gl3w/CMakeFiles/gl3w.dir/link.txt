@@ -1,0 +1,2 @@
+I:\PROG~5P2\MING~DAW\I686~KRC.0-W\mingw32\bin\ar.exe qc libgl3w.a  CMakeFiles/gl3w.dir/src/gl3w.c.obj
+I:\PROG~5P2\MING~DAW\I686~KRC.0-W\mingw32\bin\ranlib.exe libgl3w.a
