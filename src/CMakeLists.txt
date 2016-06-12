@@ -4,12 +4,14 @@ include_directories(AFTER "${CMAKE_SOURCE_DIR}/src")
 include_directories(AFTER "${CMAKE_SOURCE_DIR}/lib/lodepng")
 include_directories(AFTER "${CMAKE_SOURCE_DIR}/lib/glfw/include")
 include_directories(AFTER "${CMAKE_SOURCE_DIR}/lib/gl3w/include")
+include_directories(AFTER "${CMAKE_SOURCE_DIR}/lib/json/src")
 
 add_executable(openrayman WIN32 ${SOURCES} "${CMAKE_SOURCE_DIR}/lib/lodepng/lodepng.cpp" "${CMAKE_SOURCE_DIR}/lib/lodepng/lodepng_util.cpp")
 
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin")
 target_link_libraries(openrayman glfw)
 target_link_libraries(openrayman gl3w)
+target_link_libraries(openrayman nlohmann_json)
 
 if(WIN32)
 target_link_libraries(openrayman shlwapi)
