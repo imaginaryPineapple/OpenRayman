@@ -11,6 +11,8 @@ namespace openrayman
 public:
         // Displays a message box and blocks.
         static void display(const std::string& title, const std::string& msg, bool error);
+private:
+        static bool gtk_has_init;
     };
 }
 

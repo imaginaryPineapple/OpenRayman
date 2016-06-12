@@ -45,8 +45,6 @@ int main(int argc, char** argv)
     std::cout << "OpenRayman " << openrayman::version << std::endl;
     std::cout << "Running on " << (openrayman::this_platform == openrayman::platform::windows ? "Windows" : "Linux") << std::endl;
     std::cout << "Using game " << (selected_game == "" ? "from \"info.json\"" : "\"" + selected_game + "\"") << std::endl;
-    if(openrayman::this_platform == openrayman::platform::linux)
-        gtk_init(&argc, &argv);
     openrayman::engine engine;
     return engine.run(selected_game);
 }
