@@ -1,10 +1,12 @@
 #include <cstdlib>
+#include <cstdint>
 #include <iostream>
 #include <sstream>
 #include <info.h>
 #include <engine.h>
 #include <platform/message_box.h>
 #include <platform/file.h>
+#include <lodepng.h>
 
 namespace openrayman
 {
@@ -26,6 +28,7 @@ namespace openrayman
             return EXIT_FAILURE;
         }
         m_window.gl_make_current();
+
         // libepoxy and window should have included GL for us at this point.
         int gl_major, gl_minor;
         glGetIntegerv(GL_MAJOR_VERSION, &gl_major);
@@ -39,12 +42,19 @@ namespace openrayman
               << " on " << gl_vendor << " " << gl_gpu << ")"
               << " (Game \"" << game << "\")";
         m_window.set_title(title.str());
+
+        std::vector<std::uint8_t> icon_data;
+        unsigned int width, height;
+        if(!lodepng::decode(icon_data, width, height, openrayman::file::get_executable_path() + "/data/common/icon.png"))
+            m_window.set_icon(icon_data.data(), width, height);
+
         while(!m_exit_requested)
         {
             m_window.poll_events();
             m_window.present();
             m_exit_requested = m_exit_requested || m_window.wants_close();
         }
+
         m_window.close();
         return EXIT_SUCCESS;
     }
