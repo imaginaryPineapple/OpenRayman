@@ -33,13 +33,11 @@ namespace openrayman
         int gl_major, gl_minor;
         glGetIntegerv(GL_MAJOR_VERSION, &gl_major);
         glGetIntegerv(GL_MINOR_VERSION, &gl_minor);
-        std::string gl_vendor = std::string((const char*)glGetString(GL_VENDOR));
-        std::string gl_gpu = std::string((const char*)glGetString(GL_RENDERER));
         // Provide more complete info for the user.
         std::stringstream title;
-        title << "OpenRayman " << openrayman::version
-              << " (OpenGL " << gl_major << "." << gl_minor
-              << " on " << gl_vendor << " " << gl_gpu << ")"
+        title << "OpenRayman " << openrayman::version << " " 
+        	  << (openrayman::this_platform == openrayman::platform::windows ? "Win32" : "Linux")
+              << " (OpenGL " << gl_major << "." << gl_minor << ")"
               << " (Game \"" << game << "\")";
         m_window.set_title(title.str());
 
