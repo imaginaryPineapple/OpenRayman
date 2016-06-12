@@ -50,6 +50,7 @@ namespace openrayman
 
         while(!m_exit_requested)
         {
+            glViewport(0, 0, m_window.get_size_retina_w(), m_window.get_size_retina_h());
             m_window.poll_events();
             m_window.present();
             m_exit_requested = m_exit_requested || m_window.wants_close();
