@@ -8,7 +8,7 @@
 
 namespace openrayman
 {
-    // Window using GLFW as backend.
+    // Window using GLFW as backend. This is used when the game is run standalone.
     class glfw_window : public window
     {
 public:
@@ -25,7 +25,6 @@ public:
 
         int get_size_w() override;
         int get_size_h() override;
-
         int get_size_retina_w() override;
         int get_size_retina_h() override;
 

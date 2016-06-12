@@ -5,7 +5,7 @@
 
 namespace openrayman
 {
-    // Simple platform abstraction for files.
+    // Multi platform abstraction for filesystem access.
     class file
     {
 public:
@@ -15,8 +15,8 @@ public:
         // Replaces all instances of / and \ in the specified string with the current path separator.
         static const std::string fix_string(const std::string& string);
 
-        // Get the path where the openrayman executable resides.
-        static const std::string& get_executable_path();
+        // Creates a new directory with the specified path.
+        static void create_directory(const std::string& path);
 
         // The path separator of the current platform.
 #ifdef _WIN32
@@ -24,8 +24,6 @@ public:
 #else
         static const char path_separator = '/';
 #endif
-private:
-        static std::string* m_executable_path;
     };
 }
 

@@ -5,11 +5,11 @@
 
 namespace openrayman
 {
-    // Simple platform abstraction for a message box.
+    // Simple multi platform abstraction for a message box.
     class message_box
     {
 public:
-        // Displays a message box and blocks.
+        // Displays a blocking message box.
         static void display(const std::string& title, const std::string& msg, bool error);
 private:
         static bool gtk_has_init;

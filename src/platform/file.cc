@@ -8,12 +8,12 @@
 #include <unistd.h>
 #include <limits.h>
 #include <libgen.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #endif
 
 namespace openrayman
 {
-    std::string* file::m_executable_path = nullptr;
-
     bool file::exists(const std::string& path)
     {
 #ifdef _WIN32
@@ -35,36 +35,12 @@ namespace openrayman
         return new_str;
     }
 
-    const std::string& file::get_executable_path()
+    void file::create_directory(const std::string& path)
     {
-        if(m_executable_path != nullptr)
-            return *m_executable_path;
-        std::string path;
-#if _WIN32
-        char str[MAX_PATH];
-        int result = GetModuleFileName(nullptr, str, MAX_PATH);
-        if(result == 0)
-        {
-            m_executable_path = new std::string("");
-            return *m_executable_path;
-        }
-		PathRemoveFileSpec(str);
-        path = std::string(str);
+#ifdef _WIN32
+        CreateDirectory(fix_string(path).c_str(), nullptr);
 #else
-        char destination[PATH_MAX];
-        size_t length;
-        if((length = readlink("/proc/self/exe", destination, PATH_MAX)) == -1)
-        {
-            m_executable_path = new std::string("");
-            return *m_executable_path;
-        }
-        else
-        {
-            destination[length] = '\0';
-            path = std::string(dirname(destination));
-        }
+        mkdir(fix_string(path).c_str(), 0644);
 #endif
-        m_executable_path = new std::string(path);
-        return *m_executable_path;
     }
 }
