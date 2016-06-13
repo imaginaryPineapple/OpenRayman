@@ -33,27 +33,35 @@ public:
         // Starts the game loop and loads the specified game.
         int run(const std::string& game);
 
-        // Stops the game loop.
+        // Requests that the game loop stops.
         void exit()
         {
             m_exit_requested = true;
         }
 
-        // Cancel the exit request.
-        void cancel_exit()
+        // Returns true if an exit request was cancelled.
+        bool cancel_exit()
         {
-            m_exit_requested = false;
+            if(m_exit_requested)
+            {
+                m_exit_requested = false;
+                return true;
+            }
+            return false;
         }
 
+        // Returns a reference to the engine window.
         const openrayman::window& get_window()
         {
             return m_window;
         }
 
+        // Returns a reference to the backend specifics that are currently in use.
         const openrayman::backend_specifics& get_backend_specifics()
         {
             return m_backend_specifics;
         }
+        
 private:
         openrayman::window& m_window;
         openrayman::backend_specifics& m_backend_specifics;

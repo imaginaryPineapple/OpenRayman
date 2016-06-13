@@ -5,16 +5,16 @@
 
 namespace openrayman
 {
-    // Provides access several methods that are backend and/or platform specific.
+    // Provides access to several methods that are backend and/or platform specific.
     class backend_specifics
     {
 public:
         virtual ~backend_specifics() { }
 
-        // Get the path where data files reside. This should be assumed to be read-only.
+        // Returns the path where data files reside. This is be assumed to be read-only.
         virtual const std::string& get_data_path() = 0;
 
-        // Get the path where files should be stored.
+        // Returns the path where files should be stored.
         virtual const std::string& get_storage_path() = 0;
 
         // Returns a high-resolution timer value in seconds.

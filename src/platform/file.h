@@ -9,7 +9,7 @@ namespace openrayman
     class file
     {
 public:
-        // If the specified file or directory exists.
+        // Returns true if the specified file or directory exists.
         static bool exists(const std::string& path);
 
         // Replaces all instances of / and \ in the specified string with the current path separator.

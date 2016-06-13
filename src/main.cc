@@ -23,7 +23,7 @@ int main(int argc, char** argv)
             std::string game(argv[n]);
             selected_game = game;
         }
-        // follow GNU format
+        // Follow GNU format
         if(str == "--help")
         {
             std::cout << "Usage: openrayman [options] ...";

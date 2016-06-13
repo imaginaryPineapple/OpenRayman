@@ -56,7 +56,7 @@ namespace openrayman
         m_window = glfwCreateWindow(width, height, title.c_str(), initial_fullscreen ? monitor : nullptr, nullptr);
         if(m_window == nullptr)
             return false;
-		
+
 		int left, top, right, bottom;
 		glfwGetWindowFrameSize(m_window, &left, &top, &right, &bottom);
 		int total_w = w + left + right;
@@ -70,7 +70,7 @@ namespace openrayman
 		m_saved_y = mode->height / 2 - total_h / 2;
 		m_saved_w = w;
 		m_saved_h = h;
-		
+
         glfwSwapInterval(0);
         glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
@@ -135,7 +135,8 @@ namespace openrayman
 
     void glfw_window::set_size(int w, int h)
     {
-        glfwSetWindowSize(m_window, w, h);
+        if(!m_current_fullscreen)
+            glfwSetWindowSize(m_window, w, h);
     }
 
     void glfw_window::set_title(const std::string& title)
