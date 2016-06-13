@@ -8,10 +8,9 @@ namespace openrayman
     glfw_window::glfw_window() :
         m_window(nullptr),
         m_current_fullscreen(false),
-        m_saved_x(0),
-        m_saved_y(0),
         m_saved_w(0),
-        m_saved_h(0)
+        m_saved_h(0),
+        m_input_provider(nullptr)
     {
         if(m_glfw_ref_count <= 0)
         {
@@ -57,6 +56,8 @@ namespace openrayman
         if(m_window == nullptr)
             return false;
 
+        m_input_provider = standalone_input_provider(m_window);
+
 		int left, top, right, bottom;
 		glfwGetWindowFrameSize(m_window, &left, &top, &right, &bottom);
 		int total_w = w + left + right;
@@ -66,8 +67,6 @@ namespace openrayman
 			glfwSetWindowPos(m_window, mode->width / 2 - total_w / 2, mode->height / 2 - total_h / 2);
 			glfwShowWindow(m_window);
 		}
-		m_saved_x = mode->width / 2 - total_w / 2;
-		m_saved_y = mode->height / 2 - total_h / 2;
 		m_saved_w = w;
 		m_saved_h = h;
 
@@ -95,38 +94,43 @@ namespace openrayman
         glfwSwapBuffers(m_window);
     }
 
+    input_provider& glfw_window::get_input_provider()
+    {
+        return m_input_provider;
+    }
+
     void glfw_window::poll_events()
     {
         glfwPollEvents();
     }
 
-    bool glfw_window::wants_close()
+    bool glfw_window::wants_close() const
     {
         return glfwWindowShouldClose(m_window);
     }
 
-    int glfw_window::get_size_w()
+    int glfw_window::get_size_w() const
     {
         int w, tmp;
         glfwGetWindowSize(m_window, &w, &tmp);
         return w;
     }
 
-    int glfw_window::get_size_h()
+    int glfw_window::get_size_h() const
     {
         int h, tmp;
         glfwGetWindowSize(m_window, &h, &tmp);
         return h;
     }
 
-    int glfw_window::get_size_retina_w()
+    int glfw_window::get_size_retina_w() const
     {
         int w, tmp;
         glfwGetFramebufferSize(m_window, &w, &tmp);
         return w;
     }
 
-    int glfw_window::get_size_retina_h()
+    int glfw_window::get_size_retina_h() const
     {
         int h, tmp;
         glfwGetFramebufferSize(m_window, &h, &tmp);
@@ -149,15 +153,15 @@ namespace openrayman
         glfwSwapInterval(vsync ? 1 : 0);
     }
 
+    bool glfw_window::get_fullscreen() const
+    {
+        return m_current_fullscreen;
+    }
+
     void glfw_window::set_fullscreen(bool fullscreen)
     {
         if(fullscreen == m_current_fullscreen)
             return;
-        if(fullscreen)
-        {
-            glfwGetWindowPos(m_window, &m_saved_x, &m_saved_y);
-            glfwGetWindowSize(m_window, &m_saved_w, &m_saved_h);
-        }
 
         GLFWmonitor* monitor = glfwGetPrimaryMonitor();
         if(monitor == nullptr)
@@ -165,11 +169,16 @@ namespace openrayman
         const GLFWvidmode* mode = glfwGetVideoMode(monitor);
         if(mode == nullptr)
             return;
-        int x = fullscreen ? 0 : m_saved_x;
-        int y = fullscreen ? 0 : m_saved_y;
         int width = fullscreen ? mode->width : m_saved_w;
         int height = fullscreen ? mode->height : m_saved_h;
-        glfwSetWindowMonitor(m_window, fullscreen ? monitor : nullptr, x, y, width, height, GLFW_DONT_CARE);
+        glfwSetWindowMonitor(m_window, fullscreen ? monitor : nullptr, 0, 0, width, height, GLFW_DONT_CARE);
+
+        if(!fullscreen)
+        {
+            int left, top, right, bottom;
+            glfwGetWindowFrameSize(m_window, &left, &top, &right, &bottom);
+            glfwSetWindowPos(m_window, mode->width / 2 - (width + left + right) / 2, mode->height / 2 - (height + top + bottom) / 2);
+        }
 
         m_current_fullscreen = fullscreen;
     }

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <cstdint>
+#include <input/input_provider.h>
 
 namespace openrayman
 {
@@ -27,18 +28,21 @@ public:
         // Polls backend specific events such as input and user commands.
         virtual void poll_events() = 0;
 
+        // Returns a reference to an input provider driven by this window.
+        virtual input_provider& get_input_provider() = 0;
+
         // Returns true if the user has manually requested a shutdown via e.g. the close button.
-        virtual bool wants_close() = 0;
+        virtual bool wants_close() const = 0;
 
         // Returns the size of the client area of the window.
         // This will be different than the specified size if the window is in fullscreen mode.
         // These are not retina aware and should be used for most purposes.
-        virtual int get_size_w() = 0;
-        virtual int get_size_h() = 0;
+        virtual int get_size_w() const = 0;
+        virtual int get_size_h() const = 0;
 
         // These are retina aware and should be used for when the actual framebuffer size is needed, as for glViewport, etc.
-        virtual int get_size_retina_w() = 0;
-        virtual int get_size_retina_h() = 0;
+        virtual int get_size_retina_w() const = 0;
+        virtual int get_size_retina_h() const = 0;
 
         // Set the size of the window client area. Not honored when in fullscreen.
         virtual void set_size(int w, int h) = 0;
@@ -48,6 +52,9 @@ public:
 
         // Enable or disable vertical synchronization of the GL context.
         virtual void set_vsync(bool vsync) = 0;
+
+        // Returns true if the window is currently in fullscreen mode.
+        virtual bool get_fullscreen() const = 0;
 
         // Toggles fullscreen mode of the window.
         virtual void set_fullscreen(bool fullscreen) = 0;

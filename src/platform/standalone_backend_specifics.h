@@ -10,7 +10,7 @@ namespace openrayman
     class standalone_backend_specifics : public backend_specifics
     {
 public:
-        standalone_backend_specifics() : m_data_path(nullptr), m_storage_path(nullptr) { }
+        standalone_backend_specifics();
 
         ~standalone_backend_specifics()
         {
@@ -20,11 +20,13 @@ public:
                 delete m_storage_path;
         }
 
-        const std::string& get_data_path() override;
-        const std::string& get_storage_path() override;
+        const std::string& get_data_path() const override;
+        const std::string& get_storage_path() const override;
 
-        double get_time() override;
+        double get_time() const override;
 private:
+        void initialize_data_path();
+        void initialize_storage_path();
         std::string* m_data_path;
         std::string* m_storage_path;
     };

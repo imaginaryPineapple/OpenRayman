@@ -22,12 +22,14 @@ public:
         engine() :
             m_exit_requested(false),
 #ifdef LIBRETRO_CORE
-            m_window(*(new openrayman::libretro_window())),
-            m_backend_specifics(*(new openrayman::libretro_backend_specifics()))
+            m_window(*(new libretro_window())),
+            m_backend_specifics(*(new libretro_backend_specifics())),
 #else
-            m_window(*(new openrayman::glfw_window())),
-            m_backend_specifics(*(new openrayman::standalone_backend_specifics()))
+            m_window(*(new glfw_window())),
+            m_backend_specifics(*(new standalone_backend_specifics())),
 #endif
+            m_current_input(0, 0, 0),
+            m_last_input(0, 0, 0)
             { };
 
         // Starts the game loop and loads the specified game.
@@ -51,20 +53,34 @@ public:
         }
 
         // Returns a reference to the engine window.
-        const openrayman::window& get_window()
+        window& get_window() const
         {
             return m_window;
         }
 
         // Returns a reference to the backend specifics that are currently in use.
-        const openrayman::backend_specifics& get_backend_specifics()
+        backend_specifics& get_backend_specifics() const
         {
             return m_backend_specifics;
         }
-        
+
+        // Returns a reference to the most recent (currently active) input state.
+        const input_state& get_input() const
+        {
+            return m_current_input;
+        }
+
+        // Returns a reference to the input state that was active during the last frame.
+        const input_state& get_last_input() const
+        {
+            return m_last_input;
+        }
+
 private:
-        openrayman::window& m_window;
-        openrayman::backend_specifics& m_backend_specifics;
+        window& m_window;
+        backend_specifics& m_backend_specifics;
+        input_state m_current_input;
+        input_state m_last_input;
         bool m_exit_requested;
     };
 }

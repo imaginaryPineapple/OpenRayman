@@ -7,11 +7,8 @@
 namespace openrayman
 {
     // Buttons on a N64 controller.
-    enum class input_button : std::uint16_t
+    enum input_button : std::uint16_t
     {
-        // No button. This should not be combined with other values.
-        none = (1 << 0),
-
         // All four dpad axises.
         dpad_left = (1 << 1),
         dpad_right = (1 << 2),
@@ -38,11 +35,8 @@ namespace openrayman
     };
 
     // Additional and optional user commands that can be sent by an input state (for toggling fullscreen, etc).
-    enum class input_command : std::uint8_t
+    enum input_command : std::uint8_t
     {
-        // No command. This is the default command for all game controllers and should not be combined with other values.
-        none = (1 << 0),
-
         // Requests that the engine toggles fullscreen mode.
         toggle_fullscreen = (1 << 1)
     };
@@ -52,30 +46,30 @@ namespace openrayman
     struct input_state
     {
     	// The buttons that are held down.
-        input_button buttons;
+        std::uint16_t buttons;
 
         // Additional user commands from e.g. a keyboard or other user input.
-        input_command commands;
+        std::uint8_t commands;
 
         // The analog stick axises, ranges from -128 to 127.
         int8_t stick_x, stick_y;
 
-        input_state(input_button buttons, int8_t stick_x, int8_t stick_y) :
-            buttons(buttons), commands(input_command::none), stick_x(stick_x), stick_y(stick_y) { }
+        input_state(std::uint16_t buttons, int8_t stick_x, int8_t stick_y) :
+            buttons(buttons), commands(0), stick_x(stick_x), stick_y(stick_y) { }
 
-        input_state(input_button buttons, input_command commands, int8_t stick_x, int8_t stick_y) :
+        input_state(std::uint16_t buttons, std::uint8_t commands, int8_t stick_x, int8_t stick_y) :
             buttons(buttons), commands(commands), stick_x(stick_x), stick_y(stick_y) { }
 
         // Helper function to determine if the specified button is held down.
-        inline bool button(input_button button)
+        inline bool button(std::uint16_t button) const
         {
-            return ((std::uint16_t)buttons & (std::uint16_t)button) == (std::uint16_t)button;
+            return (buttons & button) == button;
         }
 
         // Helper function to determine if a command was specified.
-        inline bool command(input_command command)
+        inline bool command(std::uint8_t command) const
         {
-            return ((std::uint8_t)commands & (std::uint8_t)command) == (std::uint8_t)command;
+            return (commands & command) == command;
         }
     };
 }
