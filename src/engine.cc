@@ -55,8 +55,13 @@ namespace openrayman
         if(!lodepng::decode(icon_data, width, height, file::fix_string(m_backend_specifics.get_data_path() + "/common/icon.png")))
             m_window.set_icon(icon_data.data(), width, height);
 
+        m_last_timer_value = m_backend_specifics.get_time();
         while(!m_exit_requested)
         {
+            double current_timer_value = m_backend_specifics.get_time();
+            m_current_delta_time = current_timer_value - m_last_timer_value;
+            m_total_time += m_current_delta_time;
+            m_last_timer_value = current_timer_value;
             glViewport(0, 0, m_window.get_size_retina_w(), m_window.get_size_retina_h());
 
             m_window.poll_events();
