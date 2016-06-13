@@ -51,12 +51,11 @@ public:
         virtual void set_title(const std::string& title) = 0;
 
         // Enable or disable vertical synchronization of the GL context.
+        // This should not incur any performance penalty.
         virtual void set_vsync(bool vsync) = 0;
 
-        // Returns true if the window is currently in fullscreen mode.
-        virtual bool get_fullscreen() const = 0;
-
         // Toggles fullscreen mode of the window.
+        // This should not incur any performance penalty.
         virtual void set_fullscreen(bool fullscreen) = 0;
 
         // Set the user visible icon of the window. This will default to the OS picked icon if nullptr is specified.

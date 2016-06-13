@@ -22,6 +22,8 @@ namespace openrayman
     {
         initialize_data_path();
         initialize_storage_path();
+        if(!file::exists(get_storage_path()))
+            file::create_directory(get_storage_path());
     }
 
     void standalone_backend_specifics::initialize_data_path()

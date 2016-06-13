@@ -5,7 +5,8 @@ namespace openrayman
     // TODO: libgcadapter, map keys to input state
 
     standalone_input_provider::standalone_input_provider(GLFWwindow* window) :
-        m_input(0, 0, 0), m_window(window)
+        m_input(0, 0, 0),
+        m_window(window)
     {
     }
 

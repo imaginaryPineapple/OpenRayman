@@ -34,12 +34,12 @@ public:
         void set_size(int w, int h) override;
         void set_title(const std::string& title) override;
         void set_vsync(bool vsync) override;
-        bool get_fullscreen() const override;
         void set_fullscreen(bool fullscreen) override;
         void set_icon(const std::uint8_t* rgba32_data, int w, int h) override;
 private:
         GLFWwindow* m_window;
         bool m_current_fullscreen;
+        bool m_vsync_enabled;
         int m_saved_w, m_saved_h;
         standalone_input_provider m_input_provider;
 

@@ -40,7 +40,7 @@ namespace openrayman
 #ifdef _WIN32
         CreateDirectory(fix_string(path).c_str(), nullptr);
 #else
-        mkdir(fix_string(path).c_str(), 0644);
+        mkdir(fix_string(path).c_str(), 0775);
 #endif
     }
 }

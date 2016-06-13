@@ -10,27 +10,28 @@
 
 namespace openrayman
 {
-    int engine::run(const std::string& game)
+    int engine::run(const std::string& selected_game)
     {
         if(!file::exists(m_backend_specifics.get_data_path()))
         {
             message_box::display("Error!", "The data directory was not found.", true);
             return EXIT_FAILURE;
         }
-        if(!file::exists(m_backend_specifics.get_data_path() + "/common"))
+        if(!m_static_info.loaded_successfully())
         {
-            message_box::display("Error!", "The data/common/ directory was not found.", true);
+            message_box::display("Error!", "The static engine info file (info.json) could not be loaded.", true);
             return EXIT_FAILURE;
         }
-        if(!file::exists(m_backend_specifics.get_storage_path()))
-            file::create_directory(m_backend_specifics.get_storage_path() + "/");
 
-        if(!m_window.open("OpenRayman", 1024, 768, false))
+        std::string game = selected_game == "" ? m_config.game : selected_game;
+
+        if(!m_window.open("OpenRayman", 1024, 768, m_config.fullscreen))
         {
             message_box::display("Error in window creation!", "The window could not open.\nMake sure your graphics drivers are up to date.", true);
             return EXIT_FAILURE;
         }
         m_window.gl_make_current();
+        m_window.set_vsync(m_config.vsync);
 		if(gl3wInit())
 		{
 			message_box::display("Error in GL3W!", "GL3W could not be initialized.\nMake sure your graphics drivers are up to date.", true);
@@ -62,6 +63,7 @@ namespace openrayman
             m_current_delta_time = current_timer_value - m_last_timer_value;
             m_total_time += m_current_delta_time;
             m_last_timer_value = current_timer_value;
+
             glViewport(0, 0, m_window.get_size_retina_w(), m_window.get_size_retina_h());
 
             m_window.poll_events();
@@ -69,8 +71,10 @@ namespace openrayman
             const input_state& st = m_window.get_input_provider().poll();
             m_current_input = input_state(st.buttons, st.commands, st.stick_x, st.stick_y);
             if(m_current_input.command(input_command::toggle_fullscreen) && !m_last_input.command(input_command::toggle_fullscreen))
-                m_window.set_fullscreen(!m_window.get_fullscreen());
+                m_config.fullscreen = !m_config.fullscreen;
 
+            m_window.set_vsync(m_config.vsync);
+            m_window.set_fullscreen(m_config.fullscreen);
             m_window.present();
 
             m_exit_requested = m_exit_requested || m_window.wants_close();

@@ -8,6 +8,7 @@ namespace openrayman
     glfw_window::glfw_window() :
         m_window(nullptr),
         m_current_fullscreen(false),
+        m_vsync_enabled(false),
         m_saved_w(0),
         m_saved_h(0),
         m_input_provider(nullptr)
@@ -150,12 +151,9 @@ namespace openrayman
 
     void glfw_window::set_vsync(bool vsync)
     {
-        glfwSwapInterval(vsync ? 1 : 0);
-    }
-
-    bool glfw_window::get_fullscreen() const
-    {
-        return m_current_fullscreen;
+        if(m_vsync_enabled != vsync)
+            glfwSwapInterval(vsync ? 1 : 0);
+        m_vsync_enabled = vsync;
     }
 
     void glfw_window::set_fullscreen(bool fullscreen)
