@@ -10,7 +10,7 @@ namespace openrayman
         vsync(true),
         fullscreen(false),
         max_fps(0),
-        game(static_info.default_game)
+        game(static_info.game)
     {
         if(!reload())
             save();

@@ -25,7 +25,7 @@ namespace openrayman
 
         std::string game = selected_game == "" ? m_config.game : selected_game;
 
-        if(!m_window.open("OpenRayman", 1024, 768, m_config.fullscreen))
+        if(!m_window.open("OpenRayman", m_static_info.base_w * 4, m_static_info.base_h * 4, m_config.fullscreen))
         {
             message_box::display("Error in window creation!", "The window could not open.\nMake sure your graphics drivers are up to date.", true);
             return EXIT_FAILURE;

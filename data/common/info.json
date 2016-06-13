@@ -1,3 +1,6 @@
 {
-	"default_game": "rayman_2"
+	"game": "rayman_2",
+	"base_w": 320,
+	"base_h": 240,
+	"updates_per_second": 60.0
 }

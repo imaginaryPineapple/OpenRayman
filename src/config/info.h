@@ -20,7 +20,13 @@ public:
         }
 
         // The default game to load.
-        std::string default_game;
+        std::string game;
+
+        // The base canvas size.
+        int base_w, base_h;
+
+        // The number of fixed updates per second.
+        double updates_per_second;
 private:
         const backend_specifics& m_backend_specifics;
         bool m_loaded;
