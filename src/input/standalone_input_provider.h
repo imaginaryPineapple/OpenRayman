@@ -19,6 +19,7 @@ public:
         const std::string get_description() const override;
         const input_state& poll() override;
 private:
+        void poll_keyboard();
         input_state m_input;
         GLFWwindow* m_window;
     };

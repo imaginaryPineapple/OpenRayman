@@ -22,7 +22,7 @@ namespace openrayman
         a = (1 << 6),
         b = (1 << 7),
 
-        // The triggers.
+        // The triggers. Used for targeting and info
         l = (1 << 8),
         r = (1 << 9),
         z = (1 << 10),
