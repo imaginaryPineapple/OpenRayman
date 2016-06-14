@@ -46,12 +46,12 @@ int main(int argc, char** argv)
     return engine.run(selected_game);
 }
 
-#ifdef _WIN32
-
-INT WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
-{
-	// fuck windows
-	return main(0, nullptr);
-}
-
-#endif
+// #ifdef _WIN32
+//
+// INT WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
+// {
+//     // fuck windows
+//     return main(0, nullptr);
+// }
+//
+// #endif
