@@ -61,7 +61,8 @@ namespace openrayman
         {
             double current_timer_value = m_backend_specifics.get_time();
             m_current_delta_time = current_timer_value - m_last_timer_value;
-            m_accumulated_time += m_current_delta_time;
+            m_accumulated_time_fixed += m_current_delta_time;
+            m_accumulated_time_fps += m_current_delta_time;
             m_total_time += m_current_delta_time;
             m_last_timer_value = current_timer_value;
 
@@ -76,11 +77,18 @@ namespace openrayman
 
             std::cout << "Update: " << m_current_delta_time * 1000 << "ms, " << m_total_frames << std::endl;
             m_total_frames++;
-            while(m_accumulated_time >= 1 / m_static_info.updates_per_second)
+            m_accumulated_frames_fps++;
+            if(m_accumulated_time_fps >= 1)
+            {
+                m_fps = m_accumulated_frames_fps;
+                std::cout << "FPS: " << m_fps << std::endl;
+                m_accumulated_time_fps = m_accumulated_frames_fps = 0;
+            }
+            while(m_accumulated_time_fixed >= 1 / m_static_info.updates_per_second)
             {
                 std::cout << "Fixed update: " << m_total_fixed_updates << std::endl;
                 m_total_fixed_updates++;
-                m_accumulated_time -= 1 / m_static_info.updates_per_second;
+                m_accumulated_time_fixed -= 1 / m_static_info.updates_per_second;
             }
 
             m_window.present();

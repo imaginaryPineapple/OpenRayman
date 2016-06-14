@@ -36,9 +36,12 @@ public:
             m_last_timer_value(0),
             m_current_delta_time(0),
             m_total_time(0),
-            m_accumulated_time(0),
+            m_accumulated_time_fixed(0),
+            m_accumulated_time_fps(0),
             m_total_frames(0),
             m_total_fixed_updates(0),
+            m_accumulated_frames_fps(0),
+            m_fps(0),
             m_static_info(m_backend_specifics),
             m_config(m_static_info, m_backend_specifics)
             { };
@@ -111,6 +114,12 @@ public:
             return m_total_fixed_updates;
         }
 
+        // Returns the amount of frames that were executed the previous second.
+        inline std::uint64_t get_fps() const
+        {
+            return m_fps;
+        }
+
         // Returns a reference to the active static engine info.
         inline const info& get_static_info() const
         {
@@ -128,8 +137,8 @@ private:
         backend_specifics& m_backend_specifics;
         input_state m_current_input;
         input_state m_last_input;
-        double m_last_timer_value, m_current_delta_time, m_total_time, m_accumulated_time;
-        std::uint64_t m_total_frames, m_total_fixed_updates;
+        double m_last_timer_value, m_current_delta_time, m_total_time, m_accumulated_time_fixed, m_accumulated_time_fps;
+        std::uint64_t m_total_frames, m_total_fixed_updates, m_accumulated_frames_fps, m_fps;
         info m_static_info;
         config m_config;
         bool m_exit_requested;
