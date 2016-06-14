@@ -103,4 +103,15 @@ namespace openrayman
         // we use GLFW when we are run standalone.
         return glfwGetTime();
     }
+
+    void standalone_backend_specifics::yield_cpu() const
+    {
+#ifdef _WIN32
+        // might consume 100% cpu? who cares lmao
+        Sleep(0);
+#else
+        // usleep has the same effect as sched_yield, but does not consume 100% CPU.
+        usleep(0);
+#endif
+    }
 }

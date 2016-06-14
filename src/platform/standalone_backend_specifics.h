@@ -24,6 +24,8 @@ public:
         const std::string& get_storage_path() const override;
 
         double get_time() const override;
+
+        void yield_cpu() const override;
 private:
         void initialize_data_path();
         void initialize_storage_path();

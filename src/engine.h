@@ -7,6 +7,7 @@
 #include <GL/gl3w.h>
 #include <config/info.h>
 #include <config/config.h>
+#include <cstdint>
 
 #ifdef LIBRETRO_CORE
 #error Building as a libretro core is not yet supported!
@@ -35,6 +36,9 @@ public:
             m_last_timer_value(0),
             m_current_delta_time(0),
             m_total_time(0),
+            m_accumulated_time(0),
+            m_total_frames(0),
+            m_total_fixed_updates(0),
             m_static_info(m_backend_specifics),
             m_config(m_static_info, m_backend_specifics)
             { };
@@ -95,6 +99,18 @@ public:
             return m_current_delta_time;
         }
 
+        // Returns the total amount of frames that have passed since the start of the game.
+        inline std::uint64_t get_total_frames() const
+        {
+            return m_total_frames;
+        }
+
+        // Returns the total amount of fixed updates that have passed since the start of the game.
+        inline std::uint64_t get_total_fixed_updates() const
+        {
+            return m_total_fixed_updates;
+        }
+
         // Returns a reference to the active static engine info.
         inline const info& get_static_info() const
         {
@@ -112,7 +128,8 @@ private:
         backend_specifics& m_backend_specifics;
         input_state m_current_input;
         input_state m_last_input;
-        double m_last_timer_value, m_current_delta_time, m_total_time;
+        double m_last_timer_value, m_current_delta_time, m_total_time, m_accumulated_time;
+        std::uint64_t m_total_frames, m_total_fixed_updates;
         info m_static_info;
         config m_config;
         bool m_exit_requested;

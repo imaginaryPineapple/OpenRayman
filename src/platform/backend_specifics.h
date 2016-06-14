@@ -2,6 +2,7 @@
 #define BACKEND_SPECIFICS_H
 
 #include <string>
+#include <cstdint>
 
 namespace openrayman
 {
@@ -19,6 +20,9 @@ public:
 
         // Returns a high-resolution timer value in seconds.
         virtual double get_time() const = 0;
+
+        // Yields CPU using the most efficient method possible.
+        virtual void yield_cpu() const = 0;
     };
 }
 

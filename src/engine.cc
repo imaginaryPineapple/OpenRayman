@@ -61,6 +61,7 @@ namespace openrayman
         {
             double current_timer_value = m_backend_specifics.get_time();
             m_current_delta_time = current_timer_value - m_last_timer_value;
+            m_accumulated_time += m_current_delta_time;
             m_total_time += m_current_delta_time;
             m_last_timer_value = current_timer_value;
 
@@ -73,9 +74,25 @@ namespace openrayman
             if(m_current_input.command(input_command::toggle_fullscreen) && !m_last_input.command(input_command::toggle_fullscreen))
                 m_config.fullscreen = !m_config.fullscreen;
 
+            std::cout << "Update: " << m_current_delta_time * 1000 << "ms, " << m_total_frames << std::endl;
+            m_total_frames++;
+            while(m_accumulated_time >= 1 / m_static_info.updates_per_second)
+            {
+                std::cout << "Fixed update: " << m_total_fixed_updates << std::endl;
+                m_total_fixed_updates++;
+                m_accumulated_time -= 1 / m_static_info.updates_per_second;
+            }
+
+            m_window.present();
+
+            if(m_config.max_fps > 0)
+            {
+                while(m_backend_specifics.get_time() - m_last_timer_value < 1 / m_config.max_fps)
+                    m_backend_specifics.yield_cpu();
+            }
+
             m_window.set_vsync(m_config.vsync);
             m_window.set_fullscreen(m_config.fullscreen);
-            m_window.present();
 
             m_exit_requested = m_exit_requested || m_window.wants_close();
         }

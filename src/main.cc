@@ -2,9 +2,6 @@
 #include <iostream>
 #include <info.h>
 #include <engine.h>
-#ifndef _WIN32
-#include <gtk/gtk.h>
-#endif
 
 int main(int argc, char** argv)
 {
@@ -30,7 +27,7 @@ int main(int argc, char** argv)
             std::cout << "Options:" << std::endl;
             std::cout << "  --version  Display version information" << std::endl;
             std::cout << "  --game     Specifies what game to run" << std::endl;
-            std::cout << "             This will default to the game set in \"info.json\" if no game is specified." << std::endl;
+            std::cout << "             This will default to the game set in \"config.json\" if no game is specified." << std::endl;
             return EXIT_SUCCESS;
         }
         if(str == "--version")
