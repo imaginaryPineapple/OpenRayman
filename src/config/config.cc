@@ -125,7 +125,7 @@ namespace openrayman
         config_json["keyboard_map"]["r"] = keyboard_map["r"];
         config_json["keyboard_map"]["z"] = keyboard_map["z"];
 
-        config_json["keyboard_map"]["cbtn(x, -)"] = keyboard_map["cbtn(x, -"];
+        config_json["keyboard_map"]["cbtn(x, -)"] = keyboard_map["cbtn(x, -)"];
         config_json["keyboard_map"]["cbtn(x, +)"] = keyboard_map["cbtn(x, +)"];
         config_json["keyboard_map"]["cbtn(y, -)"] = keyboard_map["cbtn(y, -)"];
         config_json["keyboard_map"]["cbtn(y, +)"] = keyboard_map["cbtn(y, +)"];
