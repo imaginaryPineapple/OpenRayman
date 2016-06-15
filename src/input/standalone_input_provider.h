@@ -5,6 +5,7 @@
 #include <input/input_provider.h>
 #include <SDL2/SDL.h>
 #include <string>
+#include <unordered_map>
 
 namespace openrayman
 {
@@ -12,6 +13,7 @@ namespace openrayman
     // Sources are GLFW and libgcadapter.
     class standalone_input_provider : public input_provider
     {
+        friend class sdl_window;
 public:
         standalone_input_provider(SDL_Window* window);
         ~standalone_input_provider();
@@ -20,8 +22,10 @@ public:
         const input_state& poll() override;
 private:
         void poll_keyboard();
+        void poll_game_controller();
         input_state m_input;
         SDL_Window* m_window;
+        std::unordered_map<int, SDL_GameController*> m_game_controllers;
     };
 }
 

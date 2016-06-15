@@ -105,6 +105,26 @@ namespace openrayman
                 case SDL_QUIT:
                     m_wants_close = true;
                     break;
+
+                case SDL_CONTROLLERDEVICEADDED:
+                {
+                    SDL_GameController* ctrl = SDL_GameControllerOpen(event.cdevice.which);
+                    if(ctrl)
+                    {
+                        SDL_Joystick* joy = SDL_GameControllerGetJoystick(ctrl);
+                        int id = SDL_JoystickInstanceID(joy);
+                        m_input_provider.m_game_controllers[id] = ctrl;
+                    }
+                    break;
+                }
+
+                case SDL_CONTROLLERDEVICEREMOVED:
+                    if(m_input_provider.m_game_controllers.count(event.cdevice.which) > 0)
+                    {
+                        SDL_GameControllerClose(m_input_provider.m_game_controllers[event.cdevice.which]);
+                        m_input_provider.m_game_controllers.erase(event.cdevice.which);
+                    }
+                    break;
             }
         }
     }

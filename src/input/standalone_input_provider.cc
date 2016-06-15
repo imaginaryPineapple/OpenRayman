@@ -22,6 +22,7 @@ namespace openrayman
     {
         m_input.stick_x = m_input.stick_y = m_input.buttons = m_input.commands = 0;
         poll_keyboard();
+        poll_game_controller();
         return m_input;
     }
 
@@ -32,8 +33,6 @@ namespace openrayman
         // Keyboard
         // This is not 100% accurate to the original PC version because
         // the N64 version is not the same as the PC version
-        // TODO: rebindable keyboard controls
-        // and controller...
 
         // Control stick
         // This simulates a slower walk done by the control stick
@@ -41,14 +40,23 @@ namespace openrayman
         // TODO: Is half (64) accurate?!?!
         int walk_strength = keyboard_state[SDL_SCANCODE_LSHIFT] ? 64 : 127;
 
+        int new_stick_x = m_input.stick_x;
+        int new_stick_y = m_input.stick_y;
+
         if(keyboard_state[SDL_SCANCODE_LEFT])
-            m_input.stick_x -= walk_strength;
+            new_stick_x -= walk_strength;
         if(keyboard_state[SDL_SCANCODE_RIGHT])
-            m_input.stick_x += walk_strength;
+            new_stick_x += walk_strength;
         if(keyboard_state[SDL_SCANCODE_UP])
-            m_input.stick_y -= walk_strength;
+            new_stick_y -= walk_strength;
         if(keyboard_state[SDL_SCANCODE_DOWN])
-            m_input.stick_y += walk_strength;
+            new_stick_y += walk_strength;
+
+        new_stick_x = std::min(127, std::max(-127, new_stick_x));
+        new_stick_y = std::min(127, std::max(-127, new_stick_y));
+
+        m_input.stick_x = new_stick_x;
+        m_input.stick_y = new_stick_y;
 
         // Front buttons
         if(keyboard_state[SDL_SCANCODE_SPACE])
@@ -81,5 +89,64 @@ namespace openrayman
         // Commands
         if(keyboard_state[SDL_SCANCODE_F11])
             m_input.commands |= input_command::toggle_fullscreen;
+    }
+
+    void standalone_input_provider::poll_game_controller()
+    {
+        // Game controller
+        // Again, not 100% accurate to the original PC version because
+        // the N64 version is not the same as the PC version and the original game
+        // was not meant to be played with Xbox controllers and frankly, the original
+        // layout is shit and doesn't work most of the time (dinput)
+
+        for(const std::pair<int, SDL_GameController*>& pair : m_game_controllers)
+        {
+            SDL_GameController* controller = pair.second;
+
+            // Control stick
+            std::int16_t stick_x = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX) / 258;
+            std::int16_t stick_y = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY) / 258;
+
+            int new_stick_x = m_input.stick_x;
+            int new_stick_y = m_input.stick_y;
+
+            new_stick_x += stick_x;
+            new_stick_y += stick_y;
+
+            new_stick_x = std::min(127, std::max(-127, new_stick_x));
+            new_stick_y = std::min(127, std::max(-127, new_stick_y));
+
+            m_input.stick_x = new_stick_x;
+            m_input.stick_y = new_stick_y;
+
+            // Front buttons
+            if(SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_A))
+                m_input.buttons |= input_button::a;
+            if(SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_X))
+                m_input.buttons |= input_button::b;
+
+            // Triggers
+            if(SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 20000 ||
+                SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_LEFTSHOULDER))
+                m_input.buttons |= input_button::z;
+            if(SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_Y))
+                m_input.buttons |= input_button::l;
+            if(SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_B))
+                m_input.buttons |= input_button::r;
+
+            // Start button
+            if(SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_START))
+                m_input.buttons |= input_button::start;
+
+            // C buttons
+            if(SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_DPAD_LEFT))
+                m_input.commands |= input_button::cbtn_left;
+            if(SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_DPAD_RIGHT))
+                m_input.commands |= input_button::cbtn_right;
+            if(SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_DPAD_UP))
+                m_input.commands |= input_button::cbtn_up;
+            if(SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_DPAD_DOWN))
+                m_input.commands |= input_button::cbtn_down;
+        }
     }
 }

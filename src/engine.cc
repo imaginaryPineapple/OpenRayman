@@ -49,9 +49,9 @@ namespace openrayman
         // Provide more complete info for the user.
         std::stringstream title;
         title << "OpenRayman " << openrayman::version << " "
-        	  << (this_platform == platform::windows ? "Win32" : "Linux")
-              << " (OpenGL " << gl_major << "." << gl_minor << ")"
-              << " (Game \"" << load_game << "\")";
+            << (this_platform == platform::windows ? "Win32" : "Linux")
+            << " (OpenGL " << gl_major << "." << gl_minor << ")"
+            << " (Game \"" << load_game << "\")";
         m_window.set_title(title.str());
 
         std::vector<std::uint8_t> icon_data;
