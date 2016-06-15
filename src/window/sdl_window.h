@@ -5,6 +5,7 @@
 #include <SDL2/SDL_opengl.h>
 #include <string>
 #include <cstdint>
+#include <config/config.h>
 #include <window/window.h>
 #include <input/input_provider.h>
 #include <input/standalone_input_provider.h>
@@ -15,11 +16,11 @@ namespace openrayman
     class sdl_window : public window
     {
 public:
+        sdl_window(config& config);
+        ~sdl_window();
+
         bool open(const std::string& title, int w, int h, bool initial_fullscreen) override;
         void close() override;
-
-        sdl_window();
-        ~sdl_window();
 
         void gl_make_current() override;
         void present() override;

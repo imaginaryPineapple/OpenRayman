@@ -3,6 +3,7 @@
 
 #include <input/input_state.h>
 #include <input/input_provider.h>
+#include <config/config.h>
 #include <SDL2/SDL.h>
 #include <string>
 #include <unordered_map>
@@ -15,8 +16,11 @@ namespace openrayman
     {
         friend class sdl_window;
 public:
-        standalone_input_provider(SDL_Window* window);
-        ~standalone_input_provider();
+        standalone_input_provider(config& config) :
+            m_input(0, 0, 0),
+            m_config(config)
+        {
+        }
 
         const std::string get_description() const override;
         const input_state& poll() override;
@@ -24,7 +28,7 @@ private:
         void poll_keyboard();
         void poll_game_controller();
         input_state m_input;
-        SDL_Window* m_window;
+        config& m_config;
         std::unordered_map<int, SDL_GameController*> m_game_controllers;
     };
 }

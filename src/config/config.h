@@ -2,7 +2,9 @@
 #define CONFIG_H
 
 #include <string>
+#include <input/input_state.h>
 #include <platform/backend_specifics.h>
+#include <unordered_map>
 
 namespace openrayman
 {
@@ -23,7 +25,7 @@ public:
         // Saves the config file and all changes to the disk.
         // Returns true if the config was saved successfully.
         // This is done automatically in the destructor.
-        bool save() const;
+        bool save();
 
         // If the game should be synchronized to the vertical blank of the screen.
         // This might introduce additional input lag (though we do use glFinish to minimize it).
@@ -39,6 +41,9 @@ public:
         // The user selected game to load.
         // Defaults to the game "rayman2_openrayman".
         std::string game;
+
+        // User mappings for keyboard when running standalone.
+        std::unordered_map<std::string, std::string> keyboard_map;
 private:
         const backend_specifics& m_backend_specifics;
     };

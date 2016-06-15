@@ -10,10 +10,11 @@ namespace openrayman
     enum input_button : std::uint16_t
     {
         // All four dpad axises.
-        dpad_left = (1 << 1),
-        dpad_right = (1 << 2),
-        dpad_up = (1 << 3),
-        dpad_down = (1 << 4),
+        // These are never used in Rayman 2
+        // dpad_left = (1 << 1),
+        // dpad_right = (1 << 2),
+        // dpad_up = (1 << 3),
+        // dpad_down = (1 << 4),
 
         // The start button. Used for pausing.
         start = (1 << 5),

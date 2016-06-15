@@ -6,12 +6,12 @@ namespace openrayman
 {
     int sdl_window::m_sdl_ref_count = 0;
 
-    sdl_window::sdl_window() :
+    sdl_window::sdl_window(config& config) :
         m_window(nullptr),
         m_current_fullscreen(false),
         m_vsync_enabled(false),
         m_wants_close(false),
-        m_input_provider(nullptr)
+        m_input_provider(config)
     {
         if(m_sdl_ref_count <= 0)
         {
@@ -60,8 +60,6 @@ namespace openrayman
             close();
             return false;
         }
-
-        m_input_provider = standalone_input_provider(m_window);
 
         SDL_GL_SetSwapInterval(0);
         SDL_ShowCursor(SDL_DISABLE);

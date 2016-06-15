@@ -26,12 +26,11 @@ public:
         engine() :
             m_exit_requested(false),
 #ifdef LIBRETRO_CORE
-            m_window(*(new libretro_window())),
             m_backend_specifics(*(new libretro_backend_specifics())),
 #else
-            m_window(*(new sdl_window())),
             m_backend_specifics(*(new standalone_backend_specifics())),
 #endif
+            m_config(m_backend_specifics),
             m_current_input(0, 0, 0),
             m_last_input(0, 0, 0),
             m_last_timer_value(0),
@@ -43,7 +42,11 @@ public:
             m_total_fixed_updates(0),
             m_accumulated_frames_fps(0),
             m_fps(0),
-            m_config(m_backend_specifics)
+#ifdef LIBRETRO_CORE
+            m_window(*(new libretro_window()))
+#else
+            m_window(*(new sdl_window(m_config)))
+#endif
             { };
 
         // Starts the game loop and loads the specified game.
