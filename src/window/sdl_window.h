@@ -1,7 +1,8 @@
-#ifndef GLFW_WINDOW_H
-#define GLFW_WINDOW_H
+#ifndef SDL_WINDOW_H
+#define SDL_WINDOW_H
 
-#include <GLFW/glfw3.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_opengl.h>
 #include <string>
 #include <cstdint>
 #include <window/window.h>
@@ -10,15 +11,15 @@
 
 namespace openrayman
 {
-    // Window using GLFW as backend. This is used when the game is run standalone.
-    class glfw_window : public window
+    // Window using SDL2 as backend. This is used when the game is run standalone.
+    class sdl_window : public window
     {
 public:
         bool open(const std::string& title, int w, int h, bool initial_fullscreen) override;
         void close() override;
 
-        glfw_window();
-        ~glfw_window();
+        sdl_window();
+        ~sdl_window();
 
         void gl_make_current() override;
         void present() override;
@@ -35,15 +36,14 @@ public:
         void set_title(const std::string& title) override;
         void set_vsync(bool vsync) override;
         void set_fullscreen(bool fullscreen) override;
-        void set_icon(const std::uint8_t* rgba32_data, int w, int h) override;
+        void set_icon(std::uint8_t* rgba32_data, int w, int h) override;
 private:
-        GLFWwindow* m_window;
-        bool m_current_fullscreen;
-        bool m_vsync_enabled;
-        int m_saved_w, m_saved_h;
+        SDL_Window* m_window;
+        SDL_GLContext m_gl_ctx;
+        bool m_current_fullscreen, m_vsync_enabled, m_wants_close;
         standalone_input_provider m_input_provider;
 
-        static int m_glfw_ref_count;
+        static int m_sdl_ref_count;
     };
 }
 

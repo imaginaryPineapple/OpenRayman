@@ -58,8 +58,8 @@ public:
         // This should not incur any performance penalty.
         virtual void set_fullscreen(bool fullscreen) = 0;
 
-        // Set the user visible icon of the window. This will default to the OS picked icon if nullptr is specified.
-        virtual void set_icon(const std::uint8_t* rgba32_data, int w, int h) = 0;
+        // Set the user visible icon of the window.
+        virtual void set_icon(std::uint8_t* rgba32_data, int w, int h) = 0;
     };
 }
 

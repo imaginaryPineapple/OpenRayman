@@ -28,7 +28,6 @@ if(MSVC)
 endif()
 
 set(BuildTests OFF)
-add_subdirectory(lib/glfw)
 add_subdirectory(lib/gl3w)
 add_subdirectory(lib/json)
 add_subdirectory(src)

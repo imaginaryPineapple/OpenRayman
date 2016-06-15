@@ -13,7 +13,7 @@
 #ifdef LIBRETRO_CORE
 #error Building as a libretro core is not yet supported!
 #else
-#include <window/glfw_window.h>
+#include <window/sdl_window.h>
 #include <platform/standalone_backend_specifics.h>
 #endif
 
@@ -29,7 +29,7 @@ public:
             m_window(*(new libretro_window())),
             m_backend_specifics(*(new libretro_backend_specifics())),
 #else
-            m_window(*(new glfw_window())),
+            m_window(*(new sdl_window())),
             m_backend_specifics(*(new standalone_backend_specifics())),
 #endif
             m_current_input(0, 0, 0),

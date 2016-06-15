@@ -1,6 +1,5 @@
 #include <platform/standalone_backend_specifics.h>
 #include <platform/file.h>
-#include <GLFW/glfw3.h>
 #ifdef _WIN32
 #include <shlobj.h>
 #include <windows.h>
@@ -15,6 +14,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #endif
+#include <chrono>
 
 namespace openrayman
 {
@@ -100,8 +100,8 @@ namespace openrayman
 
     double standalone_backend_specifics::get_time() const
     {
-        // we use GLFW when we are run standalone.
-        return glfwGetTime();
+        std::chrono::high_resolution_clock::time_point time = std::chrono::high_resolution_clock::now();
+        return std::chrono::duration_cast<std::chrono::duration<double>>(time.time_since_epoch()).count();
     }
 
     void standalone_backend_specifics::yield_cpu() const

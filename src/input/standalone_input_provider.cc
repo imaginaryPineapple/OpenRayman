@@ -1,8 +1,9 @@
 #include <input/standalone_input_provider.h>
+#include <cstdint>
 
 namespace openrayman
 {
-    standalone_input_provider::standalone_input_provider(GLFWwindow* window) :
+    standalone_input_provider::standalone_input_provider(SDL_Window* window) :
         m_input(0, 0, 0),
         m_window(window)
     {
@@ -14,7 +15,7 @@ namespace openrayman
 
     const std::string standalone_input_provider::get_description() const
     {
-        return "Standalone input provider (GLFW, libgcadapter)";
+        return "SDL2 input provider (standalone)";
     }
 
     const input_state& standalone_input_provider::poll()
@@ -26,6 +27,8 @@ namespace openrayman
 
     void standalone_input_provider::poll_keyboard()
     {
+        const std::uint8_t* keyboard_state = SDL_GetKeyboardState(nullptr);
+
         // Keyboard
         // This is not 100% accurate to the original PC version because
         // the N64 version is not the same as the PC version
@@ -36,47 +39,47 @@ namespace openrayman
         // This simulates a slower walk done by the control stick
         // Used in some areas to avoid pirates
         // TODO: Is half (64) accurate?!?!
-        int walk_strength = glfwGetKey(m_window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS ? 64 : 127;
+        int walk_strength = keyboard_state[SDL_SCANCODE_LSHIFT] ? 64 : 127;
 
-        if(glfwGetKey(m_window, GLFW_KEY_LEFT) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_LEFT])
             m_input.stick_x -= walk_strength;
-        if(glfwGetKey(m_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_RIGHT])
             m_input.stick_x += walk_strength;
-        if(glfwGetKey(m_window, GLFW_KEY_UP) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_UP])
             m_input.stick_y -= walk_strength;
-        if(glfwGetKey(m_window, GLFW_KEY_DOWN) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_DOWN])
             m_input.stick_y += walk_strength;
 
         // Front buttons
-        if(glfwGetKey(m_window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_SPACE])
             m_input.buttons |= input_button::a;
-        if(glfwGetKey(m_window, GLFW_KEY_A) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_A])
             m_input.buttons |= input_button::b;
 
         // Triggers
-        if(glfwGetKey(m_window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_LCTRL])
             m_input.buttons |= input_button::z;
-        if(glfwGetKey(m_window, GLFW_KEY_F1) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_F1])
             m_input.buttons |= input_button::l;
-        if(glfwGetKey(m_window, GLFW_KEY_J) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_J])
             m_input.buttons |= input_button::r;
 
         // Start button
-        if(glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_ESCAPE])
             m_input.buttons |= input_button::start;
 
         // C buttons
-        if(glfwGetKey(m_window, GLFW_KEY_Q) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_Q])
             m_input.commands |= input_button::cbtn_left;
-        if(glfwGetKey(m_window, GLFW_KEY_W) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_W])
             m_input.commands |= input_button::cbtn_right;
-        if(glfwGetKey(m_window, GLFW_KEY_O) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_O])
             m_input.commands |= input_button::cbtn_up;
-        if(glfwGetKey(m_window, GLFW_KEY_END) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_END])
             m_input.commands |= input_button::cbtn_down;
 
         // Commands
-        if(glfwGetKey(m_window, GLFW_KEY_F11) == GLFW_PRESS)
+        if(keyboard_state[SDL_SCANCODE_F11])
             m_input.commands |= input_command::toggle_fullscreen;
     }
 }

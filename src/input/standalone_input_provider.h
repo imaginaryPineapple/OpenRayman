@@ -3,7 +3,7 @@
 
 #include <input/input_state.h>
 #include <input/input_provider.h>
-#include <GLFW/glfw3.h>
+#include <SDL2/SDL.h>
 #include <string>
 
 namespace openrayman
@@ -13,7 +13,7 @@ namespace openrayman
     class standalone_input_provider : public input_provider
     {
 public:
-        standalone_input_provider(GLFWwindow* window);
+        standalone_input_provider(SDL_Window* window);
         ~standalone_input_provider();
 
         const std::string get_description() const override;
@@ -21,7 +21,7 @@ public:
 private:
         void poll_keyboard();
         input_state m_input;
-        GLFWwindow* m_window;
+        SDL_Window* m_window;
     };
 }
 
