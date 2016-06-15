@@ -2,7 +2,6 @@
 #define CONFIG_H
 
 #include <string>
-#include <config/info.h>
 #include <platform/backend_specifics.h>
 #include <json.hpp>
 
@@ -13,7 +12,7 @@ namespace openrayman
     class config
     {
 public:
-        config(const info& static_info, const backend_specifics& backend_specifics);
+        config(const backend_specifics& backend_specifics);
         ~config();
 
         // Reloads the config file from the disk.
@@ -39,7 +38,7 @@ public:
         double max_fps;
 
         // The user selected game to load.
-        // Defaults to the game set in "info.json".
+        // Defaults to the game "rayman2_openrayman".
         std::string game;
 private:
         const backend_specifics& m_backend_specifics;

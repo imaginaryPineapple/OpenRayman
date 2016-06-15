@@ -5,12 +5,12 @@
 
 namespace openrayman
 {
-    config::config(const info& static_info, const backend_specifics& backend_specifics) :
+    config::config(const backend_specifics& backend_specifics) :
         m_backend_specifics(backend_specifics),
         vsync(true),
         fullscreen(false),
         max_fps(0),
-        game(static_info.game)
+        game("rayman2_openrayman")
     {
         if(!reload())
             save();

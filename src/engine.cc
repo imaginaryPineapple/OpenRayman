@@ -17,15 +17,10 @@ namespace openrayman
             message_box::display("Error!", "The data directory was not found.", true);
             return EXIT_FAILURE;
         }
-        if(!m_static_info.loaded_successfully())
-        {
-            message_box::display("Error!", "The static engine info file (info.json) could not be loaded.", true);
-            return EXIT_FAILURE;
-        }
 
         std::string game = selected_game == "" ? m_config.game : selected_game;
 
-        if(!m_window.open("OpenRayman", m_static_info.base_w * 4, m_static_info.base_h * 4, m_config.fullscreen))
+        if(!m_window.open("OpenRayman", 1024, 768, m_config.fullscreen))
         {
             message_box::display("Error in window creation!", "The window could not open.\nMake sure your graphics drivers are up to date.", true);
             return EXIT_FAILURE;
@@ -84,11 +79,11 @@ namespace openrayman
                 std::cout << "FPS: " << m_fps << std::endl;
                 m_accumulated_time_fps = m_accumulated_frames_fps = 0;
             }
-            while(m_accumulated_time_fixed >= 1 / m_static_info.updates_per_second)
+            while(m_accumulated_time_fixed >= 1 / 60.0)
             {
                 std::cout << "Fixed update: " << m_total_fixed_updates << std::endl;
                 m_total_fixed_updates++;
-                m_accumulated_time_fixed -= 1 / m_static_info.updates_per_second;
+                m_accumulated_time_fixed -= 1 / 60.0;
             }
 
             m_window.present();

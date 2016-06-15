@@ -1,0 +1,3 @@
+This is the game that is run by default when OpenRayman is started.
+It contains modifications to Rayman 2 specific to OpenRayman (such as menus, etc).
+It depends on the game "rayman2", which can be obtained by extracting it from a valid installation of Rayman 2.
