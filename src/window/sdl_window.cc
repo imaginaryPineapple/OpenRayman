@@ -101,8 +101,10 @@ namespace openrayman
             switch(event.type)
             {
                 case SDL_QUIT:
+                {
                     m_wants_close = true;
                     break;
+                }
 
                 case SDL_CONTROLLERDEVICEADDED:
                 {
@@ -117,12 +119,14 @@ namespace openrayman
                 }
 
                 case SDL_CONTROLLERDEVICEREMOVED:
+                {
                     if(m_input_provider.m_game_controllers.count(event.cdevice.which) > 0)
                     {
                         SDL_GameControllerClose(m_input_provider.m_game_controllers[event.cdevice.which]);
                         m_input_provider.m_game_controllers.erase(event.cdevice.which);
                     }
                     break;
+                }
             }
         }
     }

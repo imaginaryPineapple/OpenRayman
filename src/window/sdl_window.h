@@ -1,6 +1,7 @@
 #ifndef SDL_WINDOW_H
 #define SDL_WINDOW_H
 
+#include <GL/gl3w.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <string>

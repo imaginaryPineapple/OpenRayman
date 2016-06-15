@@ -3,6 +3,21 @@
 #include <info.h>
 #include <engine.h>
 
+bool console_open = false;
+
+void make_sure_console_open()
+{
+#ifdef _WIN32
+	if(!console_open)
+	{
+		if(!AttachConsole(-1))
+			AllocConsole();
+		freopen("CONOUT$", "w", stdout);
+		console_open = true;
+	}
+#endif
+}
+
 int main(int argc, char** argv)
 {
     std::string selected_game = "";
@@ -14,6 +29,7 @@ int main(int argc, char** argv)
             n++;
             if(n >= argc)
             {
+				make_sure_console_open();
                 std::cout << "No game was specified." << std::endl;
                 return EXIT_FAILURE;
             }
@@ -22,12 +38,14 @@ int main(int argc, char** argv)
         }
         if(str == "--convert-data")
         {
+			make_sure_console_open();
             std::cout << "TODO" << std::endl;
             return EXIT_FAILURE;
         }
         // Follow GNU format
         if(str == "--help")
         {
+			make_sure_console_open();
             std::cout << "Usage: openrayman [options] ..." << std::endl;
             std::cout << "Options:" << std::endl;
             std::cout << "  --version                    Display version information" << std::endl;
@@ -39,6 +57,7 @@ int main(int argc, char** argv)
         }
         if(str == "--version")
         {
+			make_sure_console_open();
             std::cout << "OpenRayman " << openrayman::version << " Copyright (C) 2016 Hannes Mann" << std::endl;
             std::cout << "This program comes with ABSOLUTELY NO WARRANTY; for details read the source file \"LICENSE.md\"." << std::endl;
             std::cout << "This is free software, and you are welcome to redistribute it" << std::endl;
@@ -53,12 +72,12 @@ int main(int argc, char** argv)
     return engine.run(selected_game);
 }
 
-// #ifdef _WIN32
-//
-// INT WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
-// {
-//     // fuck windows
-//     return main(0, nullptr);
-// }
-//
-// #endif
+#ifdef _WIN32
+
+INT WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
+{
+    // fuck windows
+	return main(__argc, __argv);
+}
+
+#endif

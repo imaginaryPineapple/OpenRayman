@@ -35,3 +35,7 @@ bin/
 build/
 build_linux/
 build_win/
+
+# SDL2 windows
+!win32/SDL2/libSDL2.dll.a
+!win32/SDL2/SDL2.dll
