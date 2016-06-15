@@ -36,7 +36,7 @@ public:
         void set_title(const std::string& title) override;
         void set_vsync(bool vsync) override;
         void set_fullscreen(bool fullscreen) override;
-        void set_icon(std::uint8_t* abgr32_data, int w, int h) override;
+        void set_icon(std::uint8_t* rgba32_data, int w, int h) override;
 private:
         SDL_Window* m_window;
         SDL_GLContext m_gl_ctx;

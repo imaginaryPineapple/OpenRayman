@@ -168,9 +168,14 @@ namespace openrayman
         m_current_fullscreen = fullscreen;
     }
 
-    void sdl_window::set_icon(std::uint8_t* abgr32_data, int w, int h)
+    void sdl_window::set_icon(std::uint8_t* rgba32_data, int w, int h)
     {
-        SDL_Surface* surface = SDL_CreateRGBSurfaceFrom(abgr32_data, w, h, 32, w * 4, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
+        // SDL interprets in native endian
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+        SDL_Surface* surface = SDL_CreateRGBSurfaceFrom(rgba32_data, w, h, 32, w * 4, 0xff000000, 0x00ff0000, 0x0000ff00, 0x000000ff);
+#else
+        SDL_Surface* surface = SDL_CreateRGBSurfaceFrom(rgba32_data, w, h, 32, w * 4, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
+#endif
         SDL_SetWindowIcon(m_window, surface);
         SDL_FreeSurface(surface);
     }
