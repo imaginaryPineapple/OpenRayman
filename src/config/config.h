@@ -3,7 +3,6 @@
 
 #include <string>
 #include <platform/backend_specifics.h>
-#include <json.hpp>
 
 namespace openrayman
 {

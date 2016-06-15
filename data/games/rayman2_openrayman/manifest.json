@@ -1,8 +1,8 @@
 {
 	"info":
 	{
-		"name": "Rayman 2 (OpenRayman)",
-		"description": "Rayman 2 with modifications for OpenRayman"
+		"name": "Rayman 2: The Great Escape (OpenRayman)",
+		"description": "Rayman 2: The Great Escape with modifications for OpenRayman"
 	},
 	"dependencies": ["rayman2"]
 }

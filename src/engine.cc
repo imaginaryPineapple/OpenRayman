@@ -14,22 +14,30 @@ namespace openrayman
     {
         if(!file::exists(m_backend_specifics.get_data_path()))
         {
-            message_box::display("Error!", "The data directory was not found.", true);
+            message_box::display("[openrayman::engine] Error!", "The data directory was not found.", true);
             return EXIT_FAILURE;
         }
+        if(!file::exists(m_backend_specifics.get_storage_path() + "/games"))
+            file::create_directory(m_backend_specifics.get_storage_path() + "/games");
 
-        std::string game = selected_game == "" ? m_config.game : selected_game;
+        std::string load_game = selected_game == "" ? m_config.game : selected_game;
+        m_game = std::unique_ptr<game>(new game(m_backend_specifics, load_game));
+
+        if(!m_game->valid())
+            return EXIT_FAILURE;
 
         if(!m_window.open("OpenRayman", 1024, 768, m_config.fullscreen))
         {
-            message_box::display("Error in window creation!", "The window could not open.\nMake sure your graphics drivers are up to date.", true);
+            message_box::display("[openrayman::engine] Error!", "The window could not open."
+                "\nMake sure your graphics drivers are up to date.", true);
             return EXIT_FAILURE;
         }
         m_window.gl_make_current();
         m_window.set_vsync(m_config.vsync);
 		if(gl3wInit())
 		{
-			message_box::display("Error in GL3W!", "GL3W could not be initialized.\nMake sure your graphics drivers are up to date.", true);
+			message_box::display("[openrayman::engine] Error!", "GL3W could not be initialized."
+                "\nMake sure your graphics drivers are up to date.", true);
 			return EXIT_FAILURE;
         }
 
@@ -43,7 +51,7 @@ namespace openrayman
         title << "OpenRayman " << openrayman::version << " "
         	  << (this_platform == platform::windows ? "Win32" : "Linux")
               << " (OpenGL " << gl_major << "." << gl_minor << ")"
-              << " (Game \"" << game << "\")";
+              << " (Game \"" << load_game << "\")";
         m_window.set_title(title.str());
 
         std::vector<std::uint8_t> icon_data;
@@ -61,6 +69,8 @@ namespace openrayman
             m_total_time += m_current_delta_time;
             m_last_timer_value = current_timer_value;
 
+            glClearColor(0, 0, 0, 0);
+            glClear(GL_COLOR_BUFFER_BIT);
             glViewport(0, 0, m_window.get_size_retina_w(), m_window.get_size_retina_h());
 
             m_window.poll_events();

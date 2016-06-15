@@ -7,6 +7,8 @@
 #include <GL/gl3w.h>
 #include <config/config.h>
 #include <cstdint>
+#include <game.h>
+#include <memory>
 
 #ifdef LIBRETRO_CORE
 #error Building as a libretro core is not yet supported!
@@ -124,6 +126,12 @@ public:
             return m_config;
         }
 
+        // Returns a reference to the active game.
+        inline const game& get_game() const
+        {
+            return *m_game;
+        }
+
 private:
         window& m_window;
         backend_specifics& m_backend_specifics;
@@ -132,6 +140,7 @@ private:
         double m_last_timer_value, m_current_delta_time, m_total_time, m_accumulated_time_fixed, m_accumulated_time_fps;
         std::uint64_t m_total_frames, m_total_fixed_updates, m_accumulated_frames_fps, m_fps;
         config m_config;
+        std::unique_ptr<game> m_game;
         bool m_exit_requested;
     };
 }
