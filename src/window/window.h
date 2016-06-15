@@ -59,7 +59,7 @@ public:
         virtual void set_fullscreen(bool fullscreen) = 0;
 
         // Set the user visible icon of the window.
-        virtual void set_icon(std::uint8_t* rgba32_data, int w, int h) = 0;
+        virtual void set_icon(std::uint8_t* abgr32_data, int w, int h) = 0;
     };
 }
 
