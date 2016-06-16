@@ -72,3 +72,9 @@ You might also need `mingw32-make -j8` instead of `make -j8`.
 
 
 Mac OS X is not supported at the moment (might work with CMake?).
+
+
+## Special thanks to
+
+
+https://github.com/szymski/Rayman2Lib
