@@ -21,6 +21,7 @@ void make_sure_console_open()
 int main(int argc, char** argv)
 {
     std::string selected_game = "";
+	std::string selected_install_folder = "";
     for(int n = 0; n < argc; n++)
     {
         std::string str(argv[n]);
@@ -38,9 +39,15 @@ int main(int argc, char** argv)
         }
         if(str == "--convert-data")
         {
-			make_sure_console_open();
-            std::cout << "TODO" << std::endl;
-            return EXIT_FAILURE;
+			n++;
+            if(n >= argc)
+            {
+				make_sure_console_open();
+                std::cout << "No install folder was specified." << std::endl;
+                return EXIT_FAILURE;
+            }
+            std::string install_folder(argv[n]);
+            selected_install_folder = install_folder;
         }
         // Follow GNU format
         if(str == "--help")
@@ -48,11 +55,13 @@ int main(int argc, char** argv)
 			make_sure_console_open();
             std::cout << "Usage: openrayman [options] ..." << std::endl;
             std::cout << "Options:" << std::endl;
-            std::cout << "  --version                    Display version information" << std::endl;
-            std::cout << "  --game \"game name\"           Specifies what game OpenRayman should load" << std::endl;
-            std::cout << "                               This will default to the game set in the config file if no game is specified" << std::endl;
-            std::cout << "  --convert-data \"folder\"      Converts the data folder specified into a format that OpenRayman can read" << std::endl;
-            std::cout << "                               This is needed to ease modding support" << std::endl;
+            std::cout << "  --version                              Display version information" << std::endl;
+            std::cout << "  --game \"game name\"                     Specifies what game OpenRayman should load" << std::endl;
+            std::cout << "                                         This will default to the game set in the config file if no game is specified" << std::endl;
+            std::cout << "  --convert-data \"install folder\"        Converts the install folder specified into a format that OpenRayman can read" << std::endl;
+            std::cout << "                                         This is needed to ease modding support" << std::endl;
+			std::cout << "                                         This can also be done by starting the game without extracted data" << std::endl;
+			std::cout << "                                         In that case, you will get a directory picker" << std::endl;
             return EXIT_SUCCESS;
         }
         if(str == "--version")
@@ -69,7 +78,7 @@ int main(int argc, char** argv)
     std::cout << "Running on " << (openrayman::this_platform == openrayman::platform::windows ? "Windows" : "Linux") << std::endl;
     std::cout << "Using game " << (selected_game == "" ? "from config" : "\"" + selected_game + "\"") << std::endl;
     openrayman::engine engine;
-    return engine.run(selected_game);
+    return engine.run(selected_game, selected_install_folder);
 }
 
 #ifdef _WIN32

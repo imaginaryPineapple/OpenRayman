@@ -1,0 +1,17 @@
+[Messages]
+110:installer
+111:desinstaller
+112:jouer
+113:quitter
+
+[ConfigName]
+2000:Configuration 3Dfx Voodoo 1 ou 2
+2001:Configuration DirectX 6.1
+
+[ApplicationName]
+3000:Rayman 2 Demo
+3001:Rayman 2 Demo
+
+[LocalizedApplicationName]
+4000:Rayman 2 Demo
+4001:Rayman 2 Demo

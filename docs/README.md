@@ -46,7 +46,6 @@ Some files used by the Rayman 2: The Great Escape engine are encoded via a simpl
 The general formula for decoding these files (as provided by Rayman2Lib) in psuedo code is
 
 ```
-skip int32 (magic number)
 magic = 1790299257
 for each byte
 	byte ^= (magic >> 8) & 255

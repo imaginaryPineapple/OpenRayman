@@ -7,10 +7,11 @@
 #include <platform/message_box.h>
 #include <platform/file.h>
 #include <lodepng.h>
+#include <data_extractor/data_extractor.h>
 
 namespace openrayman
 {
-    int engine::run(const std::string& selected_game)
+    int engine::run(const std::string& selected_game, const std::string& selected_install_folder)
     {
         if(!file::exists(m_backend_specifics.get_data_path()))
         {
@@ -20,11 +21,33 @@ namespace openrayman
         if(!file::exists(m_backend_specifics.get_storage_path() + "/games"))
             file::create_directory(m_backend_specifics.get_storage_path() + "/games");
 
+        if(selected_install_folder != "")
+        {
+            data_extractor extractor(m_backend_specifics);
+            return extractor.extract(selected_install_folder) ? EXIT_SUCCESS : EXIT_FAILURE;
+        }
+
         std::string load_game = selected_game == "" ? m_config.game : selected_game;
         m_game = std::unique_ptr<game>(new game(m_backend_specifics, load_game));
 
         if(!m_game->valid())
-            return EXIT_FAILURE;
+        {
+            if(message_box::display_yesno("[openrayman::engine] Extract data?", "Should OpenRayman attempt to extract a"
+                "\nRayman 2: The Great Escape installation and try again?", false))
+            {
+                std::string directory = message_box::display_pickdir("Select a valid Rayman 2: The Great Escape installation folder");
+                if(directory == "")
+                    return EXIT_FAILURE;
+                data_extractor extractor(m_backend_specifics);
+                if(!extractor.extract(directory))
+                    return EXIT_FAILURE;
+                m_game = std::unique_ptr<game>(new game(m_backend_specifics, load_game));
+                if(!m_game->valid())
+                    return EXIT_FAILURE;
+            }
+            else
+                return EXIT_FAILURE;
+        }
 
         if(!m_window.open("OpenRayman", 1024, 768, m_config.fullscreen))
         {

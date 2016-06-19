@@ -50,7 +50,7 @@ public:
             { };
 
         // Starts the game loop and loads the specified game.
-        int run(const std::string& selected_game);
+        int run(const std::string& selected_game, const std::string& selected_install_folder);
 
         // Requests that the game loop stops.
         void exit()

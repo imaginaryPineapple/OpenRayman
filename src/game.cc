@@ -18,8 +18,7 @@ namespace openrayman
             // Show a special message if we can't find "rayman2".
             if(name == "rayman2")
                 message_box::display("[openrayman::game] Error!", "Rayman 2: The Great Escape could not be found in the user or data directory."
-                    "\nYou need to extract the game using the command line option \"--extract-data\"."
-                    "\nRead the file \"README.md\" or use the command line option \"--help\" for further instructions.", true);
+                    "\nRefer to the the file \"README.md\" or use the command line option \"--help\" for further instructions.", true);
             else
                 message_box::display("[openrayman::game] Error!", "The game \"" + name + "\" could not be found in the user or data directory."
                     "\nThis could be the result of a broken dependency.", true);

@@ -13,7 +13,7 @@ An open source reimplementation of the Rayman 2: The Great Escape engine using C
 OpenRayman needs the base game `rayman2` to run.
 
 
-`rayman2` can be created by using the command line option `--extract-data "folder"`. The `folder` variable should point to a valid Rayman 2: The Great Escape installation.
+`rayman2` can be created by starting OpenRayman without it or by using the command line option `--extract-data "folder"`. The `folder` variable should point to a valid Rayman 2: The Great Escape installation.
 
 
 `rayman2` will be copied into the OpenRayman data folder (in `data/games`). This is all that needs to be done to run OpenRayman.

@@ -1,0 +1,160 @@
+; SCR 201
+; Scripts Parser Version 2.0.1
+; (c) Ubi Simulations 1997
+
+;***************************************************************************
+;*** This section contain all data's directories classed by type of file ***
+;*** it can be used to overload one or more files without destroy        ***
+;*** old files                                                           ***
+;***************************************************************************
+{DirectoriesDescription:
+
+ ;*** Texture's directory ***
+ DirectoryOfEngineDLL("DLL")
+
+ ;*** Texture's directory ***
+ DirectoryOfTexture("GameData\World\Graphics\Textures")
+ DirectoryOfFixTexture("GameData\FixTex")
+
+ ;*** Texts directory ***
+ DirectoryOfTexts("GameData\Texts")
+
+ ;*** GameData directories ***
+ DirectoryOfGameData("GameData")
+
+ ;*** World directories ***
+	DirectoryOfWorld("GameData\World")
+
+ ;*** Levels directories ***
+	DirectoryOfLevels("GameData\World\Levels")
+
+ ;*** Families directories ***
+	DirectoryOfFamilies("GameData\World\Levels\_Common\Families")
+ 
+ ;*** Characters directories ***
+ DirectoryOfCharacters("GameData\World\Levels")
+
+ ;*** Animations directories ***
+	DirectoryOfAnimations("GameData\World\Graphics\Anims")
+
+ ;*** Graphic Objects directories ***
+	DirectoryOfGraphicsClasses("GameData\World\Graphics\Objects\Classes")
+	DirectoryOfGraphicsBanks("GameData\World\Graphics\Objects\Banks")
+
+ ;*** Mechanics directories *** 
+	DirectoryOfMechanics("GameData\World\Libraries\Mechanics")
+
+ ;*** SoundData directories *** 
+	DirectoryOfSound("GameData\World\Sound")
+
+ ;*** Material directories *** 
+	DirectoryOfVisuals("GameData\World\Graphics\Visuals")
+	DirectoryOfMaterials("GameData\World\Libraries\Materials")
+
+ ;*** Environment directories *** 
+ DirectoryOfEnvironment("GameData\World\Libraries\Environment")
+
+ ;*** SaveGame directories *** 
+	DirectoryOfSaveGame("GameData\SaveGame")
+
+ ;*** Extras directories *** 
+	DirectoryOfExtras("GameData\Extras")
+
+ ;*** Vignettes directories *** 
+	DirectoryOfVignettes("GameData\Vignette")
+
+ ;*** Options directory ***
+ DirectoryOfOptions("GameData\Options")
+
+ ;*** Options directory ***
+ DirectoryOfZdx("GameData\World\Levels")
+
+ ;*** Options directory ***
+ DirectoryOfLipsSync("GameData\World\SyncLips\Spanish")
+
+ ;*** Effects Directory ***
+ DirectoryOfEffects("GameData\World\Effects")
+
+ ;*** Inventors Directory ***
+ DirectoryOfInventory("GameData\Inventor")
+}
+
+;********************
+;*** Concat files ***
+;********************
+{BigFiles:
+ Vignettes("GameData\Vignette.cnt")
+ Textures("GameData\Textures.cnt")
+}
+{Vignette:
+	LoadVignette("UbiSoft.bmp")
+	DisplayVignette
+}
+
+;******************************************
+;*** Input devices manager descriptions ***
+;******************************************
+{InputDeviceManagerDescription:
+	InitInputDeviceManager(40000,16)
+	AddInputDeviceFile("KeyDef.ipt")
+	AddInputDeviceFile("Device.ipt")
+	AddInputDeviceFile("OptBut.ipt")
+	AddInputDeviceFile("Game.ipt")
+	AddInputDeviceFile("EdAction.ipt")
+	AddInputDeviceFile("Camera.ipt")
+	AddInputDeviceFile("Sound.ipt")
+	AddInputDeviceFile("Debug.ipt")
+	AddInputDeviceFile("Cheat.ipt")
+	AddInputDeviceFile("Menu.ipt")
+	AddInputDeviceFile("Commands.ipt")
+	AddInputDeviceFile("Inventor.ipt")
+
+	AddInputDeviceFile("Link.ipt")
+}
+
+;*******************
+;*** Text loader ***
+;*******************
+{Texts:
+ AddFontFile("Fonts\Font1.vmt")
+ AddFontFile("Fonts\Fix.vmt")
+ AddStringsFile("Menus.txt")
+ AddStringsFile("Game.txt")
+ AddStringsFile("CdtStd.txt")
+ AddStringsFile("CdtNme.txt")
+; AddStringsFile("Credits.txt")
+ AddStringsFile("SaveName.txt")
+}
+
+;***********************************
+;*** Random manager descriptions ***
+;***********************************
+{RandomManagerDescription:
+	InitRandomManager("Game.rnd")
+}
+
+;********************
+;*** Game Options ***
+;********************
+{GameOptionsFile:
+ DefaultFile("Default.cfg")
+ CurrentFile("Current.cfg")
+; SkipMainMenu
+ CreditsLevelName(outro)
+}
+
+;****************************************************************************************
+;*** Binary Use                                                                       ***
+;*** UseA3b : 0=Use A3B, 1=Don't use A3B, 2=Force generate A3B                        ***
+;*** UseBinaryMod : 0=Don't use binary MOD 1=Use binary MOD                           ***
+;*** UseBinaryData : 0=Don't use binary data 1=Use binary data 2=Generate binary data ***
+;****************************************************************************************
+{BinaryUse:
+ UseA3b(3)
+ UseBinaryMod(0)
+ UseBinaryData(0)
+}
+
+{FirstLevelDescription:
+ LevelName(totalski)
+}
