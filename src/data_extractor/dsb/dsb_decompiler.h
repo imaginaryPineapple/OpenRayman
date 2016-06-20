@@ -16,7 +16,7 @@ namespace openrayman
         // Uses the extension .odsb
         openrayman,
 
-        // The format used by the Rayman 2: The Great Escape engine, decoded.
+        // The format used by the Rayman 2: The Great Escape engine.
         // This is a binary format.
         // This can not be interpreted by OpenRayman.
         // The only operation that is performed by the dsb decompiler when this format is specified
@@ -41,6 +41,17 @@ private:
         void decompile_data_directories(std::istream& source, std::ofstream& target);
         void decompile_unknown_blob_0x20(std::istream& source, std::ofstream& target);
         void decompile_vignette(std::istream& source, std::ofstream& target);
+        void decompile_texture_files(std::istream& source, std::ofstream& target);
+        void decompile_unknown_blob_0x6e(std::istream& source, std::ofstream& target);
+        void decompile_game_options(std::istream& source, std::ofstream& target);
+        void decompile_sound_banks(std::istream& source, std::ofstream& target);
+        void decompile_load_sound_banks(std::istream& source, std::ofstream& target);
+
+        // Reads a null-terminated string from source to target.
+        void push_string_null_terminated(std::istream& source, std::ofstream& target);
+
+        // Reads the length of the string from source and then writes it to target.
+        void push_string_with_length_u16(std::istream& source, std::ofstream& target);
 
         data_decoder m_decoder;
     };

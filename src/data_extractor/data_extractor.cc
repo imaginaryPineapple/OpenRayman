@@ -10,6 +10,10 @@ namespace openrayman
 {
     bool data_extractor::extract(const std::string& install_folder)
     {
+#ifdef _WIN32
+        AllocConsole();
+        freopen("CONOUT$", "w", stdout);
+#endif
         return
             check_prerequisites(install_folder) &&
             create_base() &&

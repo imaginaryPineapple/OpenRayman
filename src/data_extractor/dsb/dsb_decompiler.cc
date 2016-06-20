@@ -59,36 +59,43 @@ namespace openrayman
         std::istream in(&streambuf);
         std::int32_t id;
         in.read((char*)&id, sizeof(std::int32_t));
-        while(id != 0xFFFF)
+        while(!in.eof() && id != 0xFFFF)
         {
 
 #define DECOMPILE_SECTION(id, name, function) \
                 case (id): \
-                    std::cout << "[openrayman::dsb_decompiler].decompile_sections: decompiling " << std::hex << "0x" << (id) << " \"" << (name) << "\"" << std::endl; \
+                { \
+                    std::cout << "[openrayman::dsb_decompiler].decompile_sections: decompiling " \
+                        << std::hex << "0x" << (id) \
+                        << " (decimal " << std::dec << id << ") \"" \
+                        << (name) << "\"" << std::endl; \
                     target << "section " << (name) << "\n"; \
                     (function)(in, target); \
                     target << "\n"; \
-                    break;
+                    break; \
+                }
 
             switch(id)
             {
+                // different sections of the dsb file
                 DECOMPILE_SECTION(0x00, "alloc", decompile_alloc);
                 DECOMPILE_SECTION(0x1E, "levels", decompile_lvl_list);
                 DECOMPILE_SECTION(0x28, "data_directories", decompile_data_directories);
                 DECOMPILE_SECTION(0x20, "unknown_blob_0x20", decompile_unknown_blob_0x20);
                 DECOMPILE_SECTION(0x46, "vignette", decompile_vignette);
-                case 0x40:
+                DECOMPILE_SECTION(0x40, "texture_files", decompile_texture_files);
+                DECOMPILE_SECTION(0x6E, "unknown_blob_0x6e", decompile_unknown_blob_0x6e);
+                DECOMPILE_SECTION(0x64, "game_options", decompile_game_options);
+                DECOMPILE_SECTION(0x5A, "sound_banks", decompile_sound_banks);
+                DECOMPILE_SECTION(0x5C, "load_sound_banks", decompile_load_sound_banks);
+                default:
+                {
+                    std::cout << "[openrayman::dsb_decompiler].decompile_sections: Encountered unknown id 0x"
+                        << std::hex << id
+                        << " (decimal " << std::dec << id << ")"
+                        << std::endl;
                     break;
-                case 0x5A:
-                    break;
-                case 0x64:
-                    break;
-                case 0x5C:
-                    break;
-                case 0x6E:
-                    break;
-                case 0x78:
-                    break;
+                }
             }
             in.read((char*)&id, sizeof(std::int32_t));
         }
@@ -127,8 +134,8 @@ namespace openrayman
     // Adds levels
     void dsb_decompiler::decompile_lvl_list(std::istream& source, std::ofstream& target)
     {
-        std::int32_t temp;
-        source.read((char*)&temp, sizeof(std::int32_t));
+        std::int32_t num_levels;
+        source.read((char*)&num_levels, sizeof(std::int32_t));
         std::int32_t id;
         source.read((char*)&id, sizeof(std::int32_t));
         while(id != 0xFFFF)
@@ -137,14 +144,8 @@ namespace openrayman
             {
                 // add(name);
                 target << "    add(\"";
-                char c;
-                source.read(&c, 1);
-                while(c != '\0')
-                {
-                    target << c;
-                    source.read(&c, 1);
-                }
-                target << "    \")";
+                push_string_with_length_u16(source, target);
+                target << "    \")\n";
             }
             source.read((char*)&id, sizeof(std::int32_t));
         }
@@ -179,6 +180,7 @@ namespace openrayman
             source.read((char*)&str_length, sizeof(std::uint16_t));
             char str[str_length];
             source.read(str, str_length);
+            std::cout << "[openrayman::dsb_decompiler].decompile_data_directories: " << std::hex << "0x" << id << ": " << str << std::endl;
             // dir(name, path);
             if(dir != "")
                 target << "    dir(" << dir << ", \"" << str << "\")\n";
@@ -190,6 +192,7 @@ namespace openrayman
     // is this ever found?!?!
     void dsb_decompiler::decompile_unknown_blob_0x20(std::istream& source, std::ofstream& target)
     {
+        std::cout << "[openrayman::dsb_decompiler].decompile_unknown_blob_0x20: Warning! encountered 0x20" << std::endl;
         std::uint32_t size;
         source.read((char*)&size, sizeof(std::uint32_t));
         target << "    size(" << size << ")\n";
@@ -208,7 +211,6 @@ namespace openrayman
     }
 
     // vignettes are basically loading screens
-    // TODO: there are some .pgbs in rayman 2 /data
     void dsb_decompiler::decompile_vignette(std::istream& source, std::ofstream& target)
     {
         std::int32_t id;
@@ -218,25 +220,11 @@ namespace openrayman
             switch(id)
             {
                 case 71:
-                {
-                    target << "    load_img(\"";
-                    char c;
-                    source.read(&c, 1);
-                    while(c != '\0')
-                    {
-                        target << c;
-                        source.read(&c, 1);
-                    }
-                    target << "\")\n";
-                    break;
-                }
                 case 72:
                 {
-                    std::uint16_t length;
-                    source.read((char*)&length, sizeof(std::uint16_t));
-                    char str[length];
-                    source.read(str, length);
-                    target << "    load_img(\"" << str << "\")\n";
+                    target << "    load_img(\"";
+                    push_string_with_length_u16(source, target);
+                    target << "\")\n";
                     break;
                 }
                 case 75:
@@ -265,16 +253,27 @@ namespace openrayman
                 }
                 case 78:
                 {
-                    char tmp[16 * 4];
-                    // four pairs of 16?!?!
-                    source.read(tmp, 16 * 4);
+                    std::uint8_t colors[(sizeof(std::uint8_t) * 4) * 4];
+                    source.read((char*)colors, (sizeof(std::uint8_t) * 4) * 4);
+                    target << "    color(bar";
+                    for(int n = 0; n < 4; n++)
+                    {
+                        target << ", " << std::to_string(colors[(n * 4)])
+                            << ", " << std::to_string(colors[(n * 4) + 1])
+                            << ", " << std::to_string(colors[(n * 4) + 2])
+                            << ", " << std::to_string(colors[(n * 4) + 3]);
+                    }
+                    target << ")\n";
                     break;
                 }
                 case 79:
                 {
-                    char tmp[sizeof(std::int32_t) * 4];
-                    // four pairs of int32_t?!?!
-                    source.read(tmp, sizeof(std::int32_t) * 4);
+                    std::int32_t values[4];
+                    source.read((char*)values, sizeof(std::int32_t) * 4);
+                    target << "    create_bar(";
+                    for(int n = 0; n < 4; n++)
+                        target << (n == 0 ? "" : ", ") << values[n];
+                    target << ")\n";
                     break;
                 }
                 case 80:
@@ -286,11 +285,137 @@ namespace openrayman
                 {
                     std::int32_t max;
                     source.read((char*)&max, sizeof(std::int32_t));
-                    target << "    set_bar_max(" << max << ")\n";
+                    target << "    bar_max(" << max << ")\n";
                     break;
                 }
             }
             source.read((char*)&id, sizeof(std::int32_t));
         }
+    }
+
+    void dsb_decompiler::decompile_texture_files(std::istream& source, std::ofstream& target)
+    {
+        std::int32_t id;
+        source.read((char*)&id, sizeof(std::int32_t));
+        while(id != 0xFFFF)
+        {
+            if(id == 66)
+                target << "    add(textures, \"";
+            else
+                target << "    add(vignettes, \"";
+            push_string_with_length_u16(source, target);
+            target << "\")\n";
+            source.read((char*)&id, sizeof(std::int32_t));
+        }
+    }
+
+    void dsb_decompiler::decompile_unknown_blob_0x6e(std::istream& source, std::ofstream& target)
+    {
+        std::cout << "[openrayman::dsb_decompiler].decompile_unknown_blob_0x6e: Warning! encountered 0x6e" << std::endl;
+        std::uint8_t tmp = 0x00;
+        while(tmp != 0xFF)
+            source.read((char*)&tmp, 1);
+        for(int n = 0; n < 3; n++)
+            source.read((char*)&tmp, 1);
+    }
+
+    void dsb_decompiler::decompile_game_options(std::istream& source, std::ofstream& target)
+    {
+        std::int32_t id;
+        source.read((char*)&id, sizeof(std::int32_t));
+        while(id != 0xFFFF)
+        {
+            switch(id)
+            {
+                case 0x65:
+                {
+                    target << "    default_file(\"";
+                    push_string_with_length_u16(source, target);
+                    target << "\")\n";
+                    break;
+                }
+                case 0x66:
+                {
+                    target << "    current_file(\"";
+                    push_string_with_length_u16(source, target);
+                    target << "\")\n";
+                    break;
+                }
+                case 0x67:
+                {
+                    std::int16_t tmp;
+                    source.read((char*)&tmp, sizeof(std::int16_t));
+                    break;
+                }
+            }
+            source.read((char*)&id, sizeof(std::int32_t));
+        }
+    }
+
+    // idk what this is?!?!
+    void dsb_decompiler::decompile_sound_banks(std::istream& source, std::ofstream& target)
+    {
+        std::int32_t id;
+        source.read((char*)&id, sizeof(std::int32_t));
+        while(id != 0xFFFF)
+        {
+            if(id == 92)
+                decompile_load_sound_banks(source, target);
+            else
+            {
+                std::int32_t unknown;
+                source.read((char*)&unknown, sizeof(std::int32_t));
+                target << "    unknown(" << unknown << ")\n";
+            }
+            source.read((char*)&id, sizeof(std::int32_t));
+        }
+    }
+
+    // idk what this is either?!
+    void dsb_decompiler::decompile_load_sound_banks(std::istream& source, std::ofstream& target)
+    {
+        std::int32_t id;
+        source.read((char*)&id, sizeof(std::int32_t));
+        while(id != 0xFFFF)
+        {
+            if(id == 94)
+            {
+                std::int32_t bank;
+                source.read((char*)&bank, sizeof(std::int32_t));
+                target << "    add_bank2(" << bank << ")\n";
+            }
+            else
+            {
+                std::int32_t size;
+                source.read((char*)&size, sizeof(std::int32_t));
+                char bytes[size * 4];
+                source.read((char*)&bytes, size * 4);
+                target << "    add_bank(";
+                for(int n = 0; n < size * 4; n++)
+                    target << (n == 0 ? "" : ", ") << std::hex << "0x" << (int)bytes[n];
+                target << ")\n";
+            }
+            source.read((char*)&id, sizeof(std::int32_t));
+        }
+    }
+
+    void dsb_decompiler::push_string_null_terminated(std::istream& source, std::ofstream& target)
+    {
+        char c = 0x00;
+        source.read(&c, 1);
+        while(c != '\0')
+        {
+            target << c;
+            source.read(&c, 1);
+        }
+    }
+
+    void dsb_decompiler::push_string_with_length_u16(std::istream& source, std::ofstream& target)
+    {
+        std::uint16_t length;
+        source.read((char*)&length, sizeof(std::uint16_t));
+        char str[length];
+        source.read(str, length);
+        target << str;
     }
 }
