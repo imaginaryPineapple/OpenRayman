@@ -2,6 +2,7 @@
 #include <iostream>
 #include <info.h>
 #include <engine.h>
+#include <data_extractor/dsb/dsb_decompiler.h>
 
 bool console_open = false;
 
@@ -30,8 +31,7 @@ int main(int argc, char** argv)
             n++;
             if(n >= argc)
             {
-				make_sure_console_open();
-                std::cout << "No game was specified." << std::endl;
+				make_sure_console_open(); std::cout << "No game was specified." << std::endl;
                 return EXIT_FAILURE;
             }
             std::string game(argv[n]);
@@ -42,26 +42,76 @@ int main(int argc, char** argv)
 			n++;
             if(n >= argc)
             {
-				make_sure_console_open();
-                std::cout << "No install folder was specified." << std::endl;
+				make_sure_console_open(); std::cout << "No install folder was specified." << std::endl;
                 return EXIT_FAILURE;
             }
             std::string install_folder(argv[n]);
             selected_install_folder = install_folder;
         }
+		if(str == "--decompile")
+		{
+			n++;
+			if(n >= argc)
+			{
+				make_sure_console_open(); std::cout << "No type was specified." << std::endl;
+				return EXIT_FAILURE;
+			}
+			std::string type(argv[n]);
+			n++;
+			if(n >= argc)
+			{
+				make_sure_console_open(); std::cout << "No path was specified." << std::endl;
+				return EXIT_FAILURE;
+			}
+			std::string path(argv[n]);
+			n++;
+			if(n >= argc)
+			{
+				make_sure_console_open(); std::cout << "No target was specified." << std::endl;
+				return EXIT_FAILURE;
+			}
+			std::string target(argv[n]);
+			if(type == "odsb" || type == "rdsb")
+			{
+				openrayman::dsb_decompiler decompiler;
+				if(decompiler.decompile_dsb(
+					path,
+					target,
+					type == "odsb" ?
+						openrayman::dsb_format::openrayman :
+						openrayman::dsb_format::rayman2_decoded))
+				{
+					return EXIT_SUCCESS;
+				}
+				else
+				{
+					std::cout << "Operation failed" << std::endl;
+					return EXIT_FAILURE;
+				}
+			}
+			else
+			{
+				make_sure_console_open(); std::cout << "Invalid type specified." << std::endl;
+				return EXIT_FAILURE;
+			}
+		}
         // Follow GNU format
         if(str == "--help")
         {
 			make_sure_console_open();
             std::cout << "Usage: openrayman [options] ..." << std::endl;
             std::cout << "Options:" << std::endl;
-            std::cout << "  --version                              Display version information" << std::endl;
-            std::cout << "  --game \"game name\"                     Specifies what game OpenRayman should load" << std::endl;
-            std::cout << "                                         This will default to the game set in the config file if no game is specified" << std::endl;
-            std::cout << "  --convert-data \"install folder\"        Converts the install folder specified into a format that OpenRayman can read" << std::endl;
-            std::cout << "                                         This is needed to ease modding support" << std::endl;
-			std::cout << "                                         This can also be done by starting the game without extracted data" << std::endl;
-			std::cout << "                                         In that case, you will get a directory picker" << std::endl;
+            std::cout << "  --version                                    Display version information" << std::endl;
+            std::cout << "  --game \"game name\"                           Specifies what game OpenRayman should load" << std::endl;
+            std::cout << "                                               This will default to the game set in the config file if no game is specified" << std::endl;
+            std::cout << "  --convert-data \"install folder\"              Converts the install folder specified into a format that OpenRayman can read" << std::endl;
+            std::cout << "                                               This is needed to ease modding support" << std::endl;
+			std::cout << "                                               This can also be done by starting the game without extracted data" << std::endl;
+			std::cout << "                                               In that case, you will get a directory picker" << std::endl;
+			std::cout << "  --decompile \"type\" \"path\" \"target\"           Decompiles the specified file into target." << std::endl;
+			std::cout << "                                               Type can be any of:" << std::endl;
+			std::cout << "                                                   \"odsb\": Creates an OpenRayman dsb file" << std::endl;
+			std::cout << "                                                   \"rdsb\": Decodes a dsb file" << std::endl;
             return EXIT_SUCCESS;
         }
         if(str == "--version")

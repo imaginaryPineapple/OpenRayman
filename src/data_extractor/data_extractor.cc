@@ -10,7 +10,6 @@ namespace openrayman
 {
     bool data_extractor::extract(const std::string& install_folder)
     {
-        // TODO: is this how c++ works even?!?
         return
             check_prerequisites(install_folder) &&
             create_base() &&
@@ -78,6 +77,6 @@ namespace openrayman
     {
         std::cout << "[openrayman::data_extractor] Decompiling Game.dsb" << std::endl;
         dsb_decompiler decompiler;
-        return decompiler.decompile_dsb(install_folder + "/Data/Game.dsb", m_backend_specifics.get_data_path() + "/games/rayman2/game.db");
+        return decompiler.decompile_dsb(install_folder + "/Data/Game.dsb", m_backend_specifics.get_data_path() + "/games/rayman2/game.odsb", dsb_format::openrayman);
     }
 }
