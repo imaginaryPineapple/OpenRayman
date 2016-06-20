@@ -1,0 +1,279 @@
+# from a rayman 2 demo run
+# helps to understand what the game is doing
+
+Just for information
+	\->	The module : [ERM V5.1.0 : 'Error Manager' of SEP 06 1997] is initialized with the id #0
+
+Just for information
+	\->	The module : [MMG V6.0.1 : 'Memory Manager' of Mar 12 1998] is initialized with the id #1
+
+Just for information
+	\->	The module : [GMT V5.0.0 : 'Game material module' of Aug 18 1999] is initialized with the id #2
+
+Just for information
+	\->	The module : [SCR V5.5.2 : 'Scripts Module' of Aug 18 1999] is initialized with the id #3
+
+Just for information
+	\->	The module : [GAM V5.7.0 : 'Game library' of Sept 01 1997] is initialized with the id #4
+
+Just for information
+	\->	The module : [GEO V0.5.1 : 'Geometry Common' of Aug 18 1999] is initialized with the id #5
+
+Just for information
+	\->	The module : [IPT V5.0.1 : 'Input devices manager' of Mai 5 1997] is initialized with the id #6
+
+Just for information
+	\->	The module : [RND V5.0.1 : 'Random' of Mai 5 1997] is initialized with the id #7
+
+Just for information
+	\->	The module : [CMP V5.0.0 : 'Compress and expand' of Aug 06 1997] is initialized with the id #8
+
+Just for information
+	\->	The module : [SAI V5.0.0 : 'Save and initialisation' of Aug 04 1997] is initialized with the id #9
+
+Just for information
+	\->	The module : [TMP V5.0.0 : 'Temporary memory' of Sep 27 1997] is initialized with the id #10
+
+Just for information
+	\->	The module : [FIL V5.1.0 : 'Files and paths management' of Nov 18 1997] is initialized with the id #11
+
+Just for information
+	\->	The module : [VIG V5.0.1 : 'Vignette' of Jun 7 1997] is initialized with the id #12
+
+Just for information
+	\->	The module : [PO V5.1.0 : 'Physical objects' of Dec 04 1997] is initialized with the id #13
+
+Just for information
+	\->	The module : [AI V5.0.0 : 'Artificial Intelligence' of Dec 5 1997] is initialized with the id #14
+
+Just for information
+	\->	The module : [POS V5.0.2 : 'Position module' of 24 Apr 1997] is initialized with the id #15
+
+Just for information
+	\->	The module : [FON V1.0.0 : '2D-FONT module' of Aug 18 1999] is initialized with the id #16
+
+Just for information
+	\->	The module : [GLD V5.8.7 : 'Graphic Library for Display' of July 29 1997] is initialized with the id #17
+
+Just for information
+	\->	The module : [Tmr V5.0.2 : 'Module Timer' of Apr 22 1997] is initialized with the id #18
+
+Just for information
+	\->	The module : [Moteur sonore ACP - Version M5.6.0 : 'Sound Module for CPA' of Aug 18 1999] is initialized with the id #19
+
+
+===> Print the used Static memory on AI V5.0.0 : 'Artificial Intelligence' of Dec 5 1997 : <===
+===> Without __DEBUG_MALLOC_MODE__ <===
+
+Module Id = 14
+	The block #0:
+		 --> MaxMen status: The higher allocation
+			 -> 44.73% used i.e 335440b (327.58Kb; 0.32Mb) / 750000b (732.42Kb; 0.72Mb)
+		 --> Current status:
+			 ->44.73% used  for allocation,  i.e 335440b (327.58Kb; 0.32Mb) / 750000b (732.42Kb; 0.72Mb)
+			 ->0.00% lost for the management of free, i.e 0b (0.00Kb; 0.00Mb) / 750000b (732.42Kb; 0.72Mb)
+			 ->55.27% remain i.e 414560b (404.84Kb; 0.40Mb) / 750000b (732.42Kb; 0.72Mb)
+			 -> There are 806 allocation(s) & 0 free(s)
+	The block #1:
+		 --> MaxMen status: The higher allocation
+			 -> 20.56% used i.e 308428b (301.20Kb; 0.29Mb) / 1500000b (1464.84Kb; 1.43Mb)
+		 --> Current status:
+			 ->20.55% used  for allocation,  i.e 308316b (301.09Kb; 0.29Mb) / 1500000b (1464.84Kb; 1.43Mb)
+			 ->0.01% lost for the management of free, i.e 112b (0.11Kb; 0.00Mb) / 1500000b (1464.84Kb; 1.43Mb)
+			 ->79.44% remain i.e 1191572b (1163.64Kb; 1.14Mb) / 1500000b (1464.84Kb; 1.43Mb)
+			 -> There are 2189 allocation(s) & 1 free(s)
+
+===> Print the used Static memory on FON V1.0.0 : '2D-FONT module' of Aug 18 1999 : <===
+===> Without __DEBUG_MALLOC_MODE__ <===
+
+Module Id = 16
+	The block #0:
+		 --> MaxMen status: The higher allocation
+			 -> 72.23% used i.e 180568b (176.34Kb; 0.17Mb) / 250000b (244.14Kb; 0.24Mb)
+		 --> Current status:
+			 ->67.84% used  for allocation,  i.e 169596b (165.62Kb; 0.16Mb) / 250000b (244.14Kb; 0.24Mb)
+			 ->4.39% lost for the management of free, i.e 10972b (10.71Kb; 0.01Mb) / 250000b (244.14Kb; 0.24Mb)
+			 ->27.77% remain i.e 69432b (67.80Kb; 0.07Mb) / 250000b (244.14Kb; 0.24Mb)
+			 -> There are 2501 allocation(s) & 3 free(s)
+
+===> Print the used Static memory on GAM V5.7.0 : 'Game library' of Sept 01 1997 : <===
+===> Without __DEBUG_MALLOC_MODE__ <===
+
+Module Id = 4
+	The block #0:
+		 --> MaxMen status: The higher allocation
+			 -> 37.85% used i.e 113564b (110.90Kb; 0.11Mb) / 300000b (292.97Kb; 0.29Mb)
+		 --> Current status:
+			 ->37.85% used  for allocation,  i.e 113564b (110.90Kb; 0.11Mb) / 300000b (292.97Kb; 0.29Mb)
+			 ->0.00% lost for the management of free, i.e 0b (0.00Kb; 0.00Mb) / 300000b (292.97Kb; 0.29Mb)
+			 ->62.15% remain i.e 186436b (182.07Kb; 0.18Mb) / 300000b (292.97Kb; 0.29Mb)
+			 -> There are 3569 allocation(s) & 0 free(s)
+	The block #1:
+		 --> MaxMen status: The higher allocation
+			 -> 6.37% used i.e 191116b (186.64Kb; 0.18Mb) / 3000000b (2929.69Kb; 2.86Mb)
+		 --> Current status:
+			 ->6.05% used  for allocation,  i.e 181508b (177.25Kb; 0.17Mb) / 3000000b (2929.69Kb; 2.86Mb)
+			 ->0.32% lost for the management of free, i.e 9608b (9.38Kb; 0.01Mb) / 3000000b (2929.69Kb; 2.86Mb)
+			 ->93.63% remain i.e 2808884b (2743.05Kb; 2.68Mb) / 3000000b (2929.69Kb; 2.86Mb)
+			 -> There are 2721 allocation(s) & 25 free(s)
+
+===> Print the used Static memory on GEO V0.5.1 : 'Geometry Common' of Aug 18 1999 : <===
+===> Without __DEBUG_MALLOC_MODE__ <===
+
+Module Id = 5
+	The block #0:
+		 --> MaxMen status: The higher allocation
+			 -> 1.00% used i.e 1b (0.00Kb; 0.00Mb) / 100b (0.10Kb; 0.00Mb)
+		 --> Current status:
+			 ->0.00% used  for allocation,  i.e 0b (0.00Kb; 0.00Mb) / 100b (0.10Kb; 0.00Mb)
+			 ->0.00% lost for the management of free, i.e 0b (0.00Kb; 0.00Mb) / 100b (0.10Kb; 0.00Mb)
+			 ->100.00% remain i.e 100b (0.10Kb; 0.00Mb) / 100b (0.10Kb; 0.00Mb)
+			 -> There are 0 allocation(s) & 0 free(s)
+	The block #1:
+		 --> MaxMen status: The higher allocation
+			 -> 86.93% used i.e 6520020b (6367.21Kb; 6.22Mb) / 7500000b (7324.22Kb; 7.15Mb)
+		 --> Current status:
+			 ->86.93% used  for allocation,  i.e 6520020b (6367.21Kb; 6.22Mb) / 7500000b (7324.22Kb; 7.15Mb)
+			 ->0.00% lost for the management of free, i.e 0b (0.00Kb; 0.00Mb) / 7500000b (7324.22Kb; 7.15Mb)
+			 ->13.07% remain i.e 979980b (957.01Kb; 0.93Mb) / 7500000b (7324.22Kb; 7.15Mb)
+			 -> There are 9643 allocation(s) & 0 free(s)
+	The block #2:
+		 --> MaxMen status: The higher allocation
+			 -> 7.38% used i.e 737660b (720.37Kb; 0.70Mb) / 10000000b (9765.62Kb; 9.54Mb)
+		 --> Current status:
+			 ->7.20% used  for allocation,  i.e 720056b (703.18Kb; 0.69Mb) / 10000000b (9765.62Kb; 9.54Mb)
+			 ->0.18% lost for the management of free, i.e 17604b (17.19Kb; 0.02Mb) / 10000000b (9765.62Kb; 9.54Mb)
+			 ->92.62% remain i.e 9262340b (9045.25Kb; 8.83Mb) / 10000000b (9765.62Kb; 9.54Mb)
+			 -> There are 15966 allocation(s) & 96 free(s)
+	The block #3:
+		 --> not valid (should be not initialized)
+	The block #4:
+		 --> not valid (should be not initialized)
+
+===> Print the used Static memory on GLD V5.8.7 : 'Graphic Library for Display' of July 29 1997 : <===
+===> Without __DEBUG_MALLOC_MODE__ <===
+
+Module Id = 17
+	The block #0:
+		 --> not valid (should be not initialized)
+	The block #1:
+		 --> not valid (should be not initialized)
+	The block #2:
+		 --> not valid (should be not initialized)
+	The block #3:
+		 --> not valid (should be not initialized)
+
+===> Print the used Static memory on IPT V5.0.1 : 'Input devices manager' of Mai 5 1997 : <===
+===> Without __DEBUG_MALLOC_MODE__ <===
+
+Module Id = 6
+	The block #0:
+		 --> MaxMen status: The higher allocation
+			 -> 21.87% used i.e 6560b (6.41Kb; 0.01Mb) / 30000b (29.30Kb; 0.03Mb)
+		 --> Current status:
+			 ->21.87% used  for allocation,  i.e 6560b (6.41Kb; 0.01Mb) / 30000b (29.30Kb; 0.03Mb)
+			 ->0.00% lost for the management of free, i.e 0b (0.00Kb; 0.00Mb) / 30000b (29.30Kb; 0.03Mb)
+			 ->78.13% remain i.e 23440b (22.89Kb; 0.02Mb) / 30000b (29.30Kb; 0.03Mb)
+			 -> There are 126 allocation(s) & 0 free(s)
+
+===> Print the used Static memory on POS V5.0.2 : 'Position module' of 24 Apr 1997 : <===
+===> Without __DEBUG_MALLOC_MODE__ <===
+
+Module Id = 15
+	The block #0:
+		 --> MaxMen status: The higher allocation
+			 -> 0.10% used i.e 1b (0.00Kb; 0.00Mb) / 1000b (0.98Kb; 0.00Mb)
+		 --> Current status:
+			 ->0.00% used  for allocation,  i.e 0b (0.00Kb; 0.00Mb) / 1000b (0.98Kb; 0.00Mb)
+			 ->0.00% lost for the management of free, i.e 0b (0.00Kb; 0.00Mb) / 1000b (0.98Kb; 0.00Mb)
+			 ->100.00% remain i.e 1000b (0.98Kb; 0.00Mb) / 1000b (0.98Kb; 0.00Mb)
+			 -> There are 0 allocation(s) & 0 free(s)
+
+===> Print the used Static memory on RND V5.0.1 : 'Random' of Mai 5 1997 : <===
+===> Without __DEBUG_MALLOC_MODE__ <===
+
+Module Id = 7
+	The block #0:
+		 --> MaxMen status: The higher allocation
+			 -> 100.00% used i.e 40004b (39.07Kb; 0.04Mb) / 40004b (39.07Kb; 0.04Mb)
+		 --> Current status:
+			 ->100.00% used  for allocation,  i.e 40004b (39.07Kb; 0.04Mb) / 40004b (39.07Kb; 0.04Mb)
+			 ->0.00% lost for the management of free, i.e 0b (0.00Kb; 0.00Mb) / 40004b (39.07Kb; 0.04Mb)
+			 ->0.00% remain i.e 0b (0.00Kb; 0.00Mb) / 40004b (39.07Kb; 0.04Mb)
+			 -> There are 1 allocation(s) & 0 free(s)
+
+===> Print the used Static memory on SAI V5.0.0 : 'Save and initialisation' of Aug 04 1997 : <===
+===> Without __DEBUG_MALLOC_MODE__ <===
+
+Module Id = 9
+	The block #0:
+		 --> MaxMen status: The higher address used in this block without Free
+			 -> 0.00% used i.e 0b (0.00Kb; 0.00Mb) / 5000b (4.88Kb; 0.00Mb)
+	The block #1:
+		 --> MaxMen status: The higher address used in this block without Free
+			 -> 0.00% used i.e 0b (0.00Kb; 0.00Mb) / 500000b (488.28Kb; 0.48Mb)
+
+===> Print the used Static memory on SCR V5.5.2 : 'Scripts Module' of Aug 18 1999 : <===
+===> Without __DEBUG_MALLOC_MODE__ <===
+
+Module Id = 3
+	The block #0:
+		 --> not valid (should be not initialized)
+	The block #1:
+		 --> MaxMen status: The higher allocation
+			 -> 7.18% used i.e 75280b (73.52Kb; 0.07Mb) / 1048576b (1024.00Kb; 1.00Mb)
+		 --> Current status:
+			 ->7.18% used  for allocation,  i.e 75280b (73.52Kb; 0.07Mb) / 1048576b (1024.00Kb; 1.00Mb)
+			 ->0.00% lost for the management of free, i.e 0b (0.00Kb; 0.00Mb) / 1048576b (1024.00Kb; 1.00Mb)
+			 ->92.82% remain i.e 973296b (950.48Kb; 0.93Mb) / 1048576b (1024.00Kb; 1.00Mb)
+			 -> There are 1856 allocation(s) & 0 free(s)
+	The block #2:
+		 --> not valid (should be not initialized)
+	The block #3:
+		 --> not valid (should be not initialized)
+	The block #4:
+		 --> not valid (should be not initialized)
+	The block #5:
+		 --> not valid (should be not initialized)
+	The block #6:
+		 --> not valid (should be not initialized)
+	The block #7:
+		 --> not valid (should be not initialized)
+	The block #8:
+		 --> not valid (should be not initialized)
+
+===> Print the used Static memory on Moteur sonore ACP - Version M5.6.0 : 'Sound Module for CPA' of Aug 18 1999 : <===
+===> Without __DEBUG_MALLOC_MODE__ <===
+
+Module Id = 19
+	The block #0:
+		 --> MaxMen status: The higher allocation
+			 -> 1.09% used i.e 1120b (1.09Kb; 0.00Mb) / 102400b (100.00Kb; 0.10Mb)
+		 --> Current status:
+			 ->0.71% used  for allocation,  i.e 732b (0.71Kb; 0.00Mb) / 102400b (100.00Kb; 0.10Mb)
+			 ->0.28% lost for the management of free, i.e 288b (0.28Kb; 0.00Mb) / 102400b (100.00Kb; 0.10Mb)
+			 ->99.00% remain i.e 101380b (99.00Kb; 0.10Mb) / 102400b (100.00Kb; 0.10Mb)
+			 -> There are 8 allocation(s) & 3 free(s)
+	The block #1:
+		 --> MaxMen status: The higher allocation
+			 -> 0.01% used i.e 1b (0.00Kb; 0.00Mb) / 10240b (10.00Kb; 0.01Mb)
+		 --> Current status:
+			 ->0.00% used  for allocation,  i.e 0b (0.00Kb; 0.00Mb) / 10240b (10.00Kb; 0.01Mb)
+			 ->0.00% lost for the management of free, i.e 0b (0.00Kb; 0.00Mb) / 10240b (10.00Kb; 0.01Mb)
+			 ->100.00% remain i.e 10240b (10.00Kb; 0.01Mb) / 10240b (10.00Kb; 0.01Mb)
+			 -> There are 0 allocation(s) & 0 free(s)
+
+===> Print the used Static memory on TMP V5.0.0 : 'Temporary memory' of Sep 27 1997 : <===
+===> Without __DEBUG_MALLOC_MODE__ <===
+
+Module Id = 10
+	The block #0:
+		 --> MaxMen status: The higher allocation
+			 -> 88.31% used i.e 7506148b (7330.22Kb; 7.16Mb) / 8500000b (8300.78Kb; 8.11Mb)
+		 --> Current status:
+			 ->73.72% used  for allocation,  i.e 6266400b (6119.53Kb; 5.98Mb) / 8500000b (8300.78Kb; 8.11Mb)
+			 ->3.08% lost for the management of free, i.e 262192b (256.05Kb; 0.25Mb) / 8500000b (8300.78Kb; 8.11Mb)
+			 ->23.19% remain i.e 1971408b (1925.20Kb; 1.88Mb) / 8500000b (8300.78Kb; 8.11Mb)
+			 -> There are 1839 allocation(s) & 1 free(s)
+	The block #1:
+		 --> not valid (should be not initialized)
