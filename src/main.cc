@@ -1,10 +1,11 @@
-#include <cstdlib>
-#include <iostream>
 #include <info.h>
 #include <engine.h>
 #include <data_extractor/dsb/dsb_decompiler.h>
 #include <dsb_interpreter/dsb_interpreter.h>
 #include <dsb_interpreter/dsb_interpreter_debugger.h>
+#include <cstdlib>
+#include <iostream>
+#include <locale>
 
 bool console_open = false;
 

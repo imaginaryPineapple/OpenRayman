@@ -1,6 +1,7 @@
 #include <dsb_interpreter/dsb_interpreter_debugger.h>
 #include <dsb_interpreter/dsb_instruction.h>
 #include <dsb_interpreter/instructions/all.h>
+#include <glm/gtx/string_cast.hpp>
 #include <iostream>
 
 namespace openrayman
@@ -53,10 +54,10 @@ namespace openrayman
                     {
                         dsb_instruction_vignette_set_color* cast = static_cast<dsb_instruction_vignette_set_color*>(instruction);
                         std::cout << "        id -> dsb_vignette_id::" << vignette_id_to_string(cast->id) << std::endl;
-                        std::cout << "        pair1 -> [" << cast->r << ", " << cast->g << ", " << cast->b << ", " << cast->a << "]" << std::endl;
-                        std::cout << "        pair2 -> [" << cast->pair2_r << ", " << cast->pair2_g << ", " << cast->pair2_b << ", " << cast->pair2_a << "]" << std::endl;
-                        std::cout << "        pair3 -> [" << cast->pair3_r << ", " << cast->pair3_g << ", " << cast->pair3_b << ", " << cast->pair3_a << "]" << std::endl;
-                        std::cout << "        pair4 -> [" << cast->pair4_r << ", " << cast->pair4_g << ", " << cast->pair4_b << ", " << cast->pair4_a << "]" << std::endl;
+                        std::cout << "        color -> [" << cast->color.r << ", " << cast->color.g << ", " << cast->color.b << ", " << cast->color.a << "]" << std::endl;
+                        std::cout << "        color2 -> [" << cast->color2.r << ", " << cast->color2.g << ", " << cast->color2.b << ", " << cast->color2.a << "]" << std::endl;
+                        std::cout << "        color3 -> [" << cast->color3.r << ", " << cast->color3.g << ", " << cast->color3.b << ", " << cast->color3.a << "]" << std::endl;
+                        std::cout << "        color4 -> [" << cast->color4.r << ", " << cast->color4.g << ", " << cast->color4.b << ", " << cast->color4.a << "]" << std::endl;
                         break;
                     }
                     case dsb_instruction_type::vignette_create_bar:

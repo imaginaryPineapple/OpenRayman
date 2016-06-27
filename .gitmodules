@@ -7,3 +7,6 @@
 [submodule "lib/json"]
 	path = lib/json
 	url = https://github.com/nlohmann/json.git
+[submodule "lib/glm"]
+	path = lib/glm
+	url = https://github.com/g-truc/glm

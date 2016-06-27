@@ -75,6 +75,7 @@ public:
 private:
         void interpret_sections(std::ifstream& stream);
         void interpret_line(dsb_section_type current_section, const std::string& line, std::size_t statement_begins_at, std::size_t line_n);
+        void interpret_instruction(dsb_section_type current_section, const std::string& name, const std::vector<std::string>& args, std::size_t func_begins_at, std::size_t line_n);
 
         // Sets the error at the top of the dsb instruction array.
         void set_error(std::size_t line, std::size_t column, const std::string& error, dsb_section_type current_section, const std::string& function);

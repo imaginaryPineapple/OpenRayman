@@ -3,6 +3,7 @@
 
 #include <dsb_interpreter/dsb_instruction.h>
 #include <cstdint>
+#include <glm/glm.hpp>
 
 namespace openrayman
 {
@@ -43,32 +44,18 @@ namespace openrayman
 
     struct dsb_instruction_vignette_set_color : public dsb_instruction
     {
-        // TODO: refactor this..........
-        // ugh
         dsb_instruction_vignette_set_color(dsb_vignette_id id,
-            std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a) :
+            glm::vec4 color, glm::vec4 color2, glm::vec4 color3, glm::vec4 color4) :
             dsb_instruction(dsb_instruction_type::vignette_set_color),
-            r(r), g(g), b(b), a(a)
+            color(color), color2(color2), color3(color3), color4(color4)
         {
         }
 
         // The id of the color to set.
         dsb_vignette_id id;
 
-        // The first pair of colors.
-        std::uint8_t r, g, b, a;
-
-        // The second pair of colors.
-        // Only used when id is bar, to specify gradient.
-        std::uint8_t pair2_r, pair2_g, pair2_b, pair2_a;
-
-        // The third pair of colors.
-        // Only used when id is bar, to specify gradient.
-        std::uint8_t pair3_r, pair3_g, pair3_b, pair3_a;
-
-        // The fourth pair of colors.
-        // Only used when id is bar, to specify gradient.
-        std::uint8_t pair4_r, pair4_g, pair4_b, pair4_a;
+        // Color gradient, all are only used when id is "bar".
+        glm::vec4 color, color2, color3, color4;
     };
 }
 
