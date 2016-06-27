@@ -1,0 +1,9 @@
+#include <dsb_interpreter/instructions/begin_section/dsb_instruction_begin_section.h>
+#include <dsb_interpreter/instructions/comment/dsb_instruction_comment.h>
+#include <dsb_interpreter/instructions/invalid_dsb/dsb_instruction_invalid_dsb.h>
+#include <dsb_interpreter/instructions/level_add/dsb_instruction_level_add.h>
+#include <dsb_interpreter/instructions/set_data_dir/dsb_instruction_set_data_dir.h>
+#include <dsb_interpreter/instructions/set_texture_file/dsb_instruction_set_texture_file.h>
+#include <dsb_interpreter/instructions/vignette/create_bar/dsb_instruction_vignette_create_bar.h>
+#include <dsb_interpreter/instructions/vignette/load_img/dsb_instruction_vignette_load_img.h>
+#include <dsb_interpreter/instructions/vignette/set_color/dsb_instruction_vignette_set_color.h>

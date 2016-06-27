@@ -1,0 +1,5 @@
+-I.
+-I../lib/lodepng
+-I../lib/gl3w/include
+-I../lib/json/src
+-std=gnu++11

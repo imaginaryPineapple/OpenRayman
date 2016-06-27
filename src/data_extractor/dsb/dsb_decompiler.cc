@@ -3,6 +3,7 @@
 #include <info.h>
 #include <cstdint>
 #include <unordered_map>
+#include <iomanip>
 
 namespace openrayman
 {
@@ -62,11 +63,11 @@ namespace openrayman
         while(!in.eof() && id != 0xFFFF)
         {
 
-#define DECOMPILE_SECTION(id, name, function) \
+            #define DECOMPILE_SECTION(id, name, function) \
                 case (id): \
                 { \
-                    std::cout << "[openrayman::dsb_decompiler].decompile_sections: decompiling " \
-                        << std::hex << "0x" << (id) \
+                    std::cout << "[openrayman::dsb_decompiler] Decompiling " \
+                        << std::hex << "0x" << std::setfill('0') << std::setw(2) << (id) \
                         << " (decimal " << std::dec << id << ") \"" \
                         << (name) << "\"" << std::endl; \
                     target << "section " << (name) << "\n"; \
@@ -90,7 +91,7 @@ namespace openrayman
                 DECOMPILE_SECTION(0x5C, "load_sound_banks", decompile_load_sound_banks);
                 default:
                 {
-                    std::cout << "[openrayman::dsb_decompiler].decompile_sections: Encountered unknown id 0x"
+                    std::cout << "[openrayman::dsb_decompiler] Encountered unknown id 0x"
                         << std::hex << id
                         << " (decimal " << std::dec << id << ")"
                         << std::endl;
@@ -180,7 +181,7 @@ namespace openrayman
             source.read((char*)&str_length, sizeof(std::uint16_t));
             char str[str_length];
             source.read(str, str_length);
-            std::cout << "[openrayman::dsb_decompiler].decompile_data_directories: " << std::hex << "0x" << id << ": " << str << std::endl;
+            std::cout << "[openrayman::dsb_decompiler] Data directory " << std::hex << "0x" << id << ": " << str << std::endl;
             // dir(name, path);
             if(dir != "")
                 target << "    dir(" << dir << ", \"" << str << "\")\n";
@@ -192,7 +193,7 @@ namespace openrayman
     // is this ever found?!?!
     void dsb_decompiler::decompile_unknown_blob_0x20(std::istream& source, std::ofstream& target)
     {
-        std::cout << "[openrayman::dsb_decompiler].decompile_unknown_blob_0x20: Warning! encountered 0x20" << std::endl;
+        std::cout << "[openrayman::dsb_decompiler] Warning! encountered 0x20" << std::endl;
         std::uint32_t size;
         source.read((char*)&size, sizeof(std::uint32_t));
         target << "    size(" << size << ")\n";
@@ -243,7 +244,7 @@ namespace openrayman
                     std::uint8_t r, g, b, a;
                     source.read((char*)&r, 1); source.read((char*)&g, 1); source.read((char*)&b, 1); source.read((char*)&a, 1);
                     target << "    color("
-                        << (id == 76 ? "outline" : "inline")
+                        << (id == 76 ? "outline" : "inside")
                         << ", " << std::to_string(r)
                         << ", " << std::to_string(g)
                         << ", " << std::to_string(b)
@@ -311,7 +312,7 @@ namespace openrayman
 
     void dsb_decompiler::decompile_unknown_blob_0x6e(std::istream& source, std::ofstream& target)
     {
-        std::cout << "[openrayman::dsb_decompiler].decompile_unknown_blob_0x6e: Warning! encountered 0x6e" << std::endl;
+        std::cout << "[openrayman::dsb_decompiler] Warning! encountered 0x6e" << std::endl;
         std::uint8_t tmp = 0x00;
         while(tmp != 0xFF)
             source.read((char*)&tmp, 1);

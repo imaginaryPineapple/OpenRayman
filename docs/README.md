@@ -1,6 +1,9 @@
 This file attempts to document the Rayman 2: The Great Escape file formats and engine as best possible.
 
 
+You should probably check out https://drive.google.com/folderview?id=0Bzt0AW9Obi4-Tjg2MVAyLWNUVXM&usp=sharing, too.
+
+
 Note: OpenRayman could not have been possible without the amazing szymski on GitHub (https://github.com/szymski/Rayman2Lib), who seems to have reverse engineered the encoding algorithm used in Rayman 2 and the file formats that are used within the engine. Most of this information was scrapped together from the Rayman2Lib repository.
 
 
@@ -15,26 +18,6 @@ Note: some of this information may not be incorrect, as i have not verified any 
 
 ## Formats
 
-
-.cnt = archive
-
-
-.gf (graphics file?) (TODO: rayman2lib has both gf3 and gf?) = textures
-
-
-.sna = ? scripts / events / level / everything?!?! (TODO: figure out what rayman2lib is doing with seeking)
-
-
-.dat = pointers to file?!? file database?!?!
-
-
-.dsb = same?!? scripts?!?!
-
-
-.gpt = ?!?!?!?
-
-
-.bnm = probably sound files (based off of rayman2lib)
 
 
 ## Decoding

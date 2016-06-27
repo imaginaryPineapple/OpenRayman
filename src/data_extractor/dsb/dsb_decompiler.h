@@ -26,7 +26,8 @@ namespace openrayman
     };
 
     // Decodes and optionally decompiles DSB files.
-    // This is all heavily adapted from Rayman2Lib's DSBDecompiler
+    // DSB files are compiled scripts, with different sections.
+    // This is all heavily adapted from Rayman2Lib.
     class dsb_decompiler
     {
 public:

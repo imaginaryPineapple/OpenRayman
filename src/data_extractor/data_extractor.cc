@@ -1,5 +1,8 @@
 #include <data_extractor/data_extractor.h>
 #include <data_extractor/dsb/dsb_decompiler.h>
+#include <dsb_interpreter/dsb_instruction.h>
+#include <dsb_interpreter/dsb_interpreter.h>
+#include <dsb_interpreter/instructions/all.h>
 #include <platform/message_box.h>
 #include <platform/file.h>
 #include <json.hpp>
@@ -10,14 +13,11 @@ namespace openrayman
 {
     bool data_extractor::extract(const std::string& install_folder)
     {
-#ifdef _WIN32
-        AllocConsole();
-        freopen("CONOUT$", "w", stdout);
-#endif
         return
             check_prerequisites(install_folder) &&
             create_base() &&
-            decompile_game_dsb(install_folder);
+            decompile_game_dsb(install_folder) &&
+            make_game_resources(install_folder);
     }
 
     bool data_extractor::check_prerequisites(const std::string& install_folder)
@@ -82,5 +82,21 @@ namespace openrayman
         std::cout << "[openrayman::data_extractor] Decompiling Game.dsb" << std::endl;
         dsb_decompiler decompiler;
         return decompiler.decompile_dsb(install_folder + "/Data/Game.dsb", m_backend_specifics.get_data_path() + "/games/rayman2/game.odsb", dsb_format::openrayman);
+    }
+
+    bool data_extractor::make_game_resources(const std::string& install_folder)
+    {
+        dsb_interpreter interpreter(m_backend_specifics.get_data_path() + "/games/rayman2/game.odsb");
+        if(interpreter.success())
+        {
+            return true;
+        }
+        dsb_instruction_invalid_dsb* error_reason = interpreter.get_instruction<dsb_instruction_invalid_dsb>
+            (dsb_instruction_type::invalid_dsb);
+        message_box::display("[openrayman::data_extractor] Error!", "The DSB interpreter failed to interpret the file game.odsb.\n\n" +
+            std::to_string(error_reason->line) + " : " + std::to_string(error_reason->column) + "\n" +
+            error_reason->error + "\n" +
+            error_reason->trace, true);
+        return false;
     }
 }

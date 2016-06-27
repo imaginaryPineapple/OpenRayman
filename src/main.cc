@@ -3,6 +3,8 @@
 #include <info.h>
 #include <engine.h>
 #include <data_extractor/dsb/dsb_decompiler.h>
+#include <dsb_interpreter/dsb_interpreter.h>
+#include <dsb_interpreter/dsb_interpreter_debugger.h>
 
 bool console_open = false;
 
@@ -19,6 +21,12 @@ void make_sure_console_open()
 #endif
 }
 
+int fail_and_print(const std::string& msg)
+{
+	make_sure_console_open(); std::cout << msg << std::endl;
+	return EXIT_FAILURE;
+}
+
 int main(int argc, char** argv)
 {
     std::string selected_game = "";
@@ -30,10 +38,7 @@ int main(int argc, char** argv)
         {
             n++;
             if(n >= argc)
-            {
-				make_sure_console_open(); std::cout << "No game was specified." << std::endl;
-                return EXIT_FAILURE;
-            }
+                return fail_and_print("No game was specified");;
             std::string game(argv[n]);
             selected_game = game;
         }
@@ -41,59 +46,61 @@ int main(int argc, char** argv)
         {
 			n++;
             if(n >= argc)
-            {
-				make_sure_console_open(); std::cout << "No install folder was specified." << std::endl;
-                return EXIT_FAILURE;
-            }
+				return fail_and_print("No install folder was specified");
             std::string install_folder(argv[n]);
             selected_install_folder = install_folder;
         }
-		if(str == "--decompile")
+		if(str == "--convert-to")
 		{
 			n++;
 			if(n >= argc)
-			{
-				make_sure_console_open(); std::cout << "No type was specified." << std::endl;
-				return EXIT_FAILURE;
-			}
-			std::string type(argv[n]);
+				return fail_and_print("No format was specified");
+			std::string format(argv[n]);
 			n++;
 			if(n >= argc)
-			{
-				make_sure_console_open(); std::cout << "No path was specified." << std::endl;
-				return EXIT_FAILURE;
-			}
+				return fail_and_print("No path was specified");
 			std::string path(argv[n]);
 			n++;
 			if(n >= argc)
-			{
-				make_sure_console_open(); std::cout << "No target was specified." << std::endl;
-				return EXIT_FAILURE;
-			}
+				return fail_and_print("No target was specified");
 			std::string target(argv[n]);
-			if(type == "odsb" || type == "rdsb")
+			if(format == "odsb" || format == "rdsb")
 			{
 				openrayman::dsb_decompiler decompiler;
 				if(decompiler.decompile_dsb(
 					path,
 					target,
-					type == "odsb" ?
+					format == "odsb" ?
 						openrayman::dsb_format::openrayman :
 						openrayman::dsb_format::rayman2_decoded))
 				{
 					return EXIT_SUCCESS;
 				}
 				else
-				{
-					std::cout << "Operation failed" << std::endl;
-					return EXIT_FAILURE;
-				}
+					return fail_and_print("Operation failed");
 			}
 			else
+				return fail_and_print("Invalid format specified");
+		}
+		if(str == "--inspect")
+		{
+			n++;
+			if(n >= argc)
+				return fail_and_print("No format was specified");
+			std::string format(argv[n]);
+			n++;
+			if(n >= argc)
+				return fail_and_print("No path was specified");
+			std::string path(argv[n]);
+			if(format == "odsb")
 			{
-				make_sure_console_open(); std::cout << "Invalid type specified." << std::endl;
-				return EXIT_FAILURE;
+				openrayman::dsb_interpreter interpreter(path);
+				openrayman::dsb_interpreter_debugger debugger(interpreter);
+				debugger.print_summary();
+				return interpreter.success() ? EXIT_SUCCESS : EXIT_FAILURE;
 			}
+			else
+				return fail_and_print("Invalid format was specified");
 		}
         // Follow GNU format
         if(str == "--help")
@@ -108,10 +115,13 @@ int main(int argc, char** argv)
             std::cout << "                                               This is needed to ease modding support" << std::endl;
 			std::cout << "                                               This can also be done by starting the game without extracted data" << std::endl;
 			std::cout << "                                               In that case, you will get a directory picker" << std::endl;
-			std::cout << "  --decompile \"type\" \"path\" \"target\"           Decompiles the specified file into target." << std::endl;
-			std::cout << "                                               Type can be any of:" << std::endl;
-			std::cout << "                                                   \"odsb\": Creates an OpenRayman dsb file" << std::endl;
-			std::cout << "                                                   \"rdsb\": Decodes a dsb file" << std::endl;
+			std::cout << "  --convert-to \"format\" \"path\" \"target\"         Converts the specified file into the target format" << std::endl;
+			std::cout << "                                               Format can be any of:" << std::endl;
+			std::cout << "                                                   \"odsb\": Creates an OpenRayman DSB file" << std::endl;
+			std::cout << "                                                   \"rdsb\": Decodes a DSB file" << std::endl;
+			std::cout << "  --inspect \"format\" \"path\"                    Inspects and prints info about the specified file" << std::endl;
+			std::cout << "                                               Format can be any of:" << std::endl;
+			std::cout << "                                                   \"odsb\": Interprets the DSB and outputs all instructions" << std::endl;
             return EXIT_SUCCESS;
         }
         if(str == "--version")

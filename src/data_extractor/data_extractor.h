@@ -22,6 +22,7 @@ private:
         bool check_prerequisites(const std::string& install_folder);
         bool create_base();
         bool decompile_game_dsb(const std::string& install_folder);
+        bool make_game_resources(const std::string& install_folder);
 
         const backend_specifics& m_backend_specifics;
     };
