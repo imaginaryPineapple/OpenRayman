@@ -1,7 +1,7 @@
 project(OpenRayman)
 cmake_minimum_required(VERSION 2.6)
 
-set(CMAKE_BUILD_TYPE Debug CACHE STRING "The type of build")
+set(CMAKE_BUILD_TYPE Release CACHE STRING "The type of build")
 set(USE_LIBRETRO OFF CACHE BOOL "If OpenRayman should be built as a libretro core (TODO)")
 set(CMAKE_CXX_STANDARD 11)
 
