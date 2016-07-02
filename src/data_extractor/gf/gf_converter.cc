@@ -102,7 +102,8 @@ namespace openrayman
                 for(std::size_t n = 0; n < count; n++)
                 {
                     // either we are wrong or some files are formatted weird?
-                    // this seems to turn out ok
+                    // -this seems to turn out ok-
+                    // TODO: this does not seem to turn out ok, there are red stripes on some textures
                     if(at + n < channel.size())
                         channel[at + n] = value;
                 }
