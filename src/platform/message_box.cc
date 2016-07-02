@@ -30,6 +30,7 @@ namespace openrayman
             GtkWidget* dialog = gtk_message_dialog_new(nullptr, flags, error ? GTK_MESSAGE_ERROR : GTK_MESSAGE_INFO, GTK_BUTTONS_OK, msg.c_str());
             gtk_window_set_title(GTK_WINDOW(dialog), title.c_str());
             gtk_dialog_run(GTK_DIALOG(dialog));
+            gtk_widget_hide(dialog);
             gtk_widget_destroy(dialog);
         }
 #endif
@@ -53,6 +54,7 @@ namespace openrayman
             GtkWidget* dialog = gtk_message_dialog_new(nullptr, flags, error ? GTK_MESSAGE_ERROR : GTK_MESSAGE_INFO, GTK_BUTTONS_YES_NO, msg.c_str());
             gtk_window_set_title(GTK_WINDOW(dialog), title.c_str());
             gint result = gtk_dialog_run(GTK_DIALOG(dialog));
+            gtk_widget_hide(dialog);
             gtk_widget_destroy(dialog);
             return result == GTK_RESPONSE_YES;
         }
@@ -99,9 +101,11 @@ namespace openrayman
                 char* directory_cstr = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
                 std::string directory = std::string(directory_cstr);
                 g_free(directory_cstr);
+                gtk_widget_hide(dialog);
                 gtk_widget_destroy(dialog);
                 return directory;
             }
+            gtk_widget_hide(dialog);
             gtk_widget_destroy(dialog);
         }
 #endif

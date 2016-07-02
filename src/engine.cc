@@ -103,18 +103,16 @@ namespace openrayman
             if(m_current_input.command(input_command::toggle_fullscreen) && !m_last_input.command(input_command::toggle_fullscreen))
                 m_config.fullscreen = !m_config.fullscreen;
 
-            std::cout << "[openrayman::engine] Update: " << m_current_delta_time * 1000 << "ms, " << m_total_frames << std::endl;
+            std::cout << "[openrayman::engine] FPS: " << get_fps() << std::endl;
             m_total_frames++;
             m_accumulated_frames_fps++;
             if(m_accumulated_time_fps >= 1)
             {
                 m_fps = m_accumulated_frames_fps;
-                std::cout << "[openrayman::engine] FPS: " << m_fps << std::endl;
                 m_accumulated_time_fps = m_accumulated_frames_fps = 0;
             }
             while(m_accumulated_time_fixed >= 1 / 60.0)
             {
-                std::cout << "[openrayman::engine] Fixed update: " << m_total_fixed_updates << std::endl;
                 m_total_fixed_updates++;
                 m_accumulated_time_fixed -= 1 / 60.0;
             }

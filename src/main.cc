@@ -1,32 +1,13 @@
 #include <info.h>
 #include <engine.h>
+#include <tools/common_tools.h>
 #include <data_extractor/dsb/dsb_decompiler.h>
-#include <dsb_interpreter/dsb_interpreter.h>
-#include <dsb_interpreter/dsb_interpreter_debugger.h>
-#include <cstdlib>
+#include <tools/gf_tools.h>
+#include <tools/cnt_tools.h>
+#include <vector>
 #include <iostream>
-#include <locale>
-
-bool console_open = false;
-
-void make_sure_console_open()
-{
-#ifdef _WIN32
-	if(!console_open)
-	{
-		if(!AttachConsole(-1))
-			AllocConsole();
-		freopen("CONOUT$", "w", stdout);
-		console_open = true;
-	}
-#endif
-}
-
-int fail_and_print(const std::string& msg)
-{
-	make_sure_console_open(); std::cout << msg << std::endl;
-	return EXIT_FAILURE;
-}
+#include <platform/file.h>
+#include <platform/standalone_backend_specifics.h>
 
 int main(int argc, char** argv)
 {
@@ -80,8 +61,9 @@ int main(int argc, char** argv)
 				else
 					return fail_and_print("Operation failed");
 			}
-			else
-				return fail_and_print("Invalid format specified");
+			else if(format == "png")
+				return openrayman::gf_tools::convert_to_png(path, target);
+			return fail_and_print("Invalid format specified");
 		}
 		if(str == "--inspect")
 		{
@@ -93,15 +75,32 @@ int main(int argc, char** argv)
 			if(n >= argc)
 				return fail_and_print("No path was specified");
 			std::string path(argv[n]);
-			if(format == "odsb")
-			{
-				openrayman::dsb_interpreter interpreter(path);
-				openrayman::dsb_interpreter_debugger debugger(interpreter);
-				debugger.print_summary();
-				return interpreter.success() ? EXIT_SUCCESS : EXIT_FAILURE;
-			}
-			else
-				return fail_and_print("Invalid format was specified");
+			if(format == "cnt")
+				return openrayman::cnt_tools::print_hierarchy(path);
+			else if(format == "gf")
+				return openrayman::gf_tools::print_info(path);
+			return fail_and_print("Invalid format was specified");
+		}
+		if(str == "--force-reset-rayman2")
+		{
+			openrayman::standalone_backend_specifics backend_specifics;
+			openrayman::file::delete_directory(backend_specifics.get_data_path() + "/games/rayman2");
+		}
+		if(str == "--extract-cnt-to")
+		{
+			n++;
+			if(n >= argc)
+				return fail_and_print("No archive was specified");
+			std::string archive(argv[n]);
+			n++;
+			if(n >= argc)
+				return fail_and_print("No path was specified");
+			std::string path(argv[n]);
+			n++;
+			if(n >= argc)
+				return fail_and_print("No target was specified");
+			std::string target(argv[n]);
+			return openrayman::cnt_tools::extract(archive, path, target);
 		}
         // Follow GNU format
         if(str == "--help")
@@ -116,13 +115,15 @@ int main(int argc, char** argv)
             std::cout << "                                               This is needed to ease modding support" << std::endl;
 			std::cout << "                                               This can also be done by starting the game without extracted data" << std::endl;
 			std::cout << "                                               In that case, you will get a directory picker" << std::endl;
-			std::cout << "  --convert-to \"format\" \"path\" \"target\"         Converts the specified file into the target format" << std::endl;
-			std::cout << "                                               Format can be any of:" << std::endl;
-			std::cout << "                                                   \"odsb\": Creates an OpenRayman DSB file" << std::endl;
+			std::cout << "  --convert-to \"format\" \"path\" \"target\"        Converts the specified file into the target format" << std::endl;
+			std::cout << "                                                   \"odsb\": Decompiles the DSB into the specified directory (several files will be created)" << std::endl;
 			std::cout << "                                                   \"rdsb\": Decodes a DSB file" << std::endl;
-			std::cout << "  --inspect \"format\" \"path\"                    Inspects and prints info about the specified file" << std::endl;
-			std::cout << "                                               Format can be any of:" << std::endl;
-			std::cout << "                                                   \"odsb\": Interprets the DSB and outputs all instructions" << std::endl;
+			std::cout << "                                                   \"png\": Decodes a GF (graphics texture) file into a png file" << std::endl;
+			std::cout << "  --inspect \"format\" \"path\"                    Inspects and prints info about the specified file or directory" << std::endl;
+			std::cout << "                                                   \"cnt\": Prints file hierarchy" << std::endl;
+			std::cout << "                                                   \"gf\": Prints width, height and number of channels" << std::endl;
+			std::cout << "  --extract-cnt-to \"archive\" \"path\" \"target\"   Extracts a file from a CNT archive" << std::endl;
+			std::cout << "  --force-reset-rayman2                        Forces a removal of the rayman2 base game, if it exists" << std::endl;
             return EXIT_SUCCESS;
         }
         if(str == "--version")
@@ -146,7 +147,6 @@ int main(int argc, char** argv)
 
 INT WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
 {
-    // fuck windows
 	return main(__argc, __argv);
 }
 

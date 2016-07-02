@@ -117,10 +117,11 @@ public:
             return m_total_fixed_updates;
         }
 
-        // Returns the amount of frames that were executed the previous second.
-        inline std::uint64_t get_fps() const
+        // Returns the amount of frames that were executed during the previous second.
+        inline double get_fps() const
         {
-            return m_fps;
+            // this is more accurate
+            return (m_fps + (1 / m_current_delta_time)) / 2;
         }
 
         // Returns a reference to the active config.

@@ -18,6 +18,9 @@ public:
         // Creates a new directory with the specified path.
         static void create_directory(const std::string& path);
 
+        // Deletes the directory with the specified path.
+        static void delete_directory(const std::string& path);
+
         // The path separator of the current platform.
 #ifdef _WIN32
         static const char path_separator = '\\';

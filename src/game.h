@@ -53,7 +53,7 @@ public:
         // Dependencies are searched from first to last specified in the manifest.
         // An empty string is returned if the file was not found.
         // File existence can be checked via the function has_file.
-        const std::string find_file(const std::string& file) const;
+        const std::string find_file(const std::string& file, bool show_error_msg) const;
 private:
         bool m_valid;
         std::string m_location;

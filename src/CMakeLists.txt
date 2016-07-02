@@ -11,7 +11,6 @@ add_executable(openrayman WIN32 ${SOURCES} "${CMAKE_SOURCE_DIR}/lib/lodepng/lode
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin")
 target_link_libraries(openrayman gl3w)
 target_link_libraries(openrayman nlohmann_json)
-target_link_libraries(openrayman glm)
 
 if(WIN32)
 target_link_libraries(openrayman shlwapi)

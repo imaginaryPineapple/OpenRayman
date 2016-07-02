@@ -82,15 +82,19 @@ namespace openrayman
         return false;
     }
 
-    const std::string game::find_file(const std::string& file) const
+    const std::string game::find_file(const std::string& file, bool show_error_msg) const
     {
         if(has_file(file, true))
             return m_location + "/" + file;
         for(const game& game : m_dependencies)
         {
             if(game.has_file(file, false))
-                return game.find_file(file);
+                return game.find_file(file, show_error_msg);
         }
+        if(show_error_msg)
+            message_box::display("[openrayman::game] Error!", "The file \"" + file + "\" could not be found in the game \"" + m_info.name + "\"."
+                "\nor any of its dependencies."
+                "\nThis could be the result of a broken dependency.", true);
         return "";
     }
 }
