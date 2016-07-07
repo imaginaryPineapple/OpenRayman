@@ -4,12 +4,12 @@
 #include <GL/gl3w.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
-#include <string>
-#include <cstdint>
 #include <config/config.h>
 #include <window/window.h>
 #include <input/input_provider.h>
 #include <input/standalone_input_provider.h>
+#include <string>
+#include <cstdint>
 
 namespace openrayman
 {
@@ -26,13 +26,13 @@ public:
         void gl_make_current() override;
         void present() override;
         void poll_events() override;
-        input_provider& get_input_provider() override;
+        input_provider& create_input_provider() override;
         bool wants_close() const override;
 
-        int get_size_w() const override;
-        int get_size_h() const override;
-        int get_size_retina_w() const override;
-        int get_size_retina_h() const override;
+        int size_w() const override;
+        int size_h() const override;
+        int size_retina_w() const override;
+        int size_retina_h() const override;
 
         void set_size(int w, int h) override;
         void set_title(const std::string& title) override;

@@ -1,25 +1,25 @@
-#include <cstdlib>
-#include <cstdint>
-#include <iostream>
-#include <sstream>
 #include <info.h>
 #include <engine.h>
 #include <platform/message_box.h>
 #include <platform/file.h>
 #include <lodepng.h>
-#include <data_extractor/data_extractor.h>
+#include <data_extractor.h>
+#include <cstdlib>
+#include <cstdint>
+#include <iostream>
+#include <sstream>
 
 namespace openrayman
 {
     int engine::run(const std::string& selected_game, const std::string& selected_install_folder)
     {
-        if(!file::exists(m_backend_specifics.get_data_path()))
+        if(!file::exists(m_backend_specifics.data_path()))
         {
-            message_box::display("[openrayman::engine] Error!", "The data directory was not found.", true);
+            message_box::display("[openrayman::engine::run] Error!", "The data directory was not found.", true);
             return EXIT_FAILURE;
         }
-        if(!file::exists(m_backend_specifics.get_storage_path() + "/games"))
-            file::create_directory(m_backend_specifics.get_storage_path() + "/games");
+        if(!file::exists(m_backend_specifics.storage_path() + "/games"))
+            file::create_directory(m_backend_specifics.storage_path() + "/games");
 
         if(selected_install_folder != "")
         {
@@ -32,7 +32,7 @@ namespace openrayman
 
         if(!m_game->valid())
         {
-            if(message_box::display_yesno("[openrayman::engine] Extract data?", "Should OpenRayman attempt to extract a"
+            if(message_box::display_yesno("[openrayman::engine::run] Extract data?", "Should OpenRayman attempt to extract a"
                 "\nRayman 2: The Great Escape installation and try again?", false))
             {
                 std::string directory = message_box::display_pickdir("Select a valid Rayman 2: The Great Escape installation folder");
@@ -51,7 +51,7 @@ namespace openrayman
 
         if(!m_window.open("OpenRayman", 1024, 768, m_config.fullscreen))
         {
-            message_box::display("[openrayman::engine] Error!", "The window could not open."
+            message_box::display("[openrayman::engine::run] Error!", "The window could not open."
                 "\nMake sure your graphics drivers are up to date.", true);
             return EXIT_FAILURE;
         }
@@ -59,7 +59,7 @@ namespace openrayman
         m_window.set_vsync(m_config.vsync);
 		if(gl3wInit())
 		{
-			message_box::display("[openrayman::engine] Error!", "GL3W could not be initialized."
+			message_box::display("[openrayman::engine::run] Error!", "GL3W could not be initialized."
                 "\nMake sure your graphics drivers are up to date.", true);
 			return EXIT_FAILURE;
         }
@@ -79,13 +79,14 @@ namespace openrayman
 
         std::vector<std::uint8_t> icon_data;
         unsigned int width, height;
-        if(!lodepng::decode(icon_data, width, height, file::fix_string(m_backend_specifics.get_data_path() + "/common/icon.png")))
+        if(!lodepng::decode(icon_data, width, height, file::fix_string(m_backend_specifics.data_path() + "/common/icon.png")))
             m_window.set_icon(icon_data.data(), width, height);
 
-        m_last_timer_value = m_backend_specifics.get_time();
+        m_last_timer_value = m_backend_specifics.time();
+        input_provider& provider = m_window.create_input_provider();
         while(!m_exit_requested)
         {
-            double current_timer_value = m_backend_specifics.get_time();
+            double current_timer_value = m_backend_specifics.time();
             m_current_delta_time = current_timer_value - m_last_timer_value;
             m_accumulated_time_fixed += m_current_delta_time;
             m_accumulated_time_fps += m_current_delta_time;
@@ -94,16 +95,16 @@ namespace openrayman
 
             glClearColor(0, 0, 0, 0);
             glClear(GL_COLOR_BUFFER_BIT);
-            glViewport(0, 0, m_window.get_size_retina_w(), m_window.get_size_retina_h());
+            glViewport(0, 0, m_window.size_retina_w(), m_window.size_retina_h());
 
             m_window.poll_events();
             m_last_input = m_current_input;
-            const input_state& st = m_window.get_input_provider().poll();
+            const input_state& st = provider.poll();
             m_current_input = input_state(st.buttons, st.commands, st.stick_x, st.stick_y);
             if(m_current_input.command(input_command::toggle_fullscreen) && !m_last_input.command(input_command::toggle_fullscreen))
                 m_config.fullscreen = !m_config.fullscreen;
 
-            std::cout << "[openrayman::engine] FPS: " << get_fps() << std::endl;
+            std::cout << "[openrayman::engine::run] FPS: " << fps() << std::endl;
             m_total_frames++;
             m_accumulated_frames_fps++;
             if(m_accumulated_time_fps >= 1)
@@ -119,9 +120,13 @@ namespace openrayman
 
             m_window.present();
 
+            // this reduces vsync latency on NVIDIA (maybe AMD/Intel? idk)
+            if(m_config.vsync)
+                glFinish();
+
             if(m_config.max_fps > 0)
             {
-                while(m_backend_specifics.get_time() - m_last_timer_value < 1 / m_config.max_fps)
+                while(m_backend_specifics.time() - m_last_timer_value < 1 / m_config.max_fps)
                     m_backend_specifics.yield_cpu();
             }
 

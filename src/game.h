@@ -1,8 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <string>
 #include <platform/backend_specifics.h>
+#include <string>
 #include <vector>
 
 namespace openrayman
@@ -27,19 +27,19 @@ public:
         }
 
         // Returns the location of this game on disk.
-        inline const std::string& get_location() const
+        inline const std::string& location() const
         {
             return m_location;
         }
 
         // Returns the info that was specified in the manifest about this game.
-        inline const game_info& get_info() const
+        inline const game_info& info() const
         {
             return m_info;
         }
 
         // Returns a list of all games that this game depend on.
-        inline const std::vector<game>& get_dependencies() const
+        inline const std::vector<game>& dependencies() const
         {
             return m_dependencies;
         }

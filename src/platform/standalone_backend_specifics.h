@@ -20,10 +20,10 @@ public:
                 delete m_storage_path;
         }
 
-        const std::string& get_data_path() const override;
-        const std::string& get_storage_path() const override;
+        const std::string& data_path() const override;
+        const std::string& storage_path() const override;
 
-        double get_time() const override;
+        double time() const override;
 
         void yield_cpu() const override;
 private:

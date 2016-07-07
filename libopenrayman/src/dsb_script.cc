@@ -1,106 +1,62 @@
-#include <data_extractor/dsb/dsb_decompiler.h>
-#include <data_extractor/data_decoder.h>
-#include <info.h>
+#include <openrayman/dsb_script.h>
 #include <cstdint>
 #include <unordered_map>
 #include <iomanip>
+#include <fstream>
 #include <json.hpp>
 
 namespace openrayman
 {
-    bool dsb_decompiler::decompile_dsb(const std::string& source, const std::string& target, dsb_format fmt)
+    dsb_script::dsb_script(std::istream& stream) :
+        m_valid(false), m_buf(new common::encoded_buf(stream)), m_stream(m_buf.get())
     {
-        std::cout << "[openrayman::dsb_decompiler] Reading dsb " << source << " to " << target << std::endl;
-        std::ifstream source_stream(source, std::ifstream::in | std::ifstream::binary);
-        if(source_stream.is_open())
-        {
-            source_stream.seekg(0, source_stream.end);
-            std::size_t length = source_stream.tellg();
-            // Skip header
-            source_stream.seekg(4);
-            // This will NEVER happen with valid dsbs
-            if(length <= 4)
-                return false;
+        m_stream.seekg(4);
+        m_buf->set_virtual_position(0);
 
-            // Reading the whole dsb should be ok, they aren't that big
-            char buffer[length - 4];
-            source_stream.read(buffer, length - 4);
-            data_decoder decoder;
-            // This is for documentation
-            // data_decoder starts at 0
-            // The header is not encoded
-            decoder.set_virtual_position(0);
-            decoder.decode_array(buffer, length - 4);
+        if(m_stream.fail())
+            return;
 
-            if(fmt == dsb_format::rayman2_decoded)
-            {
-                std::ofstream target_stream(target, std::ofstream::out | std::ofstream::binary);
-                if(target_stream.is_open())
-                    target_stream.write(buffer, length - 4);
-                return target_stream.is_open();
-            }
-            else
-                decompile_sections(buffer, length - 4, target);
-            return true;
-        }
-        return false;
+        m_valid = true;
     }
 
-    struct memorybuf : std::streambuf
+    bool dsb_script::decompile(const std::string& target)
     {
-        memorybuf(char* begin, char* end)
-        {
-            setg(begin, begin, end);
-        }
-    };
+        m_stream.seekg(4);
+        m_buf->set_virtual_position(0);
 
-    void dsb_decompiler::decompile_sections(char* source, std::size_t source_length, const std::string& target)
-    {
-        memorybuf streambuf(source, source + source_length);
-        std::istream in(&streambuf);
+        if(m_stream.fail())
+            return false;
+
         std::int32_t id;
-        in.read((char*)&id, sizeof(std::int32_t));
-        while(!in.eof() && id != 0xFFFF)
+        m_stream.read((char*)&id, sizeof(std::int32_t));
+        while(!m_stream.fail() && id != 0xFFFF)
         {
-
-            #define DECOMPILE_SECTION(id, name, function) \
+            #define DECOMPILE_SECTION(id, function) \
                 case id: \
                 { \
-                    std::cout << "[openrayman::dsb_decompiler] Decompiling " \
-                        << std::hex << "0x" << std::setfill('0') << std::setw(2) << id\
-                        << " (decimal " << std::dec << id << ") \"" \
-                        << name << "\"" << std::endl; \
-                    function(in, target); \
+                    function(m_stream, target); \
                     break; \
                 }
 
             switch(id)
             {
-                // different sections of the dsb file
-                DECOMPILE_SECTION(0x00, "alloc", decompile_alloc);
-                DECOMPILE_SECTION(0x1E, "levels", decompile_lvl_list);
-                DECOMPILE_SECTION(0x28, "data_directories", decompile_data_directories);
-                DECOMPILE_SECTION(0x20, "unknown_blob_0x20", decompile_unknown_blob_0x20);
-                DECOMPILE_SECTION(0x46, "vignette", decompile_vignette);
-                DECOMPILE_SECTION(0x40, "texture_files", decompile_texture_files);
-                DECOMPILE_SECTION(0x6E, "unknown_blob_0x6e", decompile_unknown_blob_0x6e);
-                DECOMPILE_SECTION(0x64, "game_options", decompile_game_options);
-                DECOMPILE_SECTION(0x5A, "sound_banks", decompile_sound_banks);
-                DECOMPILE_SECTION(0x5C, "load_sound_banks", decompile_load_sound_banks);
-                default:
-                {
-                    std::cout << "[openrayman::dsb_decompiler] Encountered unknown id 0x"
-                        << std::hex << id
-                        << " (decimal " << std::dec << id << ")"
-                        << std::endl;
-                    break;
-                }
+                DECOMPILE_SECTION(0x00, decompile_alloc);
+                DECOMPILE_SECTION(0x1E, decompile_lvl_list);
+                DECOMPILE_SECTION(0x28, decompile_data_directories);
+                DECOMPILE_SECTION(0x20, decompile_unknown_blob_0x20);
+                DECOMPILE_SECTION(0x46, decompile_vignette);
+                DECOMPILE_SECTION(0x40, decompile_texture_files);
+                DECOMPILE_SECTION(0x6E, decompile_unknown_blob_0x6e);
+                DECOMPILE_SECTION(0x64, decompile_game_options);
+                DECOMPILE_SECTION(0x5A, decompile_sound_banks);
+                DECOMPILE_SECTION(0x5C, decompile_load_sound_banks);
             }
-            in.read((char*)&id, sizeof(std::int32_t));
+            m_stream.read((char*)&id, sizeof(std::int32_t));
         }
+        return true;
     }
 
-    void dsb_decompiler::decompile_alloc(std::istream& source, const std::string& target)
+    void dsb_script::decompile_alloc(std::istream& source, const std::string& target)
     {
         std::int32_t id;
         source.read((char*)&id, sizeof(std::int32_t));
@@ -123,7 +79,7 @@ namespace openrayman
         }
     }
 
-    void dsb_decompiler::decompile_lvl_list(std::istream& source, const std::string& target)
+    void dsb_script::decompile_lvl_list(std::istream& source, const std::string& target)
     {
         std::ofstream levels_file(target + "/levels.json");
         nlohmann::json levels_json;
@@ -151,7 +107,7 @@ namespace openrayman
             levels_file << std::setw(4) << levels_json;
     }
 
-    void dsb_decompiler::decompile_data_directories(std::istream& source, const std::string& target)
+    void dsb_script::decompile_data_directories(std::istream& source, const std::string& target)
     {
         std::int32_t id;
         source.read((char*)&id, sizeof(std::int32_t));
@@ -183,9 +139,8 @@ namespace openrayman
         }
     }
 
-    void dsb_decompiler::decompile_unknown_blob_0x20(std::istream& source, const std::string& target)
+    void dsb_script::decompile_unknown_blob_0x20(std::istream& source, const std::string& target)
     {
-        std::cout << "[openrayman::dsb_decompiler] Warning! encountered 0x20" << std::endl;
         std::uint32_t size;
         source.read((char*)&size, sizeof(std::uint32_t));
         std::int32_t id;
@@ -200,7 +155,7 @@ namespace openrayman
         }
     }
 
-    void dsb_decompiler::decompile_vignette(std::istream& source, const std::string& target)
+    void dsb_script::decompile_vignette(std::istream& source, const std::string& target)
     {
         std::ofstream vignette_file(target + "/vignette.json");
         nlohmann::json vignette_json;
@@ -287,7 +242,7 @@ namespace openrayman
             vignette_file << std::setw(4) << vignette_json;
     }
 
-    void dsb_decompiler::decompile_texture_files(std::istream& source, const std::string& target)
+    void dsb_script::decompile_texture_files(std::istream& source, const std::string& target)
     {
         std::int32_t id;
         source.read((char*)&id, sizeof(std::int32_t));
@@ -298,9 +253,8 @@ namespace openrayman
         }
     }
 
-    void dsb_decompiler::decompile_unknown_blob_0x6e(std::istream& source, const std::string& target)
+    void dsb_script::decompile_unknown_blob_0x6e(std::istream& source, const std::string& target)
     {
-        std::cout << "[openrayman::dsb_decompiler] Warning! encountered 0x6e" << std::endl;
         std::uint8_t tmp = 0x00;
         while(tmp != 0xFF)
             source.read((char*)&tmp, 1);
@@ -308,7 +262,7 @@ namespace openrayman
             source.read((char*)&tmp, 1);
     }
 
-    void dsb_decompiler::decompile_game_options(std::istream& source, const std::string& target)
+    void dsb_script::decompile_game_options(std::istream& source, const std::string& target)
     {
         std::int32_t id;
         source.read((char*)&id, sizeof(std::int32_t));
@@ -333,7 +287,7 @@ namespace openrayman
         }
     }
 
-    void dsb_decompiler::decompile_sound_banks(std::istream& source, const std::string& target)
+    void dsb_script::decompile_sound_banks(std::istream& source, const std::string& target)
     {
         std::int32_t id;
         source.read((char*)&id, sizeof(std::int32_t));
@@ -350,7 +304,7 @@ namespace openrayman
         }
     }
 
-    void dsb_decompiler::decompile_load_sound_banks(std::istream& source, const std::string& target)
+    void dsb_script::decompile_load_sound_banks(std::istream& source, const std::string& target)
     {
         std::int32_t id;
         source.read((char*)&id, sizeof(std::int32_t));
@@ -372,7 +326,7 @@ namespace openrayman
         }
     }
 
-    const std::string dsb_decompiler::read_string_null_terminated(std::istream& source)
+    const std::string dsb_script::read_string_null_terminated(std::istream& source)
     {
         std::stringstream target;
         char c = 0x00;
@@ -385,7 +339,7 @@ namespace openrayman
         return target.str();
     }
 
-    const std::string dsb_decompiler::read_string_with_length_u16(std::istream& source)
+    const std::string dsb_script::read_string_with_length_u16(std::istream& source)
     {
         std::uint16_t length;
         source.read((char*)&length, sizeof(std::uint16_t));

@@ -1,21 +1,21 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include <string>
-#include <window/window.h>
-#include <platform/backend_specifics.h>
-#include <GL/gl3w.h>
-#include <config/config.h>
-#include <cstdint>
-#include <game.h>
-#include <memory>
-
 #ifdef LIBRETRO_CORE
 #error Building as a libretro core is not yet supported!
 #else
 #include <window/sdl_window.h>
 #include <platform/standalone_backend_specifics.h>
 #endif
+
+#include <window/window.h>
+#include <platform/backend_specifics.h>
+#include <GL/gl3w.h>
+#include <config/config.h>
+#include <game.h>
+#include <cstdint>
+#include <string>
+#include <memory>
 
 namespace openrayman
 {
@@ -70,68 +70,68 @@ public:
         }
 
         // Returns a reference to the engine window.
-        inline window& get_window() const
+        inline window& current_window() const
         {
             return m_window;
         }
 
         // Returns a reference to the backend specifics that are currently in use.
-        inline backend_specifics& get_backend_specifics() const
+        inline backend_specifics& current_backend_specifics() const
         {
             return m_backend_specifics;
         }
 
         // Returns a reference to the most recent (currently active) input state.
-        inline const input_state& get_input() const
+        inline const input_state& input() const
         {
             return m_current_input;
         }
 
         // Returns a reference to the input state that was active during the last frame.
-        inline const input_state& get_last_input() const
+        inline const input_state& last_input() const
         {
             return m_last_input;
         }
 
         // Returns the total amount of seconds that have passed since the start of the game.
-        inline double get_total_time() const
+        inline double total_time() const
         {
             return m_total_time;
         }
 
         // Returns the amount of seconds that have passed since the last frame.
-        inline double get_delta_time() const
+        inline double delta_time() const
         {
             return m_current_delta_time;
         }
 
         // Returns the total amount of frames that have passed since the start of the game.
-        inline std::uint64_t get_total_frames() const
+        inline std::uint64_t total_frames() const
         {
             return m_total_frames;
         }
 
         // Returns the total amount of fixed updates that have passed since the start of the game.
-        inline std::uint64_t get_total_fixed_updates() const
+        inline std::uint64_t total_fixed_updates() const
         {
             return m_total_fixed_updates;
         }
 
         // Returns the amount of frames that were executed during the previous second.
-        inline double get_fps() const
+        inline double fps() const
         {
             // this is more accurate
             return (m_fps + (1 / m_current_delta_time)) / 2;
         }
 
         // Returns a reference to the active config.
-        inline const config& get_config() const
+        inline const config& current_config() const
         {
             return m_config;
         }
 
         // Returns a reference to the active game.
-        inline const game& get_game() const
+        inline const game& current_game() const
         {
             return *m_game;
         }

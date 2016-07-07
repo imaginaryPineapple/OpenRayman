@@ -88,7 +88,7 @@ namespace openrayman
         SDL_GL_SwapWindow(m_window);
     }
 
-    input_provider& sdl_window::get_input_provider()
+    input_provider& sdl_window::create_input_provider()
     {
         return m_input_provider;
     }
@@ -136,28 +136,28 @@ namespace openrayman
         return m_wants_close;
     }
 
-    int sdl_window::get_size_w() const
+    int sdl_window::size_w() const
     {
         int w, tmp;
         SDL_GetWindowSize(m_window, &w, &tmp);
         return w;
     }
 
-    int sdl_window::get_size_h() const
+    int sdl_window::size_h() const
     {
         int h, tmp;
         SDL_GetWindowSize(m_window, &tmp, &h);
         return h;
     }
 
-    int sdl_window::get_size_retina_w() const
+    int sdl_window::size_retina_w() const
     {
         int w, tmp;
         SDL_GL_GetDrawableSize(m_window, &w, &tmp);
         return w;
     }
 
-    int sdl_window::get_size_retina_h() const
+    int sdl_window::size_retina_h() const
     {
         int h, tmp;
         SDL_GL_GetDrawableSize(m_window, &tmp, &h);

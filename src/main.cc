@@ -1,7 +1,7 @@
 #include <info.h>
 #include <engine.h>
+#include <openrayman/dsb_script.h>
 #include <tools/common_tools.h>
-#include <data_extractor/dsb/dsb_decompiler.h>
 #include <tools/gf_tools.h>
 #include <tools/cnt_tools.h>
 #include <vector>
@@ -46,15 +46,14 @@ int main(int argc, char** argv)
 			if(n >= argc)
 				return fail_and_print("No target was specified");
 			std::string target(argv[n]);
-			if(format == "odsb" || format == "rdsb")
+			if(format == "dsb")
 			{
-				openrayman::dsb_decompiler decompiler;
-				if(decompiler.decompile_dsb(
-					path,
-					target,
-					format == "odsb" ?
-						openrayman::dsb_format::openrayman :
-						openrayman::dsb_format::rayman2_decoded))
+                std::ifstream file(path);
+				openrayman::dsb_script script(file);
+                if(!script.valid())
+                    return fail_and_print("Operation failed");
+				if(script.decompile(
+					target))
 				{
 					return EXIT_SUCCESS;
 				}
@@ -84,7 +83,7 @@ int main(int argc, char** argv)
 		if(str == "--force-reset-rayman2")
 		{
 			openrayman::standalone_backend_specifics backend_specifics;
-			openrayman::file::delete_directory(backend_specifics.get_data_path() + "/games/rayman2");
+			openrayman::file::delete_directory(backend_specifics.data_path() + "/games/rayman2");
 		}
 		if(str == "--extract-cnt-to")
 		{
@@ -116,8 +115,7 @@ int main(int argc, char** argv)
 			std::cout << "                                               This can also be done by starting the game without extracted data" << std::endl;
 			std::cout << "                                               In that case, you will get a directory picker" << std::endl;
 			std::cout << "  --convert-to \"format\" \"path\" \"target\"        Converts the specified file into the target format" << std::endl;
-			std::cout << "                                                   \"odsb\": Decompiles the DSB into the specified directory (several files will be created)" << std::endl;
-			std::cout << "                                                   \"rdsb\": Decodes a DSB file" << std::endl;
+			std::cout << "                                                   \"dsb\": Decompiles the DSB into the specified directory (several files will be created)" << std::endl;
 			std::cout << "                                                   \"png\": Decodes a GF (graphics texture) file into a png file" << std::endl;
 			std::cout << "  --inspect \"format\" \"path\"                    Inspects and prints info about the specified file or directory" << std::endl;
 			std::cout << "                                                   \"cnt\": Prints file hierarchy" << std::endl;

@@ -3,7 +3,7 @@
 
 namespace openrayman
 {
-    const std::string standalone_input_provider::get_description() const
+    const std::string standalone_input_provider::description() const
     {
         return "SDL2 input provider (standalone)";
     }

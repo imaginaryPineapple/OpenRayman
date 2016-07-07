@@ -22,7 +22,7 @@ public:
         {
         }
 
-        const std::string get_description() const override;
+        const std::string description() const override;
         const input_state& poll() override;
 private:
         void poll_keyboard();

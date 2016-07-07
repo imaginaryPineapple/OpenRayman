@@ -74,7 +74,28 @@ You might also need `mingw32-make -j8` instead of `make -j8`.
 Mac OS X is not supported at the moment (might work with CMake?).
 
 
+## Licensing
+
+
+All files in this repository are licensed under GPLv3, except for files that are a part of libopenrayman.
+
+
+## libopenrayman
+
+
+libopenrayman is a library that contains several helpers for decoding and decompiling file formats used by the Rayman 2: The Great Escape engine.
+
+
+libopenrayman is at large based upon szymski's Rayman2Lib (https://github.com/szymski/Rayman2Lib).
+
+
+All files related to libopenrayman are located in the libopenrayman/ subdirectory.
+
+
 ## Special thanks to
 
 
 https://github.com/szymski/Rayman2Lib
+
+
+All others who have taken part of the UnLockRay project (https://www.reddit.com/r/UnLockRay/) and helped reverse engineer the Rayman 2: The Great Escape engine

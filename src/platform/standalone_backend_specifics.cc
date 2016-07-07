@@ -7,12 +7,12 @@
 #include <locale>
 #include <codecvt>
 #else
-#include <cstdlib>
 #include <unistd.h>
 #include <limits.h>
 #include <libgen.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <cstdlib>
 #endif
 #include <chrono>
 
@@ -22,8 +22,8 @@ namespace openrayman
     {
         initialize_data_path();
         initialize_storage_path();
-        if(!file::exists(get_storage_path()))
-            file::create_directory(get_storage_path());
+        if(!file::exists(storage_path()))
+            file::create_directory(storage_path());
     }
 
     void standalone_backend_specifics::initialize_data_path()
@@ -88,17 +88,17 @@ namespace openrayman
         m_storage_path = new std::string(file::fix_string(path + "/openrayman"));
     }
 
-    const std::string& standalone_backend_specifics::get_data_path() const
+    const std::string& standalone_backend_specifics::data_path() const
     {
         return *m_data_path;
     }
 
-    const std::string& standalone_backend_specifics::get_storage_path() const
+    const std::string& standalone_backend_specifics::storage_path() const
     {
         return *m_storage_path;
     }
 
-    double standalone_backend_specifics::get_time() const
+    double standalone_backend_specifics::time() const
     {
         std::chrono::high_resolution_clock::time_point time = std::chrono::high_resolution_clock::now();
         return std::chrono::duration_cast<std::chrono::duration<double>>(time.time_since_epoch()).count();

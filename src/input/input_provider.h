@@ -14,7 +14,7 @@ public:
         virtual ~input_provider() { };
 
         // Returns a basic description (e.g. name) of this input provider.
-        virtual const std::string get_description() const = 0;
+        virtual const std::string description() const = 0;
 
         // Returns and polls input at the current point in time.
         virtual const input_state& poll() = 0;

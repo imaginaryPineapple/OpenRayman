@@ -1,11 +1,11 @@
 #include <platform/message_box.h>
-#include <iostream>
 #ifdef _WIN32
 #include <windows.h>
 #include <shlobj.h>
 #else
 #include <gtk/gtk.h>
 #endif
+#include <iostream>
 
 namespace openrayman
 {

@@ -1,9 +1,9 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <string>
 #include <input/input_state.h>
 #include <platform/backend_specifics.h>
+#include <string>
 #include <unordered_map>
 
 namespace openrayman

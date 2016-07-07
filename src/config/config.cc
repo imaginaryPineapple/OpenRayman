@@ -1,11 +1,11 @@
 #include <config/config.h>
 #include <platform/file.h>
-#include <iostream>
-#include <fstream>
 #include <json.hpp>
 #ifndef USE_LIBRETRO
 #include <SDL2/SDL.h>
 #endif
+#include <iostream>
+#include <fstream>
 
 namespace openrayman
 {
@@ -49,7 +49,7 @@ namespace openrayman
 
     bool config::reload()
     {
-        std::string config_json_file = file::fix_string(m_backend_specifics.get_storage_path() + "/config.json");
+        std::string config_json_file = file::fix_string(m_backend_specifics.storage_path() + "/config.json");
         if(file::exists(config_json_file))
         {
             nlohmann::json config_json;
@@ -97,7 +97,7 @@ namespace openrayman
 
     bool config::save()
     {
-        std::string config_json_file = file::fix_string(m_backend_specifics.get_storage_path() + "/config.json");
+        std::string config_json_file = file::fix_string(m_backend_specifics.storage_path() + "/config.json");
         nlohmann::json config_json;
         config_json["game"] = game;
 
@@ -130,7 +130,7 @@ namespace openrayman
         config_json["keyboard_map"]["cbtn(y, -)"] = keyboard_map["cbtn(y, -)"];
         config_json["keyboard_map"]["cbtn(y, +)"] = keyboard_map["cbtn(y, +)"];
 
-        std::ofstream config_stream(config_json_file, std::ofstream::out | std::ofstream::trunc);
+        std::ofstream config_stream(config_json_file, std::ofstream::trunc);
         if(config_stream.is_open())
             config_stream << std::setw(4) << config_json;
         else
