@@ -112,7 +112,7 @@ int main(int argc, char** argv)
             std::cout << "                                               This will default to the game set in the config file if no game is specified" << std::endl;
             std::cout << "  --convert-data \"install folder\"              Converts the install folder specified into formats that OpenRayman (and humans) can read" << std::endl;
             std::cout << "                                               This is needed to ease modding support" << std::endl;
-            std::cout << "                                               These will be created in the storage path (in windows %appdata%\openrayman or linux ~/.local/share/openrayman)" << std::endl;
+            std::cout << "                                               These will be created in the storage path (in windows %appdata%\\openrayman or linux ~/.local/share/openrayman)" << std::endl;
 			std::cout << "                                               This can also be done by starting the game without extracted data" << std::endl;
             std::cout << "                                               In that case, you will get a directory picker for the install folder" << std::endl;
 			std::cout << "  --convert-to \"format\" \"path\" \"target\"        Converts the specified file into the target format" << std::endl;
