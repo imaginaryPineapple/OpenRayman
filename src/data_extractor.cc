@@ -137,7 +137,8 @@ namespace openrayman
     bool data_extractor::make_game_resources(const std::string& install_folder)
     {
         message_box::display("[openrayman::data_extractor::make_game_resources] Info", "OpenRayman will now extract and convert all texture files used within the game."
-            "\nThis can take a couple of minutes depending on your disk and CPU speed.", false);
+            "\nThis can take a couple of minutes depending on your disk and CPU speed."
+            "\nOpenRayman will go invisible during this time and operate in the background", false);
         file::create_directory(m_backend_specifics.storage_path() + "/games/rayman2/textures");
         file::create_directory(m_backend_specifics.storage_path() + "/games/rayman2/textures/vignettes");
         std::ifstream textures_stream(install_folder + "/Data/Textures.cnt", std::ifstream::binary);
