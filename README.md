@@ -16,7 +16,7 @@ OpenRayman needs the base game `rayman2` to run.
 `rayman2` can be created by starting OpenRayman without it or by using the command line option `--extract-data "folder"`. The `folder` variable should point to a valid Rayman 2: The Great Escape installation.
 
 
-`rayman2` will be copied into the OpenRayman data folder (in `data/games`). This is all that needs to be done to run OpenRayman.
+`rayman2` will be copied into the OpenRayman storage folder (in windows `%appdata%\openrayman` or linux `~/.local/share/openrayman`). This is all that needs to be done to run OpenRayman.
 
 
 Do note that OpenRayman contains some extensions to the Rayman 2: The Great Escape game, such as more menu options.
