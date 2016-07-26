@@ -22,7 +22,7 @@ public class GameChooserActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "TODO: this is the part when the game should be added (list of supported games or autodetection?!?)", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

@@ -42,3 +42,9 @@ build_win/
 
 # CLion
 .idea/
+
+# Built apk
+android/app/app-release.apk
+
+# Keystore
+android/keystore.jks
