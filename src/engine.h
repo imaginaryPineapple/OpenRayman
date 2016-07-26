@@ -13,13 +13,16 @@
 #include <GL/gl3w.h>
 #include <config/config.h>
 #include <game.h>
+#include <game_controller.h>
+#include <renderer/renderer.h>
 #include <cstdint>
+#include <cstdlib>
 #include <string>
 #include <memory>
 
 namespace openrayman
 {
-    // Core of OpenRayman. Handles timing, input and GL contexts.
+    // The engine controls game initialization, timing and renderer/input/window management.
     class engine
     {
 public:
@@ -36,12 +39,14 @@ public:
             m_last_timer_value(0),
             m_current_delta_time(0),
             m_total_time(0),
-            m_accumulated_time_fixed(0),
+            m_accumulated_time_timed(0),
             m_accumulated_time_fps(0),
             m_total_frames(0),
-            m_total_fixed_updates(0),
+            m_total_timed_updates(0),
             m_accumulated_frames_fps(0),
             m_fps(0),
+			m_game(nullptr),
+			m_game_controller(nullptr),
 #ifdef LIBRETRO_CORE
             m_window(*(new libretro_window()))
 #else
@@ -70,13 +75,13 @@ public:
         }
 
         // Returns a reference to the engine window.
-        inline window& current_window() const
+        inline window& active_window() const
         {
             return m_window;
         }
 
         // Returns a reference to the backend specifics that are currently in use.
-        inline backend_specifics& current_backend_specifics() const
+        inline backend_specifics& active_backend_specifics() const
         {
             return m_backend_specifics;
         }
@@ -111,40 +116,49 @@ public:
             return m_total_frames;
         }
 
-        // Returns the total amount of fixed updates that have passed since the start of the game.
-        inline std::uint64_t total_fixed_updates() const
+        // Returns the total amount of timed updates that have passed since the start of the game.
+        inline std::uint64_t total_timed_updates() const
         {
-            return m_total_fixed_updates;
+            return m_total_timed_updates;
         }
 
         // Returns the amount of frames that were executed during the previous second.
         inline double fps() const
         {
+            if(std::abs((int)(m_fps - (1 / m_current_delta_time))) > 2)
+                return 1 / m_current_delta_time;
             // this is more accurate
             return (m_fps + (1 / m_current_delta_time)) / 2;
         }
 
         // Returns a reference to the active config.
-        inline const config& current_config() const
+        inline const config& active_config() const
         {
             return m_config;
         }
 
         // Returns a reference to the active game.
-        inline const game& current_game() const
+        inline const game& active_game() const
         {
             return *m_game;
         }
 
+		// Returns a reference to the active game controller.
+		inline game_controller& active_game_controller()
+		{
+			return *m_game_controller;
+		}
 private:
         window& m_window;
         backend_specifics& m_backend_specifics;
         input_state m_current_input;
         input_state m_last_input;
-        double m_last_timer_value, m_current_delta_time, m_total_time, m_accumulated_time_fixed, m_accumulated_time_fps;
-        std::uint64_t m_total_frames, m_total_fixed_updates, m_accumulated_frames_fps, m_fps;
+        double m_last_timer_value, m_current_delta_time, m_total_time, m_accumulated_time_timed, m_accumulated_time_fps;
+        std::uint64_t m_total_frames, m_total_timed_updates, m_accumulated_frames_fps, m_fps;
         config m_config;
         std::unique_ptr<game> m_game;
+		renderer m_renderer;
+        std::unique_ptr<game_controller> m_game_controller;
         bool m_exit_requested;
     };
 }

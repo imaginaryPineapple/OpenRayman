@@ -72,7 +72,7 @@ namespace openrayman
         // Provide more complete info for the user.
         std::stringstream title;
         title << "OpenRayman " << openrayman::version << " "
-            << (this_platform == platform::windows ? "Win32" : "Linux")
+            << map_platform(this_platform)
             << " (OpenGL " << gl_major << "." << gl_minor << ")"
             << " (Game \"" << load_game << "\")";
         m_window.set_title(title.str());
@@ -82,13 +82,15 @@ namespace openrayman
         if(!lodepng::decode(icon_data, width, height, file::fix_string(m_backend_specifics.data_path() + "/common/icon.png")))
             m_window.set_icon(icon_data.data(), width, height);
 
+		m_game_controller = std::unique_ptr<game_controller>(new game_controller(*this, *m_game, m_renderer));
+
         m_last_timer_value = m_backend_specifics.time();
         input_provider& provider = m_window.create_input_provider();
         while(!m_exit_requested)
         {
             double current_timer_value = m_backend_specifics.time();
             m_current_delta_time = current_timer_value - m_last_timer_value;
-            m_accumulated_time_fixed += m_current_delta_time;
+            m_accumulated_time_timed += m_current_delta_time;
             m_accumulated_time_fps += m_current_delta_time;
             m_total_time += m_current_delta_time;
             m_last_timer_value = current_timer_value;
@@ -99,6 +101,7 @@ namespace openrayman
 
             m_window.poll_events();
             m_last_input = m_current_input;
+
             const input_state& st = provider.poll();
             m_current_input = input_state(st.buttons, st.commands, st.stick_x, st.stick_y);
             if(m_current_input.command(input_command::toggle_fullscreen) && !m_last_input.command(input_command::toggle_fullscreen))
@@ -112,10 +115,10 @@ namespace openrayman
                 m_fps = m_accumulated_frames_fps;
                 m_accumulated_time_fps = m_accumulated_frames_fps = 0;
             }
-            while(m_accumulated_time_fixed >= 1 / 60.0)
+            while(m_accumulated_time_timed >= 1 / 60.0)
             {
-                m_total_fixed_updates++;
-                m_accumulated_time_fixed -= 1 / 60.0;
+                m_total_timed_updates++;
+                m_accumulated_time_timed -= 1 / 60.0;
             }
 
             m_window.present();

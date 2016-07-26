@@ -8,7 +8,7 @@ namespace openrayman
 
     sdl_window::sdl_window(config& config) :
         m_window(nullptr),
-        m_current_fullscreen(false),
+        m_is_fullscreen(false),
         m_vsync_enabled(false),
         m_wants_close(false),
         m_input_provider(config)
@@ -64,7 +64,7 @@ namespace openrayman
         SDL_GL_SetSwapInterval(0);
         SDL_ShowCursor(SDL_DISABLE);
 
-        m_current_fullscreen = initial_fullscreen;
+        m_is_fullscreen = initial_fullscreen;
         return true;
     }
 
@@ -166,7 +166,7 @@ namespace openrayman
 
     void sdl_window::set_size(int w, int h)
     {
-        if(!m_current_fullscreen)
+        if(!m_is_fullscreen)
             SDL_SetWindowSize(m_window, w, h);
     }
 
@@ -184,10 +184,10 @@ namespace openrayman
 
     void sdl_window::set_fullscreen(bool fullscreen)
     {
-        if(fullscreen == m_current_fullscreen)
+        if(fullscreen == m_is_fullscreen)
             return;
         SDL_SetWindowFullscreen(m_window, fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0x00);
-        m_current_fullscreen = fullscreen;
+        m_is_fullscreen = fullscreen;
     }
 
     void sdl_window::set_icon(std::uint8_t* rgba32_data, int w, int h)

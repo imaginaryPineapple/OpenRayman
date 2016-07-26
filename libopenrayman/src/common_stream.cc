@@ -121,7 +121,7 @@ namespace openrayman
 
         encoded_buf::int_type encoded_buf::underflow()
         {
-            int value = m_in.peek();
+            auto value = m_in.peek();
             if(value == traits_type::eof())
                 return traits_type::eof();
             return traits_type::to_int_type(decode_char((char)value));
@@ -129,10 +129,10 @@ namespace openrayman
 
         encoded_buf::int_type encoded_buf::uflow()
         {
-            int value = m_in.get();
+            auto value = m_in.get();
             if(value == traits_type::eof())
                 return traits_type::eof();
-            char c = decode_char((char)value);
+            auto c = decode_char((char)value);
             advance_virtual_position(1, true);
             return traits_type::to_int_type(c);
         }

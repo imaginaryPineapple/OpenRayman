@@ -42,7 +42,7 @@ public:
 private:
         SDL_Window* m_window;
         SDL_GLContext m_gl_ctx;
-        bool m_current_fullscreen, m_vsync_enabled, m_wants_close;
+        bool m_is_fullscreen, m_vsync_enabled, m_wants_close;
         standalone_input_provider m_input_provider;
 
         static int m_sdl_ref_count;

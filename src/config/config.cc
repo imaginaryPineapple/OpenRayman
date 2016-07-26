@@ -59,34 +59,34 @@ namespace openrayman
                 config_stream >> config_json;
                 if(config_json.count("game") > 0)
                     game = config_json["game"];
-                if(config_json.count("gfx") > 0)
+                if(config_json.count("renderer") > 0)
                 {
-                    vsync = config_json["gfx"]["vsync"];
-                    fullscreen = config_json["gfx"]["fullscreen"];
-                    max_fps = config_json["gfx"]["max_fps"];
+                    vsync = config_json["renderer"]["vsync"];
+                    fullscreen = config_json["renderer"]["fullscreen"];
+                    max_fps = config_json["renderer"]["max_fps"];
                 }
-                if(config_json.count("keyboard_map") > 0)
+                if(config_json.count("input") > 0 && config_json["input"].count("keyboard") > 0)
                 {
-                    keyboard_map["stick(strength)"] = config_json["keyboard_map"]["stick(strength)"];
+                    keyboard_map["stick(strength)"] = config_json["input"]["keyboard"]["stick(strength)"];
 
-                    keyboard_map["stick(x, -)"] = config_json["keyboard_map"]["stick(x, -)"];
-                    keyboard_map["stick(x, +)"] = config_json["keyboard_map"]["stick(x, +)"];
-                    keyboard_map["stick(y, -)"] = config_json["keyboard_map"]["stick(y, -)"];
-                    keyboard_map["stick(y, +)"] = config_json["keyboard_map"]["stick(y, +)"];
+                    keyboard_map["stick(x, -)"] = config_json["input"]["keyboard"]["stick(x, -)"];
+                    keyboard_map["stick(x, +)"] = config_json["input"]["keyboard"]["stick(x, +)"];
+                    keyboard_map["stick(y, -)"] = config_json["input"]["keyboard"]["stick(y, -)"];
+                    keyboard_map["stick(y, +)"] = config_json["input"]["keyboard"]["stick(y, +)"];
 
-                    keyboard_map["start"] = config_json["keyboard_map"]["start"];
+                    keyboard_map["start"] = config_json["input"]["keyboard"]["start"];
 
-                    keyboard_map["a"] = config_json["keyboard_map"]["a"];
-                    keyboard_map["b"] = config_json["keyboard_map"]["b"];
+                    keyboard_map["a"] = config_json["input"]["keyboard"]["a"];
+                    keyboard_map["b"] = config_json["input"]["keyboard"]["b"];
 
-                    keyboard_map["l"] = config_json["keyboard_map"]["l"];
-                    keyboard_map["r"] = config_json["keyboard_map"]["r"];
-                    keyboard_map["z"] = config_json["keyboard_map"]["z"];
+                    keyboard_map["l"] = config_json["input"]["keyboard"]["l"];
+                    keyboard_map["r"] = config_json["input"]["keyboard"]["r"];
+                    keyboard_map["z"] = config_json["input"]["keyboard"]["z"];
 
-                    keyboard_map["cbtn(x, -)"] = config_json["keyboard_map"]["cbtn(x, -)"];
-                    keyboard_map["cbtn(x, +)"] = config_json["keyboard_map"]["cbtn(x, +)"];
-                    keyboard_map["cbtn(y, -)"] = config_json["keyboard_map"]["cbtn(y, -)"];
-                    keyboard_map["cbtn(y, +)"] = config_json["keyboard_map"]["cbtn(y, +)"];
+                    keyboard_map["cbtn(x, -)"] = config_json["input"]["keyboard"]["cbtn(x, -)"];
+                    keyboard_map["cbtn(x, +)"] = config_json["input"]["keyboard"]["cbtn(x, +)"];
+                    keyboard_map["cbtn(y, -)"] = config_json["input"]["keyboard"]["cbtn(y, -)"];
+                    keyboard_map["cbtn(y, +)"] = config_json["input"]["keyboard"]["cbtn(y, +)"];
                 }
                 return true;
             }
@@ -101,34 +101,35 @@ namespace openrayman
         nlohmann::json config_json;
         config_json["game"] = game;
 
-        config_json["gfx"] = nlohmann::json::object();
+        config_json["renderer"] = nlohmann::json::object();
 
-        config_json["gfx"]["vsync"] = vsync;
-        config_json["gfx"]["fullscreen"] = fullscreen;
-        config_json["gfx"]["max_fps"] = max_fps;
+        config_json["renderer"]["vsync"] = vsync;
+        config_json["renderer"]["fullscreen"] = fullscreen;
+        config_json["renderer"]["max_fps"] = max_fps;
 
-        config_json["keyboard_map"] = nlohmann::json::object();
+        config_json["input"] = nlohmann::json::object();
+        config_json["input"]["keyboard"] = nlohmann::json::object();
 
-        config_json["keyboard_map"]["stick(strength)"] = keyboard_map["stick(strength)"];
+        config_json["input"]["keyboard"]["stick(strength)"] = keyboard_map["stick(strength)"];
 
-        config_json["keyboard_map"]["stick(x, -)"] = keyboard_map["stick(x, -)"];
-        config_json["keyboard_map"]["stick(x, +)"] = keyboard_map["stick(x, +)"];
-        config_json["keyboard_map"]["stick(y, -)"] = keyboard_map["stick(y, -)"];
-        config_json["keyboard_map"]["stick(y, +)"] = keyboard_map["stick(y, +)"];
+        config_json["input"]["keyboard"]["stick(x, -)"] = keyboard_map["stick(x, -)"];
+        config_json["input"]["keyboard"]["stick(x, +)"] = keyboard_map["stick(x, +)"];
+        config_json["input"]["keyboard"]["stick(y, -)"] = keyboard_map["stick(y, -)"];
+        config_json["input"]["keyboard"]["stick(y, +)"] = keyboard_map["stick(y, +)"];
 
-        config_json["keyboard_map"]["start"] = keyboard_map["start"];
+        config_json["input"]["keyboard"]["start"] = keyboard_map["start"];
 
-        config_json["keyboard_map"]["a"] = keyboard_map["a"];
-        config_json["keyboard_map"]["b"] = keyboard_map["b"];
+        config_json["input"]["keyboard"]["a"] = keyboard_map["a"];
+        config_json["input"]["keyboard"]["b"] = keyboard_map["b"];
 
-        config_json["keyboard_map"]["l"] = keyboard_map["l"];
-        config_json["keyboard_map"]["r"] = keyboard_map["r"];
-        config_json["keyboard_map"]["z"] = keyboard_map["z"];
+        config_json["input"]["keyboard"]["l"] = keyboard_map["l"];
+        config_json["input"]["keyboard"]["r"] = keyboard_map["r"];
+        config_json["input"]["keyboard"]["z"] = keyboard_map["z"];
 
-        config_json["keyboard_map"]["cbtn(x, -)"] = keyboard_map["cbtn(x, -)"];
-        config_json["keyboard_map"]["cbtn(x, +)"] = keyboard_map["cbtn(x, +)"];
-        config_json["keyboard_map"]["cbtn(y, -)"] = keyboard_map["cbtn(y, -)"];
-        config_json["keyboard_map"]["cbtn(y, +)"] = keyboard_map["cbtn(y, +)"];
+        config_json["input"]["keyboard"]["cbtn(x, -)"] = keyboard_map["cbtn(x, -)"];
+        config_json["input"]["keyboard"]["cbtn(x, +)"] = keyboard_map["cbtn(x, +)"];
+        config_json["input"]["keyboard"]["cbtn(y, -)"] = keyboard_map["cbtn(y, -)"];
+        config_json["input"]["keyboard"]["cbtn(y, +)"] = keyboard_map["cbtn(y, +)"];
 
         std::ofstream config_stream(config_json_file, std::ofstream::trunc);
         if(config_stream.is_open())

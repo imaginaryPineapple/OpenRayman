@@ -80,7 +80,7 @@ int main(int argc, char** argv)
 				return openrayman::gf_tools::print_info(path);
 			return fail_and_print("Invalid format was specified");
 		}
-		if(str == "--force-reset-rayman2")
+		if(str == "--force-reset-base-rayman2")
 		{
 			openrayman::standalone_backend_specifics backend_specifics;
 			openrayman::file::delete_directory(backend_specifics.storage_path() + "/games/rayman2");
@@ -122,7 +122,7 @@ int main(int argc, char** argv)
 			std::cout << "                                                   \"cnt\": Prints file hierarchy" << std::endl;
 			std::cout << "                                                   \"gf\": Prints width, height and number of channels" << std::endl;
 			std::cout << "  --extract-cnt-to \"archive\" \"path\" \"target\"   Extracts a file from a CNT archive" << std::endl;
-			std::cout << "  --force-reset-rayman2                        Forces a removal of the rayman2 base game, if it exists" << std::endl;
+			std::cout << "  --force-reset-base-rayman2                   Forces a removal of the rayman2 base game, if it exists" << std::endl;
             return EXIT_SUCCESS;
         }
         if(str == "--version")
@@ -136,7 +136,7 @@ int main(int argc, char** argv)
         }
     }
     std::cout << "OpenRayman " << openrayman::version << std::endl;
-    std::cout << "Running on " << (openrayman::this_platform == openrayman::platform::windows ? "Windows" : "Linux") << std::endl;
+    std::cout << "Running on " << openrayman::map_platform(openrayman::this_platform) << std::endl;
     std::cout << "Using game " << (selected_game == "" ? "from config" : "\"" + selected_game + "\"") << std::endl;
     openrayman::engine engine;
     return engine.run(selected_game, selected_install_folder);
