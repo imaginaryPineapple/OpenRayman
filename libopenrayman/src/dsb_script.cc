@@ -29,12 +29,14 @@ namespace openrayman
 
         std::int32_t id;
         m_stream.read((char*)&id, sizeof(std::int32_t));
-        while(!m_stream.fail() && id != 0xFFFF)
+        while(!m_stream.eof() && !m_stream.fail() && id != 0xFFFF)
         {
             #define DECOMPILE_SECTION(id, function) \
                 case id: \
                 { \
+					std::cout << "Decompiling section 0x" << std::hex << id << std::endl; \
                     function(m_stream, target); \
+					std::cout << "Finished decompiling section 0x" << std::hex << id << std::endl; \
                     break; \
                 }
 

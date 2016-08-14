@@ -10,3 +10,9 @@
 [submodule "lib/glm"]
 	path = lib/glm
 	url = https://github.com/g-truc/glm
+[submodule "lib/flac"]
+	path = lib/flac
+	url = https://github.com/xiph/flac
+[submodule "lib/mingw-std-threads"]
+	path = lib/mingw-std-threads
+	url = https://github.com/meganz/mingw-std-threads

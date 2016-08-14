@@ -23,8 +23,16 @@ namespace openrayman
             if(!texture.valid())
                 return fail_and_print("Operation failed");
 
-            std::size_t written = texture.convert_to_png(png_stream);
-            if(written == 0)
+            common::in_mem_ostream rgba_data(texture.required_size_rgba());
+            if(!texture.convert_to_rgba(rgba_data))
+                return fail_and_print("Operation failed");
+
+            unsigned int error = lodepng::encode(
+                    target,
+                    (unsigned char*)rgba_data.mem(),
+                    texture.info().w,
+                    texture.info().h);
+            if(error)
                 return fail_and_print("Operation failed");
 
             return EXIT_SUCCESS;

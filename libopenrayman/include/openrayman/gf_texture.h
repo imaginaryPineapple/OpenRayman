@@ -24,7 +24,7 @@ namespace openrayman
         }
 
         // The size of the GF texture.
-        std::size_t w, h;
+        std::uint32_t w, h;
 
         // The number of channels that are present in the GF texture.
         // This is either 3 (BGR24) or 4 (BGRA32).
@@ -63,11 +63,6 @@ public:
         // Converts this GF texture into a raw array of bytes, consisting of a RGBA32 image.
         // Returns the number of bytes written or 0 if the operation failed.
         std::size_t convert_to_rgba(std::ostream& stream);
-
-        // Converts this GF texture into a raw array of bytes, consisting of a PNG image.
-        // Returns the number of bytes written or 0 if the operation failed.
-        std::size_t convert_to_png(std::ostream& stream);
-
 private:
         void read_channel(std::istream& data, std::uint8_t repeat_byte, std::vector<char>& channel);
 

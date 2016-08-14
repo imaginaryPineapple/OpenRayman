@@ -2,6 +2,7 @@
 #define FILE_H
 
 #include <string>
+#include <vector>
 
 namespace openrayman
 {
@@ -20,6 +21,9 @@ public:
 
         // Deletes the directory with the specified path.
         static void delete_directory(const std::string& path);
+
+		// Enumerates all files in a specified directory.
+        static std::vector<std::string> enumerate_files_in_directory(const std::string& path);
 
         // The path separator of the current platform.
 #ifdef _WIN32

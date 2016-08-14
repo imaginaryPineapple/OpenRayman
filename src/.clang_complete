@@ -3,4 +3,4 @@
 -I../lib/gl3w/include
 -I../lib/json/src
 -I../lib/glm
--std=gnu++11
+-std=c++11

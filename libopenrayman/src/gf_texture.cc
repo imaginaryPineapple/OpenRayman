@@ -27,9 +27,9 @@ namespace openrayman
             return;
 		}
 
-        std::int32_t rw, rh;
-        m_stream.read((char*)&rw, sizeof(std::int32_t));
-        m_stream.read((char*)&rh, sizeof(std::int32_t));
+        std::uint32_t rw, rh;
+        m_stream.read((char*)&rw, sizeof(std::uint32_t));
+        m_stream.read((char*)&rh, sizeof(std::uint32_t));
         if(rw < 1 || rh < 1)
         {
 #ifdef LIBOPENRAYMAN_COUT
@@ -136,41 +136,5 @@ namespace openrayman
                 at++;
             }
         }
-    }
-
-    std::size_t gf_texture::convert_to_png(std::ostream& stream)
-    {
-        common::in_mem_ostream rgba_stream(required_size_rgba());
-        if(convert_to_rgba(rgba_stream) == 0)
-        {
-#ifdef LIBOPENRAYMAN_COUT
-			std::cout << "[openrayman::gf_texture::convert_to_png] convert_to_rgba(rgba_stream) failed (== 0)" << std::endl;
-#endif
-            return 0;
-        }
-        std::vector<unsigned char> png;
-        std::vector<unsigned char> rgba_vector(rgba_stream.mem(), rgba_stream.mem_end());
-        std::uint32_t err = lodepng::encode(png, rgba_vector, m_info.w, m_info.h);
-        if(err)
-        {
-#ifdef LIBOPENRAYMAN_COUT
-			std::cout << "[openrayman::gf_texture::gf_texture::convert_to_png] LodePNG error (" << lodepng_error_text(err) << ")" << std::endl;
-#endif
-            return 0;
-        }
-        std::size_t written = 0;
-        while(written < png.size())
-        {
-            if(stream.fail())
-            {
-#ifdef LIBOPENRAYMAN_COUT
-				std::cout << "[openrayman::gf_texture::gf_texture::convert_to_png] stream.fail() (wrote " << written << ")" << std::endl;
-#endif
-                return written;
-            }
-            stream << png[written];
-            written++;
-        }
-        return written;
     }
 }

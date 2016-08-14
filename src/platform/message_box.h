@@ -17,8 +17,6 @@ public:
 
         // Displays a blocking directory picker and returns the name of the selected directory or "".
         static const std::string display_pickdir(const std::string& title);
-private:
-        static bool gtk_has_init, com_has_init;
     };
 }
 

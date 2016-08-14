@@ -5,6 +5,7 @@
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
 #include <istream>
+#include <vector>
 
 namespace openrayman
 {
@@ -17,6 +18,7 @@ namespace openrayman
 	// RGBA32 texture on the GPU.
 	class texture
 	{
+public:
 		// Creates a new texture filled with white pixels (1, 1, 1, 1).
 		texture(glm::vec2 size, texture_filter filter = texture_filter::linear);
 

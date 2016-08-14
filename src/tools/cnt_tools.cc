@@ -40,8 +40,8 @@ namespace openrayman
                 std::cout << indent_str << "    " << file.name << " -> " << std::endl;
                 std::cout << indent_str << "    " << "    " << (file.size / 1024.0) << " KB" << std::endl;
             }
-            for(cnt_directory_node& child : node.local_children())
-                print_recursive(child, indent + 4);
+            for(std::unique_ptr<cnt_directory_node>& child : node.local_children())
+                print_recursive(*child, indent + 4);
         }
 
         int print_hierarchy(const std::string& path)

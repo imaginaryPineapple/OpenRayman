@@ -100,7 +100,7 @@ namespace openrayman
             m_stream.read((char*)&tmp, sizeof(std::int32_t));
             m_stream.read((char*)&ptr_in_archive, sizeof(std::int32_t));
             m_stream.read((char*)&file_size, sizeof(std::int32_t));
-            parent->push_file(*parent, file_name, ptr_in_archive, file_size, f_xor_key);
+            parent->push_file(file_name, ptr_in_archive, file_size, f_xor_key);
         }
 
         m_valid = true;
@@ -136,17 +136,17 @@ namespace openrayman
 
     void cnt_directory_node::push_child(const std::string& child)
     {
-        m_children.push_back(cnt_directory_node(this, owner, child));
+        m_children.push_back(std::unique_ptr<cnt_directory_node>(new cnt_directory_node(this, owner, child)));
     }
 
     void cnt_directory_node::push_child(const std::string& child, std::int32_t cnt_index)
     {
-        m_children.push_back(cnt_directory_node(this, owner, child, cnt_index));
+        m_children.push_back(std::unique_ptr<cnt_directory_node>(new cnt_directory_node(this, owner, child, cnt_index)));
     }
 
-    void cnt_directory_node::push_file(cnt_directory_node& parent, const std::string& name, std::int32_t ptr_in_archive, std::int32_t size, std::vector<char>& xor_key)
+    void cnt_directory_node::push_file(const std::string& name, std::int32_t ptr_in_archive, std::int32_t size, std::vector<char>& xor_key)
     {
-        m_files.push_back(cnt_file(parent, name, ptr_in_archive, size, xor_key));
+        m_files.push_back(cnt_file(*this, name, ptr_in_archive, size, xor_key));
     }
 
     cnt_file* cnt_directory_node::find_file(const std::string& name)
@@ -161,10 +161,10 @@ namespace openrayman
             if(file.name == in_this)
                 return &file;
         }
-        for(cnt_directory_node& child : m_children)
+        for(std::unique_ptr<cnt_directory_node>& child : m_children)
         {
-            if(child.name == in_this)
-                return child.find_file(std::string(name).erase(0, std::min(name.size(), in_this.size() + 1)));
+            if(child->name == in_this)
+                return child->find_file(std::string(name).erase(0, std::min(name.size(), in_this.size() + 1)));
         }
         return nullptr;
     }
@@ -179,21 +179,32 @@ namespace openrayman
             return archive_node.find_child(std::string(name).erase(0, archive_node.name.size()));
 
         std::string in_this = std::string(name).substr(0, name.find("/"));
-        for(cnt_directory_node& child : m_children)
+        for(std::unique_ptr<cnt_directory_node>& child : m_children)
         {
-            if(child.name == in_this)
-                return child.find_child(std::string(name).erase(0, std::min(name.size(), in_this.size() + 1)));
+            if(child->name == in_this)
+                return child->find_child(std::string(name).erase(0, std::min(name.size(), in_this.size() + 1)));
         }
         return nullptr;
     }
 
-    std::vector<cnt_directory_node*> cnt_directory_node::children()
+	std::size_t cnt_directory_node::count_num_files(bool recursive) const
+	{
+		std::size_t n = m_files.size();
+		if(recursive)
+		{
+			for(const std::unique_ptr<cnt_directory_node>& node : m_children)
+				n += node->count_num_files(true);
+		}
+		return n;
+	}
+
+	std::vector<cnt_directory_node*> cnt_directory_node::children()
     {
         std::vector<cnt_directory_node*> values;
-        for(cnt_directory_node& node : m_children)
+        for(std::unique_ptr<cnt_directory_node>& node : m_children)
         {
-            values.push_back(&node);
-            std::vector<cnt_directory_node*> node_children = node.children();
+            values.push_back(node.get());
+            std::vector<cnt_directory_node*> node_children = node->children();
             for(std::size_t n = 0; n < node_children.size(); n++)
                 values.push_back(node_children[n]);
         }
@@ -215,10 +226,11 @@ namespace openrayman
 
     std::string cnt_directory_node::full_path() const
     {
-        if(parent == nullptr)
+		std::cout << "parent " << parent << std::endl;
+		if(parent == nullptr)
             return name;
-        if(parent->parent == nullptr)
+		if(parent->parent == nullptr)
             return parent->full_path() + name;
-        return parent->full_path() + "/" + name;
+		return parent->full_path() + "/" + name;
     }
 }

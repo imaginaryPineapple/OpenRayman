@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <memory>
 
 namespace openrayman
 {
@@ -19,14 +20,16 @@ public:
         cnt_directory_node(cnt_directory_node* parent, cnt_archive& owner, const std::string& name, std::int32_t cnt_index = -1) :
             owner(owner), parent(parent), name(name), cnt_index(cnt_index)
         {
-        }
+			std::cout << "creating " << name << std::endl;
+			std::cout << "parent " << parent << std::endl;
+		}
 
         // Pushes a new directory as a child of this node.
         void push_child(const std::string& child);
         void push_child(const std::string& child, std::int32_t cnt_index);
 
         // Pushes a new file as a child of this node.
-        void push_file(cnt_directory_node& parent, const std::string& name, std::int32_t ptr_in_archive, std::int32_t size, std::vector<char>& xor_key);
+        void push_file(const std::string& name, std::int32_t ptr_in_archive, std::int32_t size, std::vector<char>& xor_key);
 
         // Returns all children of this directory node, recursively.
         std::vector<cnt_directory_node*> children();
@@ -35,7 +38,7 @@ public:
         std::vector<cnt_file*> files();
 
         // Returns a reference to all children that are explicit children of this node.
-        inline std::vector<cnt_directory_node>& local_children()
+        inline std::vector<std::unique_ptr<cnt_directory_node>>& local_children()
         {
             return m_children;
         }
@@ -67,6 +70,9 @@ public:
         // Returns a reference to the child directory if it was found, or nullptr if it was not found.
         cnt_directory_node* find_child(const std::string& name);
 
+		// Returns the amount of child files that this (and its children) have.
+		std::size_t count_num_files(bool recursive) const;
+
         // The archive that this directory resides in.
         cnt_archive& owner;
 
@@ -83,8 +89,8 @@ public:
         // The index that was extracted from the archive before deserialization.
         std::int32_t cnt_index;
 private:
-        std::vector<cnt_directory_node> m_children;
-        std::vector<cnt_file> m_files;
+		std::vector<std::unique_ptr<cnt_directory_node>> m_children;
+		std::vector<cnt_file> m_files;
     };
 
     class cnt_file

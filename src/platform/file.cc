@@ -13,6 +13,7 @@
 #include <sys/stat.h>
 #include <ftw.h>
 #include <cstdio>
+#include <dirent.h>
 #endif
 
 namespace openrayman
@@ -52,7 +53,7 @@ namespace openrayman
     int unlink_cb(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
     {
         int rv = remove(fpath);
-        if (rv)
+        if(rv)
             perror(fpath);
         return rv;
     }
@@ -74,5 +75,33 @@ namespace openrayman
 #else
         nftw(path.c_str(), &unlink_cb, 64, FTW_DEPTH | FTW_PHYS);
 #endif
+    }
+
+    std::vector<std::string> file::enumerate_files_in_directory(const std::string& path)
+    {
+		std::vector<std::string> files;
+#ifdef _WIN32
+		WIN32_FIND_DATA file_data = { 0 };
+		HANDLE find = FindFirstFile(file::fix_string(path + "/*.*").c_str(), &file_data);
+		if(find == INVALID_HANDLE_VALUE)
+			return files;
+		files.push_back(std::string(file_data.cFileName));
+		while(FindNextFile(find, &file_data) != 0)
+			files.push_back(std::string(file_data.cFileName));
+		FindClose(find);
+#else
+		struct dirent *dir;
+		DIR* d_handle = opendir(file::fix_string(path).c_str());
+		if(d_handle)
+		{
+			while((dir = readdir(d_handle)) != nullptr)
+			{
+				if(dir->d_type == DT_REG)
+					files.push_back(std::string(dir->d_name));
+			}
+			closedir(d_handle);
+		}
+#endif
+		return files;
     }
 }

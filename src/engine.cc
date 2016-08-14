@@ -15,7 +15,7 @@ namespace openrayman
     {
         if(!file::exists(m_backend_specifics.data_path()))
         {
-            message_box::display("[openrayman::engine::run] Error!", "The data directory was not found.", true);
+            message_box::display("Error!", "The data directory was not found.", true);
             return EXIT_FAILURE;
         }
         if(!file::exists(m_backend_specifics.storage_path() + "/games"))
@@ -32,7 +32,7 @@ namespace openrayman
 
         if(!m_game->valid())
         {
-            if(message_box::display_yesno("[openrayman::engine::run] Extract data?", "Should OpenRayman attempt to extract a"
+            if(message_box::display_yesno("Extract data?", "Should OpenRayman attempt to extract a"
                 "\nRayman 2: The Great Escape installation and try again?", false))
             {
                 std::string directory = message_box::display_pickdir("Select a valid Rayman 2: The Great Escape installation folder");
@@ -51,7 +51,7 @@ namespace openrayman
 
         if(!m_window.open("OpenRayman", 1024, 768, m_config.fullscreen))
         {
-            message_box::display("[openrayman::engine::run] Error!", "The window could not open."
+            message_box::display("Error!", "The window could not open."
                 "\nMake sure your graphics drivers are up to date.", true);
             return EXIT_FAILURE;
         }
@@ -59,7 +59,7 @@ namespace openrayman
         m_window.set_vsync(m_config.vsync);
 		if(gl3wInit())
 		{
-			message_box::display("[openrayman::engine::run] Error!", "GL3W could not be initialized."
+			message_box::display("Error!", "GL3W could not be initialized."
                 "\nMake sure your graphics drivers are up to date.", true);
 			return EXIT_FAILURE;
         }

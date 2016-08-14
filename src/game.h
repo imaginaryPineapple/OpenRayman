@@ -4,6 +4,7 @@
 #include <platform/backend_specifics.h>
 #include <string>
 #include <vector>
+#include <memory>
 
 namespace openrayman
 {
@@ -39,7 +40,7 @@ public:
         }
 
         // Returns a list of all games that this game depend on.
-        inline const std::vector<game>& dependencies() const
+        inline const std::vector<std::unique_ptr<game>>& dependencies() const
         {
             return m_dependencies;
         }
@@ -58,7 +59,7 @@ private:
         bool m_valid;
         std::string m_location;
         game_info m_info;
-        std::vector<game> m_dependencies;
+        std::vector<std::unique_ptr<game>> m_dependencies;
     };
 }
 
